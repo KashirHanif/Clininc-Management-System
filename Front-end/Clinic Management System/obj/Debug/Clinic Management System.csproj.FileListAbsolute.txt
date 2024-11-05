@@ -1,0 +1,10 @@
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\bin\Debug\Clinic Management System.exe.config
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\bin\Debug\Clinic Management System.exe
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\bin\Debug\Clinic Management System.pdb
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic Management System.csproj.AssemblyReference.cache
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.Form1.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.Properties.Resources.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic Management System.csproj.GenerateResource.cache
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic Management System.csproj.CoreCompileInputs.cache
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic Management System.exe
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic Management System.pdb
