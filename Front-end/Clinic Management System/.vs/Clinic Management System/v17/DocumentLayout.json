@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|d:\\study\\university\\4th semester\\database system\\project\\front-end\\clinic management system\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:pateint.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|d:\\study\\university\\4th semester\\database system\\project\\front-end\\clinic management system\\pateint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:pateint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|d:\\study\\university\\4th semester\\database system\\project\\front-end\\clinic management system\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:pateint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|d:\\study\\university\\4th semester\\database system\\project\\front-end\\clinic management system\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BCC605B3-7210-40D1-82F9-BDA9090E4812}|Clinic Management System.csproj|D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -30,11 +38,53 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "pateint.cs",
+              "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.cs",
+              "RelativeDocumentMoniker": "pateint.cs",
+              "ToolTip": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.cs",
+              "RelativeToolTip": "pateint.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAwAsAAACJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T18:57:02.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "pateint.Designer.cs",
+              "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.Designer.cs",
+              "RelativeDocumentMoniker": "pateint.Designer.cs",
+              "ToolTip": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\pateint.Designer.cs",
+              "RelativeToolTip": "pateint.Designer.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAYwI0AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T18:56:59.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "menu.cs [Design]",
+              "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs",
+              "RelativeDocumentMoniker": "menu.cs",
+              "ToolTip": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs [Design]",
+              "RelativeToolTip": "menu.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T18:59:37.438Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -44,22 +94,10 @@
               "RelativeDocumentMoniker": "menu.cs",
               "ToolTip": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs",
               "RelativeToolTip": "menu.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAIwBwAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAcwBwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T19:00:32.525Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "menu.cs [Design]",
-              "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs",
-              "RelativeDocumentMoniker": "menu.cs",
-              "ToolTip": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\menu.cs [Design]",
-              "RelativeToolTip": "menu.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T18:59:37.438Z",
-              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -75,7 +113,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -83,12 +121,11 @@
               "RelativeToolTip": "Form1.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAwwBwAAACNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:24:10.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-05T07:24:10.615Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "D:\\Study\\University\\4th Semester\\Database System\\Project\\Front-end\\Clinic Management System\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
