@@ -26,7 +26,7 @@ namespace Clinic_Management_System
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;"; ;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -76,6 +76,11 @@ namespace Clinic_Management_System
             this.Controls.Clear();       // Clear any existing controls on Form2
             control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
             this.Controls.Add(control);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
     }
