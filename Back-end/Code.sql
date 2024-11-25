@@ -11,6 +11,8 @@ create table login_table (
 	password varchar(50)
 );
 
+
+
 create table tbl_employee (
 	emp_id int primary key,
 	designation varchar(50),
@@ -158,15 +160,50 @@ drop column bill_id;
 --Query
 
 
-insert into tbl_patient  values (1, 'Ali', 'Khan', 'Ahmed Khan', '1990-05-15', 123, 'A', 'Lahore', 'Pakistan', '+92', '3001234567', 'Male', 33);
+insert into tbl_patient  values (1, 'Ali', 'Khan', 'Ahmed Khan', '1990-05-15', 123, 'A', 'Lahore', 'Pakistan', '+92', '3001234567', 'Male', 33,2947192037402);
+-- Insert 20 more rows into tbl_patient
+INSERT INTO tbl_patient 
+VALUES
+(2, 'Sara', 'Khan', 'Imran Khan', '1995-08-12', 456, 'B', 'Karachi', 'Pakistan', '+92', '3219876543', 'Female', 29, 3847220193842),
+(3, 'Ahmed', 'Ali', 'Saeed Ali', '1988-03-10', 789, 'M', 'Islamabad', 'Pakistan', '+92', '3345678901', 'Male', 36, 3849312345671),
+(4, 'Fatima', 'Zafar', 'Hassan Zafar', '1992-12-25', 123, 'K', 'Lahore', 'Pakistan', '+92', '3421122334', 'Female', 31, 3748150193847),
+(5, 'Hassan', 'Raza', 'Adeel Raza', '1990-06-15', 456, 'A', 'Rawalpindi', 'Pakistan', '+92', '3104567890', 'Male', 34, 3749123478563),
+(6, 'Ayesha', 'Malik', 'Hamid Malik', '1985-11-20', 789, 'P', 'Faisalabad', 'Pakistan', '+92', '3225678904', 'Female', 39, 3847220193831),
+(7, 'Bilal', 'Hameed', 'Yasir Hameed', '1997-07-07', 123, 'I', 'Multan', 'Pakistan', '+92', '3129876541', 'Male', 27, 3849350127842),
+(8, 'Zara', 'Iqbal', 'Shahid Iqbal', '1991-09-09', 456, 'H', 'Quetta', 'Pakistan', '+92', '3312345678', 'Female', 33, 3748120193849),
+(9, 'Ali', 'Shah', 'Naveed Shah', '1993-01-01', 789, 'S', 'Peshawar', 'Pakistan', '+92', '3434567890', 'Male', 31, 3849212387456),
+(10, 'Maira', 'Ahmed', 'Fahad Ahmed', '1996-04-18', 123, 'F', 'Hyderabad', 'Pakistan', '+92', '3209876543', 'Female', 28, 3748123456789),
+(11, 'Usman', 'Zahid', 'Nadeem Zahid', '1989-08-08', 456, 'R', 'Sialkot', 'Pakistan', '+92', '3104567891', 'Male', 35, 3749213947502),
+(12, 'Anam', 'Chaudhry', 'Farhan Chaudhry', '1994-10-15', 789, 'H', 'Gujranwala', 'Pakistan', '+92', '3331234567', 'Female', 30, 3847210123456),
+(13, 'Hamza', 'Iqbal', 'Sajid Iqbal', '1998-03-25', 123, 'Z', 'Bahawalpur', 'Pakistan', '+92', '3125678910', 'Male', 26, 3849345782930),
+(14, 'Rabia', 'Naeem', 'Shafiq Naeem', '1990-12-05', 456, 'F', 'Sargodha', 'Pakistan', '+92', '3456789123', 'Female', 34, 3748134509284),
+(15, 'Kashif', 'Ali', 'Irfan Ali', '1987-06-10', 789, 'O', 'Abbottabad', 'Pakistan', '+92', '3145678903', 'Male', 37, 3849203948123),
+(16, 'Saima', 'Hassan', 'Faisal Hassan', '1989-09-19', 123, 'L', 'Mardan', 'Pakistan', '+92', '3214567890', 'Female', 35, 3847193048571),
+(17, 'Imran', 'Javed', 'Kamran Javed', '1985-01-20', 456, 'G', 'Sahiwal', 'Pakistan', '+92', '3415678912', 'Male', 39, 3748190123945),
+(18, 'Neha', 'Rehman', 'Tariq Rehman', '1993-03-13', 789, 'B', 'Okara', 'Pakistan', '+92', '3445678912', 'Female', 9, 3847293847501),
+(19, 'Danish', 'Sadiq', 'Zafar Sadiq', '1992-11-30', 123, 'Q', 'Sukkur', 'Pakistan', '+92', '3112345678', 'Male', 32, 3849201938476),
+(20, 'Iqra', 'Tariq', 'Rashid Tariq', '1999-02-02', 456, 'E', 'Rahim Yar Khan', 'Pakistan', '+92', '3219876543', 'Female', 25, 3849340123948),
+(21, 'Shahzaib', 'Malik', 'Adnan Malik', '1986-07-22', 789, 'B', 'Kasur', 'Pakistan', '+92', '3147890123', 'Male', 38, 3749128374051);
+INSERT INTO tbl_patient 
+VALUES
+(22, 'Nimra', 'Aslam', 'Javed Aslam', '1994-09-11', 123, 'B', 'Sheikhupura', 'Pakistan', '+92', '3106789123', 'Female', 30, 3748123948756),
+(23, 'Taimoor', 'Ahmed', 'Asghar Ahmed', '1988-05-19', 456, 'O', 'Gujrat', 'Pakistan', '+92', '3123456789', 'Male', 36, 3847203948123),
+(24, 'Sana', 'Zahid', 'Khalid Zahid', '1993-02-14', 789, 'A', 'Chakwal', 'Pakistan', '+92', '3209876541', 'Female', 31, 3847210938475),
+(25, 'Raza', 'Hussain', 'Shahbaz Hussain', '1990-10-30', 123, 'B', 'Mansehra', 'Pakistan', '+92', '3434567890', 'Male', 34, 3849123478501),
+(26, 'Mahnoor', 'Farooq', 'Tanveer Farooq', '1995-12-20', 456, 'B', 'Haripur', 'Pakistan', '+92', '3112345678', 'Female', 29, 3748192037456);
 
 
 select * from login_table
 select * from tbl_patient
 
 insert into tbl_employee (emp_id, designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
-values (1, 'Doctor', 'Ahmed', 'Raza', 'Khalid Raza', '1985-03-20', '2024-11-18', 123, 'Karachi', 'B', 21, '+92', '3001234567', 'Male', 'Karachi General Hospital', '32101-2345678-9');
+values (1, 'Doctor', 'Ahmed', 'Raza', 'Khalid Raza', '1985-03-20', '2024-11-18', 123, 'Karachi', 'B', 21, '+92', '3001234567', 'Male', 'Karachi General Hospital', 3210123456789);
 
 insert into login_table (emp_id, username, password)
 values (1, 'admin', 'admin123');
 
+ALTER TABLE tbl_employee
+ADD CONSTRAINT unique_cnic_employee UNIQUE (cnic);
+
+ALTER TABLE tbl_patient
+ADD CONSTRAINT unique_cnic_patient UNIQUE (cnic);
