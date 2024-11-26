@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="updatePatientUserController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="updatePatientUserController.Designer.cs">
+      <DependentUpon>updatePatientUserController.cs</DependentUpon>
+    </Compile>
     <Compile Include="addPatientUserCotroller.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="updatePatientUserController.resx">
+      <DependentUpon>updatePatientUserController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addPatientUserCotroller.resx">
       <DependentUpon>addPatientUserCotroller.cs</DependentUpon>
     </EmbeddedResource>

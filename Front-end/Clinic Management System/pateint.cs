@@ -69,7 +69,7 @@ namespace Clinic_Management_System
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Update Patient form or logic to update patient
-            MessageBox.Show("Update Patient functionality goes here");
+            LoadControl(new updatePatientUserCotroller());
         }
 
         // Event handler to handle View Patient

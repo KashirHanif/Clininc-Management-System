@@ -1,6 +1,6 @@
 ﻿namespace Clinic_Management_System
 {
-    partial class addPatientUserCotroller
+    partial class updatePatientUserCotroller
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addPatientUserCotroller));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(updatePatientUserCotroller));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
             this.viewPatientButton = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.pAgeTB = new System.Windows.Forms.TextBox();
             this.pCountryTB = new System.Windows.Forms.TextBox();
             this.addPatientGridView = new System.Windows.Forms.DataGridView();
-            this.addButton = new System.Windows.Forms.Button();
+            this.updateButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.N = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -210,7 +210,7 @@
             // 
             // pstreetTB
             // 
-            this.pstreetTB.Location = new System.Drawing.Point(1270, 301);
+            this.pstreetTB.Location = new System.Drawing.Point(1270, 303);
             this.pstreetTB.Margin = new System.Windows.Forms.Padding(2);
             this.pstreetTB.MaximumSize = new System.Drawing.Size(76, 35);
             this.pstreetTB.MinimumSize = new System.Drawing.Size(76, 35);
@@ -222,7 +222,7 @@
             // pBlockTB
             // 
             this.pBlockTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBlockTB.Location = new System.Drawing.Point(1396, 245);
+            this.pBlockTB.Location = new System.Drawing.Point(1394, 244);
             this.pBlockTB.Margin = new System.Windows.Forms.Padding(2);
             this.pBlockTB.Name = "pBlockTB";
             this.pBlockTB.Size = new System.Drawing.Size(84, 26);
@@ -280,19 +280,19 @@
             this.addPatientGridView.Size = new System.Drawing.Size(1161, 333);
             this.addPatientGridView.TabIndex = 20;
             // 
-            // addButton
+            // updateButton
             // 
-            this.addButton.BackColor = System.Drawing.Color.Maroon;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.addButton.Location = new System.Drawing.Point(1361, 290);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(119, 53);
-            this.addButton.TabIndex = 21;
-            this.addButton.Text = "Add";
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click_1);
+            this.updateButton.BackColor = System.Drawing.Color.Maroon;
+            this.updateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.updateButton.Location = new System.Drawing.Point(1361, 283);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(2);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(119, 53);
+            this.updateButton.TabIndex = 21;
+            this.updateButton.Text = "Update";
+            this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.addButton_Click_1);
             // 
             // pictureBox1
             // 
@@ -535,7 +535,7 @@
             this.pCountryCodeTB.Size = new System.Drawing.Size(92, 21);
             this.pCountryCodeTB.TabIndex = 44;
             // 
-            // addPatientUserCotroller
+            // updatePatientUserCotroller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -560,7 +560,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.N);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.addPatientGridView);
             this.Controls.Add(this.pCountryTB);
             this.Controls.Add(this.pAgeTB);
@@ -581,9 +581,9 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(1500, 894);
             this.MinimumSize = new System.Drawing.Size(1500, 894);
-            this.Name = "addPatientUserCotroller";
+            this.Name = "updatePatientUserCotroller";
             this.Size = new System.Drawing.Size(1500, 894);
-            this.Load += new System.EventHandler(this.addPatientUserCotroller_Load);
+            this.Load += new System.EventHandler(this.updatePatientUserCotroller_Load);
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -610,7 +610,7 @@
         private System.Windows.Forms.TextBox pAgeTB;
         private System.Windows.Forms.TextBox pCountryTB;
         private System.Windows.Forms.DataGridView addPatientGridView;
-        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label N;
         private System.Windows.Forms.Label label2;

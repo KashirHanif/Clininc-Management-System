@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace Clinic_Management_System
 {
-    public partial class addPatientUserCotroller : UserControl
+    public partial class updatePatientUserCotroller : UserControl
     {
-        public addPatientUserCotroller()
+        public updatePatientUserCotroller()
         {
             InitializeComponent();
         }
 
-        private void addPatientUserCotroller_Load(object sender, EventArgs e)
+        private void updatePatientUserCotroller_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
         }
@@ -108,7 +108,12 @@ namespace Clinic_Management_System
 
         }
 
-        
+        private void addButton_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateDataGridView();
