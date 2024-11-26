@@ -234,5 +234,10 @@ values ('Doctor', 'Ahmed', 'Raza', 'Khalid Raza', '1985-03-20', '2024-11-18', 12
 insert into login_table (emp_id, username, password)
 values (3, 'doctor', 'doctor123');
 
-select * from login_table
+select * from tbl_employee
+
+
+
+
+
 

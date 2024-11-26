@@ -28,5 +28,10 @@ namespace Clinic_Management_System
         {
             LoadControl(new PatientUserControl());
         }
+
+        private void menu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

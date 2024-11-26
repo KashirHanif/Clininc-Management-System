@@ -9,7 +9,7 @@ namespace Clinic_Management_System
     public partial class PatientUserControl : UserControl
     {
         // Connection string to your database
-        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         public PatientUserControl()
         {
             InitializeComponent();
@@ -52,12 +52,17 @@ namespace Clinic_Management_System
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();       // Clear any existing controls on Form2
+            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
+            this.Controls.Add(control);
+        }
         // Event handler to handle Add Patient
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            MessageBox.Show("Add Patient functionality goes here");
+            LoadControl(new addPatientUserCotroller());
         }
 
         // Event handler to handle Update Patient

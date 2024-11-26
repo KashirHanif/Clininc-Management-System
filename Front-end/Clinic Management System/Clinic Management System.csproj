@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addPatientUserCotroller.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="addPatientUserCotroller.Designer.cs">
+      <DependentUpon>addPatientUserCotroller.cs</DependentUpon>
+    </Compile>
     <Compile Include="adminMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="addPatientUserCotroller.resx">
+      <DependentUpon>addPatientUserCotroller.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="adminMenu.resx">
       <DependentUpon>adminMenu.cs</DependentUpon>
     </EmbeddedResource>

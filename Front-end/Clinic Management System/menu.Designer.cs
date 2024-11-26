@@ -43,7 +43,7 @@
             this.btnPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPatient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnPatient.Location = new System.Drawing.Point(712, 420);
-            this.btnPatient.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPatient.Margin = new System.Windows.Forms.Padding(4);
             this.btnPatient.Name = "btnPatient";
             this.btnPatient.Size = new System.Drawing.Size(560, 125);
             this.btnPatient.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.btnDoctors.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDoctors.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnDoctors.Location = new System.Drawing.Point(712, 603);
-            this.btnDoctors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDoctors.Margin = new System.Windows.Forms.Padding(4);
             this.btnDoctors.Name = "btnDoctors";
             this.btnDoctors.Size = new System.Drawing.Size(560, 125);
             this.btnDoctors.TabIndex = 1;
@@ -70,7 +70,7 @@
             this.btnInventory.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInventory.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnInventory.Location = new System.Drawing.Point(712, 775);
-            this.btnInventory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInventory.Margin = new System.Windows.Forms.Padding(4);
             this.btnInventory.Name = "btnInventory";
             this.btnInventory.Size = new System.Drawing.Size(560, 126);
             this.btnInventory.TabIndex = 2;
@@ -109,11 +109,12 @@
             this.Controls.Add(this.btnDoctors);
             this.Controls.Add(this.btnPatient);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(2000, 1100);
             this.MinimumSize = new System.Drawing.Size(2000, 1100);
             this.Name = "menu";
             this.Size = new System.Drawing.Size(2000, 1100);
+            this.Load += new System.EventHandler(this.menu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
