@@ -36,5 +36,45 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void N_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pfatherNameTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pAgeTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pstreetTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pCountryCodeTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
