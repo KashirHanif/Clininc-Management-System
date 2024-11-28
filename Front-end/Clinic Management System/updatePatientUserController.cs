@@ -110,7 +110,7 @@ namespace Clinic_Management_System
 
         private void addButton_Click(object sender, EventArgs e)
         {
-           
+            
         }
 
 
@@ -122,7 +122,7 @@ namespace Clinic_Management_System
         {
             try
             {
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -174,7 +174,7 @@ namespace Clinic_Management_System
                 DateTime selectedDOB = pDOBTB.Value;
 
                 // Connection and SQL Command
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = "INSERT INTO tbl_patient (p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic) " +
@@ -206,6 +206,33 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error");
             }
+
+        }
+
+        private void updatePatientButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new updatePatientUserCotroller());
+        }
+
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();       // Clear any existing controls on Form2
+            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
+            this.Controls.Add(control);
+        }
+
+        private void addPatientBtn_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addPatientUserCotroller());
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
 
         }
     }
