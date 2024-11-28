@@ -16,6 +16,8 @@ namespace Clinic_Management_System
         public updatePatientUserCotroller()
         {
             InitializeComponent();
+            this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
+
         }
 
         private void updatePatientUserCotroller_Load(object sender, EventArgs e)
@@ -117,12 +119,38 @@ namespace Clinic_Management_System
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateDataGridView();
+
+          
+                // Ensure the click is not on the header row
+                if (e.RowIndex >= 0)
+                {
+                    // Get the selected row
+                    DataGridViewRow selectedRow = addPatientGridView.Rows[e.RowIndex];
+
+                    // Populate textboxes with data from the selected row
+                    pfirstNameTB.Text = selectedRow.Cells["p_f_name"].Value?.ToString() ?? string.Empty;
+                    plastNameTB.Text = selectedRow.Cells["p_l_name"].Value?.ToString() ?? string.Empty;
+                    pfatherNameTB.Text = selectedRow.Cells["father_name"].Value?.ToString() ?? string.Empty;
+                    pDOBTB.Text = selectedRow.Cells["date_of_birth"].Value?.ToString() ?? string.Empty;
+                    pstreetTB.Text = selectedRow.Cells["street"].Value?.ToString() ?? string.Empty;
+                    pBlockTB.Text = selectedRow.Cells["block"].Value?.ToString() ?? string.Empty;
+                    pCityTB.Text = selectedRow.Cells["city"].Value?.ToString() ?? string.Empty;
+                    pCountryTB.Text = selectedRow.Cells["country"].Value?.ToString() ?? string.Empty;
+                    pCountryCodeTB.Text = selectedRow.Cells["ph_country_code"].Value?.ToString() ?? string.Empty;
+                    pPhonenumTB.Text = selectedRow.Cells["phone_number"].Value?.ToString() ?? string.Empty;
+                    pGender2.Text = selectedRow.Cells["gender"].Value?.ToString() ?? string.Empty;
+                    pAgeTB.Text = selectedRow.Cells["age"].Value?.ToString() ?? string.Empty;
+                    pCNIC.Text = selectedRow.Cells["CNIC"].Value?.ToString() ?? string.Empty;
+                    patientIdTextBox.Text = selectedRow.Cells["patient_id"].Value?.ToString() ?? string.Empty;
+            }
+            
+
         }
         private void PopulateDataGridView()
         {
             try
             {
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -170,15 +198,24 @@ namespace Clinic_Management_System
                     return;
                 }
 
+                // Validate that a record is selected (e.g., using a hidden `patient_id` TextBox)
+                if (string.IsNullOrWhiteSpace(patientIdTextBox.Text))
+                {
+                    MessageBox.Show("Please select a record to update.", "Validation Error");
+                    return;
+                }
+
                 // Get the date from the DateTimePicker
                 DateTime selectedDOB = pDOBTB.Value;
 
                 // Connection and SQL Command
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO tbl_patient (p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic) " +
-                                   "VALUES (@FirstName, @LastName, @FatherName, @DOB, @Street, @Block, @City, @Country, @CountryCode, @PhoneNumber, @Gender, @Age, @CNIC)";
+                    string query = "UPDATE tbl_patient " +
+                                   "SET p_f_name = @FirstName, p_l_name = @LastName, father_name = @FatherName, date_of_birth = @DOB, street = @Street, block = @Block, city = @City, country = @Country, " +
+                                   "ph_country_code = @CountryCode, phone_number = @PhoneNumber, gender = @Gender, age = @Age, cnic = @CNIC " +
+                                   "WHERE patient_id = @PatientID";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@FirstName", pfirstNameTB.Text);
@@ -194,20 +231,28 @@ namespace Clinic_Management_System
                     cmd.Parameters.AddWithValue("@Gender", pGender2.Text);
                     cmd.Parameters.AddWithValue("@Age", pAgeTB.Text);
                     cmd.Parameters.AddWithValue("@CNIC", pCNIC.Text);
+                    cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Patient added successfully.");
+                    int rowsAffected = cmd.ExecuteNonQuery();
 
-                    PopulateDataGridView();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Patient record updated successfully.");
+                        PopulateDataGridView(); // Refresh DataGridView with updated data
+                    }
+                    else
+                    {
+                        MessageBox.Show("No record found to update. Please check the Patient ID.", "Update Failed");
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error");
             }
-
         }
+
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {

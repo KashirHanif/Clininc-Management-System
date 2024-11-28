@@ -116,6 +116,24 @@ create table tbl_treatment_inventory (
     foreign key (item_id) references tbl_inventory(item_id)
 );
 
+create table tbl_emp_working_hours (
+	emp_id int,
+	foreign key(emp_id) references tbl_employee(emp_id),
+	start_duty time not null,
+	end_duty time not null,
+	emp_status varchar(20) default 'Available'
+)
+
+drop table tbl_emp_working_hours
+
+create table tbl_emp_shift (
+	emp_id int,
+	foreign key(emp_id) references tbl_employee(emp_id),
+	start_time time not null,
+	end_time time not null,
+	date_of_shift date not null
+);
+
 alter table tbl_inventory
 add constraint chk_selling_price check (selling_price >= purchase_price);
 
@@ -161,6 +179,17 @@ ADD CONSTRAINT unique_cnic_employee UNIQUE (cnic);
 
 ALTER TABLE tbl_patient
 ADD CONSTRAINT unique_cnic_patient UNIQUE (cnic);
+
+
+ALTER TABLE tbl_appointment
+ADD patient_id INT;
+
+ALTER TABLE tbl_appointment
+ADD appointment_type VARCHAR(50);
+
+ALTER TABLE tbl_appointment
+ADD CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id);
+
 
 --Query
 
@@ -236,7 +265,37 @@ values (3, 'doctor', 'doctor123');
 
 select * from tbl_employee
 
+select * from tbl_appointment
+select appointment_id from tbl_appointment a
+where a.booked_for_emp_id in (
+	SELECT emp_id 
+	FROM tbl_employee e
+	WHERE CONCAT(e.f_name, ' ', e.l_name) = 'Ahmed Raza'
+)
 
+
+-- Insert two appointments for emp_id, booked by emp_id = 1
+INSERT INTO tbl_appointment (booked_by_emp_id, booked_for_emp_id, date_of_appointment, time_of_appointment, appointment_status,patient_id,appointment_type)
+VALUES
+(1, 2, '2024-11-29', '10:30:00', 'Attended',2,'Online'),
+(1, 3, '2024-11-29', '14:00:00', 'Booked',5,'Walk in'),
+(1, 3, '2024-10-29', '14:00:00', 'Booked',8,'Online');
+
+-- Inserting into tbl_emp_working_hours
+INSERT INTO tbl_emp_working_hours (emp_id, start_duty, end_duty)
+VALUES (3, '09:00:00', '17:00:00');
+
+
+
+select top 1 a.time_of_appointment from tbl_employee e
+inner join tbl_appointment a
+on a.date_of_appointment = CAST(GETDATE() AS DATE) and a.appointment_status = 'booked'
+where e.emp_id in (
+	SELECT emp_id 
+	FROM tbl_employee e
+	WHERE CONCAT(e.f_name, ' ', e.l_name) = 'Ahmed Raza'
+)
+order by a.time_of_appointment desc
 
 
 
