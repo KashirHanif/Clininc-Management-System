@@ -300,4 +300,9 @@ select * from tbl_emp_working_hours
 select * from tbl_emp_shift
 select * from tbl_appointment
 
-
+select concat(f_name,' ', l_name) from tbl_employee
+where designation = 'Doctor' 
+  and emp_id IN (
+      select emp_id from tbl_emp_working_hours 
+      where emp_status = 'Available'
+  );
