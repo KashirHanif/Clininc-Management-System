@@ -124,7 +124,6 @@ create table tbl_emp_working_hours (
 	emp_status varchar(20) default 'Available'
 )
 
-drop table tbl_emp_working_hours
 
 create table tbl_emp_shift (
 	emp_id int,
@@ -297,6 +296,8 @@ where e.emp_id in (
 )
 order by a.time_of_appointment desc
 
-
+select * from tbl_emp_working_hours
+select * from tbl_emp_shift
+select * from tbl_appointment
 
 
