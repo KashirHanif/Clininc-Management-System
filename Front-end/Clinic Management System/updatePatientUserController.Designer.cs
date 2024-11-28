@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.Label label3;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(updatePatientUserCotroller));
-            this.addPatientButton = new System.Windows.Forms.Button();
+           
             this.updatePatientButton = new System.Windows.Forms.Button();
             this.viewPatientButton = new System.Windows.Forms.Button();
             this.cancelAppointmentButton = new System.Windows.Forms.Button();
@@ -87,17 +87,8 @@
             // 
             // addPatientButton
             // 
-            this.addPatientButton.BackColor = System.Drawing.Color.Maroon;
-            this.addPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addPatientButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addPatientButton.Location = new System.Drawing.Point(56, 162);
-            this.addPatientButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addPatientButton.Name = "addPatientButton";
-            this.addPatientButton.Size = new System.Drawing.Size(218, 69);
-            this.addPatientButton.TabIndex = 0;
-            this.addPatientButton.Text = "Add Patient";
-            this.addPatientButton.UseVisualStyleBackColor = false;
-            // 
+           
+            
             // updatePatientButton
             // 
             this.updatePatientButton.BackColor = System.Drawing.Color.Maroon;
@@ -292,7 +283,7 @@
             this.updateButton.TabIndex = 21;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = false;
-            this.updateButton.Click += new System.EventHandler(this.addButton_Click_1);
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click_1);
             // 
             // pictureBox1
             // 
@@ -577,7 +568,6 @@
             this.Controls.Add(this.cancelAppointmentButton);
             this.Controls.Add(this.viewPatientButton);
             this.Controls.Add(this.updatePatientButton);
-            this.Controls.Add(this.addPatientButton);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(1500, 894);
             this.MinimumSize = new System.Drawing.Size(1500, 894);
@@ -593,7 +583,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button addPatientButton;
+        
         private System.Windows.Forms.Button updatePatientButton;
         private System.Windows.Forms.Button viewPatientButton;
         private System.Windows.Forms.Button cancelAppointmentButton;

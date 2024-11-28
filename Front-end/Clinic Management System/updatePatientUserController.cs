@@ -159,7 +159,7 @@ namespace Clinic_Management_System
             }
         }
 
-        private void addButton_Click_1(object sender, EventArgs e)
+        private void updateButton_Click_1(object sender, EventArgs e)
         {
             try
             {
