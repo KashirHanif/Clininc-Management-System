@@ -289,7 +289,7 @@ namespace Clinic_Management_System
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -301,8 +301,6 @@ namespace Clinic_Management_System
             this.addPatientGridView.RowTemplate.Height = 24;
             this.addPatientGridView.Size = new System.Drawing.Size(1535, 450);
             this.addPatientGridView.TabIndex = 20;
-            this.addPatientGridView.DefaultCellStyle.ForeColor = Color.Black;
-
             // 
             // updateButton
             // 

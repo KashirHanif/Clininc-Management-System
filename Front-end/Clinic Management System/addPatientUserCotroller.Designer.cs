@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addPatientUserCotroller));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
@@ -188,7 +188,7 @@
             this.pfirstNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.Name = "pfirstNameTB";
-            this.pfirstNameTB.Size = new System.Drawing.Size(351, 35);
+            this.pfirstNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfirstNameTB.TabIndex = 8;
             // 
             // plastNameTB
@@ -199,7 +199,7 @@
             this.plastNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.Name = "plastNameTB";
-            this.plastNameTB.Size = new System.Drawing.Size(351, 35);
+            this.plastNameTB.Size = new System.Drawing.Size(351, 27);
             this.plastNameTB.TabIndex = 9;
             // 
             // pfatherNameTB
@@ -210,7 +210,7 @@
             this.pfatherNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.Name = "pfatherNameTB";
-            this.pfatherNameTB.Size = new System.Drawing.Size(351, 35);
+            this.pfatherNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfatherNameTB.TabIndex = 10;
             this.pfatherNameTB.TextChanged += new System.EventHandler(this.pfatherNameTB_TextChanged);
             // 
@@ -221,7 +221,7 @@
             this.pstreetTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.Name = "pstreetTB";
-            this.pstreetTB.Size = new System.Drawing.Size(100, 35);
+            this.pstreetTB.Size = new System.Drawing.Size(100, 22);
             this.pstreetTB.TabIndex = 12;
             this.pstreetTB.TextChanged += new System.EventHandler(this.pstreetTB_TextChanged);
             // 
@@ -242,7 +242,7 @@
             this.pPhonenumTB.MaximumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.MinimumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.Name = "pPhonenumTB";
-            this.pPhonenumTB.Size = new System.Drawing.Size(249, 35);
+            this.pPhonenumTB.Size = new System.Drawing.Size(249, 27);
             this.pPhonenumTB.TabIndex = 14;
             // 
             // pCityTB
@@ -253,7 +253,7 @@
             this.pCityTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.Name = "pCityTB";
-            this.pCityTB.Size = new System.Drawing.Size(200, 35);
+            this.pCityTB.Size = new System.Drawing.Size(200, 27);
             this.pCityTB.TabIndex = 15;
             // 
             // pAgeTB
@@ -264,7 +264,7 @@
             this.pAgeTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.Name = "pAgeTB";
-            this.pAgeTB.Size = new System.Drawing.Size(100, 35);
+            this.pAgeTB.Size = new System.Drawing.Size(100, 27);
             this.pAgeTB.TabIndex = 17;
             this.pAgeTB.TextChanged += new System.EventHandler(this.pAgeTB_TextChanged);
             // 
@@ -276,19 +276,19 @@
             this.pCountryTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.Name = "pCountryTB";
-            this.pCountryTB.Size = new System.Drawing.Size(200, 35);
+            this.pCountryTB.Size = new System.Drawing.Size(200, 27);
             this.pCountryTB.TabIndex = 19;
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(423, 434);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -464,7 +464,7 @@
             this.pCNIC.MaxLength = 13;
             this.pCNIC.MinimumSize = new System.Drawing.Size(249, 35);
             this.pCNIC.Name = "pCNIC";
-            this.pCNIC.Size = new System.Drawing.Size(249, 35);
+            this.pCNIC.Size = new System.Drawing.Size(249, 27);
             this.pCNIC.TabIndex = 37;
             // 
             // pDOBTB
@@ -599,6 +599,7 @@
             this.Controls.Add(this.viewPatientButton);
             this.Controls.Add(this.updatePatientButton);
             this.Controls.Add(this.addPatientButton);
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(2000, 1100);
             this.MinimumSize = new System.Drawing.Size(2000, 1100);
