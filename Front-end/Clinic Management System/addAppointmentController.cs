@@ -137,7 +137,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -245,5 +246,37 @@ namespace Clinic_Management_System
         {
 
         }
-    }
-}
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+              string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+              string query = @"SELECT CONCAT(f_name, ' ', l_name) 
+                  FROM tbl_employee
+                  WHERE designation = 'Doctor' 
+                  AND emp_id IN (
+                      SELECT emp_id 
+                      FROM tbl_emp_working_hours 
+                      WHERE emp_status = 'Available'
+                  )";
+
+                    comboBox2.Items.Clear(); // Clear existing items
+
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            string doctorName = reader.GetString(0);
+                            comboBox2.Items.Add(doctorName);
+                        }
+                        reader.Close();
+                    }
+
+                    comboBox2.Refresh(); // Force UI refresh
+                }
+
+            }
+        }
+    
