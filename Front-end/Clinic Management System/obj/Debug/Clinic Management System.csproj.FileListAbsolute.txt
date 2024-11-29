@@ -32,3 +32,4 @@ D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Manage
 D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.updatePatientUserCotroller.resources
 D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.addAppointmentController.resources
 D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.addAppointmentController.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.viewPatient.resources

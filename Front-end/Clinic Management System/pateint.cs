@@ -9,8 +9,8 @@ namespace Clinic_Management_System
     public partial class PatientUserControl : UserControl
     {
         // Connection string to your database
-        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-        // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         public PatientUserControl()
         {
             InitializeComponent();
@@ -77,6 +77,7 @@ namespace Clinic_Management_System
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
             PopulateDataGridView();
+            LoadControl(new viewPatient());
         }
 
         // Event handler to handle Add Appointment
@@ -99,7 +100,8 @@ namespace Clinic_Management_System
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
             // Code to view appointments
-            MessageBox.Show("View Appointments functionality goes here");
+            MessageBox.Show("Cancel Appointment functionality goes here");
+
         }
 
         // Event handler to load the user control
