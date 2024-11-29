@@ -8,20 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clinic_Management_System
 {
-    public partial class addAppointmentUserCotroller : UserControl
+    public partial class addAppointmentController : UserControl
     {
-        public addAppointmentUserCotroller()
+        public addAppointmentController()
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
 
         }
 
-        private void addAppointmentUserCotroller_Load(object sender, EventArgs e)
+        private void addAppointmentController_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
         }
@@ -282,61 +281,19 @@ namespace Clinic_Management_System
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void pDOBTB_ValueChanged(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string query = @"SELECT CONCAT(f_name, ' ', l_name) 
-                     FROM tbl_employee
-                     WHERE designation = 'Doctor' 
-                     AND emp_id IN (
-                         SELECT emp_id 
-                         FROM tbl_emp_working_hours 
-                         WHERE emp_status = 'Available'
-                     )";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    // Open the connection
-                    conn.Open();
-
-                    // Create a command object
-                    SqlCommand cmd = new SqlCommand(query, conn);
-
-                    // Execute the query and get the results in a DataReader
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    // Check if data is returned
-                    if (reader.HasRows)
-                    {
-                        // Clear any existing items in the ComboBox
-                        availableDoctorsComboBox.Items.Clear();
-
-                        // Populate the ComboBox with the results from the query
-                        while (reader.Read())
-                        {
-                            
-                            // Add the doctor name (first name + last name) to the ComboBox
-                            availableDoctorsComboBox.Items.Add(reader.GetString(0));
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No available doctors found.");
-                    }
-
-                    // Close the reader
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions (e.g., connection errors)
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
         }
 
-    }
+        private void label11_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void pCityTB_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
