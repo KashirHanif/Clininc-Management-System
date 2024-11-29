@@ -262,6 +262,10 @@ values ('Doctor', 'Ahmed', 'Raza', 'Khalid Raza', '1985-03-20', '2024-11-18', 12
 insert into login_table (emp_id, username, password)
 values (3, 'doctor', 'doctor123');
 
+INSERT INTO tbl_employee (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
+VALUES ('Doctor', 'Sara', 'Iqbal', 'Abdul Sattar', '1988-10-12', '2024-11-20', 789, 'Islamabad', 'D', 10, '+92', '3005551234', 'Female', 'Islamabad International Hospital', 3212345678901);
+
+
 select * from tbl_employee
 
 select * from tbl_appointment
@@ -284,17 +288,24 @@ VALUES
 INSERT INTO tbl_emp_working_hours (emp_id, start_duty, end_duty)
 VALUES (3, '09:00:00', '17:00:00');
 
+INSERT INTO tbl_emp_working_hours (emp_id, start_duty, end_duty)
+VALUES (4, '08:00:00', '16:00:00');
+
+
 
 
 select top 1 a.time_of_appointment from tbl_employee e
 inner join tbl_appointment a
 on a.date_of_appointment = CAST(GETDATE() AS DATE) and a.appointment_status = 'booked'
-where e.emp_id in (
+where a.booked_for_emp_id in (
 	SELECT emp_id 
 	FROM tbl_employee e
 	WHERE CONCAT(e.f_name, ' ', e.l_name) = 'Ahmed Raza'
 )
 order by a.time_of_appointment desc
+
+
+
 
 select * from tbl_emp_working_hours
 select * from tbl_emp_shift
@@ -306,3 +317,5 @@ where designation = 'Doctor'
       select emp_id from tbl_emp_working_hours 
       where emp_status = 'Available'
   );
+
+select * from tbl_patient
