@@ -227,5 +227,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void plastNameTB_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
