@@ -285,5 +285,15 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pCityTB_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

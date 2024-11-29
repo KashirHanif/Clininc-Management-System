@@ -79,11 +79,13 @@ namespace Clinic_Management_System
         }
 
         // Event handler to handle Add Appointment
+        // Event handler to handle Add Appointment
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
-            // Code to add appointment functionality
+            // Load the Add Appointment screen
             MessageBox.Show("Add Appointment functionality goes here");
         }
+
 
         // Event handler to handle Cancel Appointment
         private void cancelAppointmentButton_Click(object sender, EventArgs e)

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addPatientUserCotroller));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
@@ -68,6 +68,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.pGender2 = new System.Windows.Forms.ComboBox();
             this.pCountryCodeTB = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -181,106 +182,113 @@
             // 
             // pfirstNameTB
             // 
-            this.pfirstNameTB.Location = new System.Drawing.Point(565, 226);
+            this.pfirstNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pfirstNameTB.Location = new System.Drawing.Point(557, 217);
             this.pfirstNameTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pfirstNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.Name = "pfirstNameTB";
-            this.pfirstNameTB.Size = new System.Drawing.Size(351, 22);
+            this.pfirstNameTB.Size = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.TabIndex = 8;
             // 
             // plastNameTB
             // 
-            this.plastNameTB.Location = new System.Drawing.Point(1083, 226);
+            this.plastNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.plastNameTB.Location = new System.Drawing.Point(1076, 217);
             this.plastNameTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.plastNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.Name = "plastNameTB";
-            this.plastNameTB.Size = new System.Drawing.Size(351, 22);
+            this.plastNameTB.Size = new System.Drawing.Size(351, 35);
             this.plastNameTB.TabIndex = 9;
             // 
             // pfatherNameTB
             // 
-            this.pfatherNameTB.Location = new System.Drawing.Point(1621, 223);
+            this.pfatherNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pfatherNameTB.Location = new System.Drawing.Point(1620, 217);
             this.pfatherNameTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pfatherNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.Name = "pfatherNameTB";
-            this.pfatherNameTB.Size = new System.Drawing.Size(351, 22);
+            this.pfatherNameTB.Size = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.TabIndex = 10;
             this.pfatherNameTB.TextChanged += new System.EventHandler(this.pfatherNameTB_TextChanged);
             // 
             // pstreetTB
             // 
-            this.pstreetTB.Location = new System.Drawing.Point(1693, 370);
+            this.pstreetTB.Location = new System.Drawing.Point(1663, 292);
             this.pstreetTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pstreetTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.Name = "pstreetTB";
-            this.pstreetTB.Size = new System.Drawing.Size(100, 22);
+            this.pstreetTB.Size = new System.Drawing.Size(100, 35);
             this.pstreetTB.TabIndex = 12;
             this.pstreetTB.TextChanged += new System.EventHandler(this.pstreetTB_TextChanged);
             // 
             // pBlockTB
             // 
-            this.pBlockTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBlockTB.Location = new System.Drawing.Point(1861, 302);
+            this.pBlockTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBlockTB.Location = new System.Drawing.Point(1860, 298);
             this.pBlockTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pBlockTB.Name = "pBlockTB";
-            this.pBlockTB.Size = new System.Drawing.Size(111, 30);
+            this.pBlockTB.Size = new System.Drawing.Size(111, 27);
             this.pBlockTB.TabIndex = 13;
             // 
             // pPhonenumTB
             // 
-            this.pPhonenumTB.Location = new System.Drawing.Point(1265, 382);
+            this.pPhonenumTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pPhonenumTB.Location = new System.Drawing.Point(1265, 377);
             this.pPhonenumTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pPhonenumTB.MaximumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.MinimumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.Name = "pPhonenumTB";
-            this.pPhonenumTB.Size = new System.Drawing.Size(249, 22);
+            this.pPhonenumTB.Size = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.TabIndex = 14;
             // 
             // pCityTB
             // 
-            this.pCityTB.Location = new System.Drawing.Point(1293, 302);
+            this.pCityTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pCityTB.Location = new System.Drawing.Point(1293, 292);
             this.pCityTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pCityTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.Name = "pCityTB";
-            this.pCityTB.Size = new System.Drawing.Size(200, 22);
+            this.pCityTB.Size = new System.Drawing.Size(200, 35);
             this.pCityTB.TabIndex = 15;
             // 
             // pAgeTB
             // 
-            this.pAgeTB.Location = new System.Drawing.Point(781, 298);
+            this.pAgeTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pAgeTB.Location = new System.Drawing.Point(782, 292);
             this.pAgeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pAgeTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.Name = "pAgeTB";
-            this.pAgeTB.Size = new System.Drawing.Size(100, 22);
+            this.pAgeTB.Size = new System.Drawing.Size(100, 35);
             this.pAgeTB.TabIndex = 17;
             this.pAgeTB.TextChanged += new System.EventHandler(this.pAgeTB_TextChanged);
             // 
             // pCountryTB
             // 
-            this.pCountryTB.Location = new System.Drawing.Point(1013, 302);
+            this.pCountryTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pCountryTB.Location = new System.Drawing.Point(1013, 292);
             this.pCountryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pCountryTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.Name = "pCountryTB";
-            this.pCountryTB.Size = new System.Drawing.Size(200, 22);
+            this.pCountryTB.Size = new System.Drawing.Size(200, 35);
             this.pCountryTB.TabIndex = 19;
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(423, 434);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -319,7 +327,7 @@
             this.N.AutoSize = true;
             this.N.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.N.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.N.Location = new System.Drawing.Point(419, 223);
+            this.N.Location = new System.Drawing.Point(410, 223);
             this.N.Name = "N";
             this.N.Size = new System.Drawing.Size(141, 29);
             this.N.TabIndex = 24;
@@ -331,7 +339,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(939, 223);
+            this.label2.Location = new System.Drawing.Point(934, 217);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 29);
             this.label2.TabIndex = 25;
@@ -342,7 +350,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(1515, 302);
+            this.label4.Location = new System.Drawing.Point(1547, 379);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 29);
             this.label4.TabIndex = 27;
@@ -353,7 +361,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(1777, 302);
+            this.label5.Location = new System.Drawing.Point(1777, 298);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 29);
             this.label5.TabIndex = 28;
@@ -364,7 +372,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(905, 303);
+            this.label6.Location = new System.Drawing.Point(905, 292);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 29);
             this.label6.TabIndex = 29;
@@ -375,7 +383,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(719, 303);
+            this.label7.Location = new System.Drawing.Point(716, 298);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 29);
             this.label7.TabIndex = 30;
@@ -395,7 +403,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Location = new System.Drawing.Point(420, 384);
+            this.label9.Location = new System.Drawing.Point(410, 374);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 29);
             this.label9.TabIndex = 32;
@@ -406,7 +414,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label10.Location = new System.Drawing.Point(420, 303);
+            this.label10.Location = new System.Drawing.Point(410, 298);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(68, 29);
             this.label10.TabIndex = 33;
@@ -417,7 +425,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label11.Location = new System.Drawing.Point(1231, 303);
+            this.label11.Location = new System.Drawing.Point(1230, 298);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 29);
             this.label11.TabIndex = 34;
@@ -428,7 +436,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(765, 377);
+            this.label12.Location = new System.Drawing.Point(757, 378);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(167, 29);
             this.label12.TabIndex = 35;
@@ -440,7 +448,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label13.Location = new System.Drawing.Point(1071, 377);
+            this.label13.Location = new System.Drawing.Point(1071, 373);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 29);
             this.label13.TabIndex = 36;
@@ -449,28 +457,32 @@
             // 
             // pCNIC
             // 
-            this.pCNIC.Location = new System.Drawing.Point(501, 382);
+            this.pCNIC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pCNIC.Location = new System.Drawing.Point(491, 377);
             this.pCNIC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pCNIC.MaximumSize = new System.Drawing.Size(249, 35);
+            this.pCNIC.MaxLength = 13;
             this.pCNIC.MinimumSize = new System.Drawing.Size(249, 35);
             this.pCNIC.Name = "pCNIC";
-            this.pCNIC.Size = new System.Drawing.Size(249, 22);
+            this.pCNIC.Size = new System.Drawing.Size(249, 35);
             this.pCNIC.TabIndex = 37;
             // 
             // pDOBTB
             // 
             this.pDOBTB.CustomFormat = "MM/dd/yyyy";
+            this.pDOBTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pDOBTB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.pDOBTB.Location = new System.Drawing.Point(493, 308);
+            this.pDOBTB.Location = new System.Drawing.Point(491, 300);
             this.pDOBTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pDOBTB.Name = "pDOBTB";
-            this.pDOBTB.Size = new System.Drawing.Size(200, 22);
+            this.pDOBTB.Size = new System.Drawing.Size(200, 27);
             this.pDOBTB.TabIndex = 38;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1079, 406);
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(1073, 401);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 40;
@@ -481,7 +493,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label14.Location = new System.Drawing.Point(1536, 384);
+            this.label14.Location = new System.Drawing.Point(1503, 298);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(144, 29);
             this.label14.TabIndex = 41;
@@ -490,19 +502,21 @@
             // pGender2
             // 
             this.pGender2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pGender2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pGender2.FormattingEnabled = true;
             this.pGender2.Items.AddRange(new object[] {
             "male",
             "female",
             "other"});
-            this.pGender2.Location = new System.Drawing.Point(1633, 303);
+            this.pGender2.Location = new System.Drawing.Point(1653, 379);
             this.pGender2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pGender2.Name = "pGender2";
-            this.pGender2.Size = new System.Drawing.Size(121, 24);
+            this.pGender2.Size = new System.Drawing.Size(121, 28);
             this.pGender2.TabIndex = 43;
             // 
             // pCountryCodeTB
             // 
+            this.pCountryCodeTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pCountryCodeTB.FormattingEnabled = true;
             this.pCountryCodeTB.Items.AddRange(new object[] {
             "+1",
@@ -525,17 +539,28 @@
             "+971",
             "+92",
             "+880"});
-            this.pCountryCodeTB.Location = new System.Drawing.Point(939, 378);
+            this.pCountryCodeTB.Location = new System.Drawing.Point(930, 379);
             this.pCountryCodeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pCountryCodeTB.Name = "pCountryCodeTB";
-            this.pCountryCodeTB.Size = new System.Drawing.Size(121, 24);
+            this.pCountryCodeTB.Size = new System.Drawing.Size(121, 28);
             this.pCountryCodeTB.TabIndex = 44;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label15.Location = new System.Drawing.Point(410, 401);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(68, 16);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "(without \'-\')";
             // 
             // addPatientUserCotroller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.pCountryCodeTB);
             this.Controls.Add(this.pGender2);
             this.Controls.Add(this.label14);
@@ -628,5 +653,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox pGender2;
         private System.Windows.Forms.ComboBox pCountryCodeTB;
+        private System.Windows.Forms.Label label15;
     }
 }
