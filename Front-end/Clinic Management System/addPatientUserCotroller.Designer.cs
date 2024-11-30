@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addPatientUserCotroller));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
@@ -71,6 +71,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -94,7 +95,7 @@
             this.addPatientButton.BackColor = System.Drawing.Color.Maroon;
             this.addPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPatientButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.addPatientButton.Location = new System.Drawing.Point(75, 199);
+            this.addPatientButton.Location = new System.Drawing.Point(75, 247);
             this.addPatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addPatientButton.Name = "addPatientButton";
             this.addPatientButton.Size = new System.Drawing.Size(291, 85);
@@ -108,7 +109,7 @@
             this.updatePatientButton.BackColor = System.Drawing.Color.Maroon;
             this.updatePatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updatePatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.updatePatientButton.Location = new System.Drawing.Point(75, 308);
+            this.updatePatientButton.Location = new System.Drawing.Point(75, 351);
             this.updatePatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updatePatientButton.Name = "updatePatientButton";
             this.updatePatientButton.Size = new System.Drawing.Size(291, 84);
@@ -122,7 +123,7 @@
             this.viewPatientButton.BackColor = System.Drawing.Color.Maroon;
             this.viewPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewPatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewPatientButton.Location = new System.Drawing.Point(75, 423);
+            this.viewPatientButton.Location = new System.Drawing.Point(75, 472);
             this.viewPatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.viewPatientButton.Name = "viewPatientButton";
             this.viewPatientButton.Size = new System.Drawing.Size(291, 84);
@@ -178,7 +179,7 @@
             this.addAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.addAppointmentButton.Location = new System.Drawing.Point(75, 542);
+            this.addAppointmentButton.Location = new System.Drawing.Point(75, 574);
             this.addAppointmentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addAppointmentButton.Name = "addAppointmentButton";
             this.addAppointmentButton.Size = new System.Drawing.Size(291, 82);
@@ -290,14 +291,14 @@
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(423, 434);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -585,11 +586,21 @@
             this.pictureBox2.TabIndex = 47;
             this.pictureBox2.TabStop = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(177, 195);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 78;
+            this.button2.Text = "treatment";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // addPatientUserCotroller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -690,5 +701,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button button2;
     }
 }

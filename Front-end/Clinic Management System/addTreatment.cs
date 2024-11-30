@@ -150,8 +150,8 @@ namespace Clinic_Management_System
                     string phoneNumber = selectedRow.Cells["phone_number"].Value?.ToString();
 
                     // Assign the values to the respective textboxes
-                    patientIdTextBox.Text = patientId;
-                    aptPhonenum.Text = phoneNumber;
+       
+                    treatmentptname.Text = phoneNumber;
                 }
                 else
                 {
@@ -222,8 +222,7 @@ namespace Clinic_Management_System
                     MessageBox.Show("Please select valid names for both 'Booked By' and 'Booked For' fields.", "Validation Error");
                     return;
                 }
-                DateTime appointmentDate = aptDate.Value;
-                string appointmentTime = aptTime.Text.ToString();
+   
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -265,14 +264,11 @@ namespace Clinic_Management_System
                     SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
 
                     // Add parameters to the insert query
-                    insertCmd.Parameters.AddWithValue("@DateOfAppointment", appointmentDate);
-                    insertCmd.Parameters.AddWithValue("@TimeOfAppointment", appointmentTime);
+
                     insertCmd.Parameters.AddWithValue("@BookedByEmpId", bookedByEmpId);
                     insertCmd.Parameters.AddWithValue("@BookedForEmpId", bookedForEmpId);
-                    insertCmd.Parameters.AddWithValue("@AppointmentType", AptTypeComboBox.SelectedItem.ToString());
-                    insertCmd.Parameters.AddWithValue("@AppointmentStatus", statusComboBox.SelectedItem.ToString());
-
-                    insertCmd.Parameters.AddWithValue("@PatientId", int.Parse(patientIdTextBox.Text));
+                    insertCmd.Parameters.AddWithValue("@AppointmentType", treatmentTypeComboBox.SelectedItem.ToString());
+        
 
                     // Execute the insert command
                     insertCmd.ExecuteNonQuery();
@@ -457,7 +453,7 @@ namespace Clinic_Management_System
                 string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // Get the selected doctor name from comboBox2
                 string selectedDoctor = comboBox2.SelectedItem?.ToString();
-                DateTime selectedDate = aptDate.Value.Date;
+                
 
                 if (string.IsNullOrEmpty(selectedDoctor))
                 {
@@ -485,7 +481,7 @@ namespace Clinic_Management_System
                     {
                         // Add the selected doctor's name as a parameter
                         cmd.Parameters.AddWithValue("@DoctorName", selectedDoctor);
-                        cmd.Parameters.AddWithValue("@AppointmentDate", selectedDate);
+                        
 
                         object result = cmd.ExecuteScalar();
 
@@ -497,7 +493,7 @@ namespace Clinic_Management_System
 
                             // Assign the calculated time to the TextBox
                             string time = newAppointmentTime.ToString(@"hh\:mm");
-                            aptTime.Text = time;
+                            
                         }
                         else
                         {
@@ -521,7 +517,7 @@ namespace Clinic_Management_System
 
                                     // Assign the start duty time to the TextBox
                                     string dutyTime = startDutyTime.ToString(@"hh\:mm");
-                                    aptTime.Text = dutyTime;
+                                   
                                 }
                             }
                         }
@@ -536,7 +532,7 @@ namespace Clinic_Management_System
 
         private void searchPatient_Click(object sender, EventArgs e)
         {
-            string phoneNumber = aptSearch.Text.Trim(); // Get the phone number from the text box
+       
 
             if (!string.IsNullOrEmpty(phoneNumber))
             {
@@ -650,6 +646,16 @@ namespace Clinic_Management_System
         private void backButton_Click(object sender, EventArgs e)
         {
             LoadControl(new PatientUserControl(username, password));
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aptSearch_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
