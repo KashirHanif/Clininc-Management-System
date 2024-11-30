@@ -186,7 +186,7 @@ namespace Clinic_Management_System
             this.button1.TabIndex = 10;
             this.button1.Text = "back";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            
             // 
             // comboBox1
             // 

@@ -170,7 +170,7 @@ namespace Clinic_Management_System
             this.pfirstNameTB.Name = "pfirstNameTB";
             this.pfirstNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfirstNameTB.TabIndex = 8;
-            this.pfirstNameTB.TextChanged += new System.EventHandler(this.pfirstNameTB_TextChanged_1);
+            
             // 
             // plastNameTB
             // 

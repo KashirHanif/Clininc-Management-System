@@ -1,25 +1,25 @@
-﻿using System.Data.SqlClient;
+﻿using System;
 using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
-using System;
-
 
 namespace Clinic_Management_System
 {
     public partial class viewAppointment : UserControl
     {
-        // Connection string to your database
-        //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-         string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         private string username;
         private string password;
+        // Connection string to your database
+        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         public viewAppointment(string username,string password)
         {
             InitializeComponent();
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-
             this.username = username;
             this.password = password;
+
         }
 
         // Populate the DataGridView with patient data
@@ -27,8 +27,24 @@ namespace Clinic_Management_System
         {
             try
             {
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, city, country, phone_number, gender, age FROM tbl_patient";
+                // Query to retrieve appointment details along with patient and employee information
+                string query = @"
+            SELECT 
+                a.appointment_id AS AppointmentID,
+                a.date_of_appointment AS AppointmentDate,
+                a.time_of_appointment AS AppointmentTime,
+                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                 FROM tbl_patient p 
+                 WHERE p.patient_id = a.patient_id) AS PatientName,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+            FROM tbl_appointment a;";
 
+                // Using connection and command to fetch data
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -37,20 +53,18 @@ namespace Clinic_Management_System
                     DataTable dataTable = new DataTable();
                     dataAdapter.Fill(dataTable);
 
+                    // Bind the results to the DataGridView
                     patientGridView.DataSource = dataTable;
 
                     // Set user-friendly column names
-                    patientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    patientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    patientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    patientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    patientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    patientGridView.Columns["city"].HeaderText = "City";
-                    patientGridView.Columns["country"].HeaderText = "Country";
-                    patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    patientGridView.Columns["gender"].HeaderText = "Gender";
-                    patientGridView.Columns["age"].HeaderText = "Age";
+                    patientGridView.Columns["AppointmentID"].HeaderText = "Appointment ID";
+                    patientGridView.Columns["AppointmentDate"].HeaderText = "Appointment Date";
+                    patientGridView.Columns["AppointmentTime"].HeaderText = "Appointment Time";
+                    patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                    patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                    patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
 
+                    // Auto-resize columns for better visibility
                     patientGridView.AutoResizeColumns();
                 }
             }
@@ -59,6 +73,7 @@ namespace Clinic_Management_System
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
         private void LoadControl(UserControl control)
         {
             this.Controls.Clear();       // Clear any existing controls on Form2
@@ -68,6 +83,7 @@ namespace Clinic_Management_System
         // Event handler to handle Add Patient
         private void addPatientButton_Click(object sender, EventArgs e)
         {
+            // Code to open Add Patient form or logic to add a patient
             LoadControl(new addPatientUserCotroller(username,password));
         }
 
@@ -81,7 +97,6 @@ namespace Clinic_Management_System
         // Event handler to handle View Patient
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewPatient(username, password));
             PopulateDataGridView();
         }
 
@@ -98,13 +113,14 @@ namespace Clinic_Management_System
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
             // Code to cancel appointment functionality
-            LoadControl(new cancelAppointment(username, password));
+            MessageBox.Show("Cancel Appointment functionality goes here");
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewAppointment(username, password));
+            // Code to view appointments
+            MessageBox.Show("View Appointments functionality goes here");
         }
 
         // Event handler to load the user control
@@ -131,7 +147,7 @@ namespace Clinic_Management_System
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 // Get the selected filter option from comboBox1
@@ -142,39 +158,41 @@ namespace Clinic_Management_System
                     MessageBox.Show("Please select a filter option.");
                     return;
                 }
-                if (selectedFilter == "Search by Name")
-                {
-                    if (!textBox1.Parent.Visible)
-                    {
-                        textBox1.Parent.Visible = true;
-                    }
-
-                    button2.Visible = true;
-
-
-                }
 
                 // Base query
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, city, country, phone_number, gender, age FROM tbl_patient";
+                string query = @"
+            SELECT 
+                a.appointment_id,
+                a.date_of_appointment,
+                a.time_of_appointment,
+                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                 FROM tbl_patient p 
+                 WHERE p.patient_id = a.patient_id) AS PatientName,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+            FROM tbl_appointment a";
 
                 // Modify query based on the selected filter
-                if (selectedFilter == "Last Week")
+                if (selectedFilter == "Upcoming Week")
                 {
                     query += @"
-                WHERE patient_id IN (
-                    SELECT patient_id FROM tbl_appointment
-                    WHERE date_of_appointment >= DATEADD(DAY, -7, GETDATE())
-                      AND date_of_appointment <= GETDATE()
-                )";
+                WHERE a.date_of_appointment >= GETDATE()
+                  AND a.date_of_appointment < DATEADD(DAY, 7, GETDATE())";
                 }
-                else if (selectedFilter == "Last Month")
+                else if (selectedFilter == "Upcoming Month")
                 {
                     query += @"
-                WHERE patient_id IN (
-                    SELECT patient_id FROM tbl_appointment
-                    WHERE date_of_appointment >= DATEADD(MONTH, -1, GETDATE())
-                      AND date_of_appointment <= GETDATE()
-                )";
+                WHERE a.date_of_appointment >= GETDATE()
+                  AND a.date_of_appointment < DATEADD(MONTH, 1, GETDATE())";
+                }
+                else if (selectedFilter == "Cancelled")
+                {
+                    query += @"
+                WHERE a.appointment_status = 'Cancelled'";
                 }
 
                 // Execute the query and populate the DataGridView
@@ -188,17 +206,13 @@ namespace Clinic_Management_System
 
                     patientGridView.DataSource = dataTable;
 
-                    // Set user-friendly column names if needed
-                    patientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    patientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    patientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    patientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    patientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    patientGridView.Columns["city"].HeaderText = "City";
-                    patientGridView.Columns["country"].HeaderText = "Country";
-                    patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    patientGridView.Columns["gender"].HeaderText = "Gender";
-                    patientGridView.Columns["age"].HeaderText = "Age";
+                    // Set user-friendly column names
+                    patientGridView.Columns["appointment_id"].HeaderText = "Appointment ID";
+                    patientGridView.Columns["date_of_appointment"].HeaderText = "Date of Appointment";
+                    patientGridView.Columns["time_of_appointment"].HeaderText = "Time of Appointment";
+                    patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                    patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                    patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
 
                     patientGridView.AutoResizeColumns();
                 }
@@ -209,8 +223,11 @@ namespace Clinic_Management_System
             }
         }
 
-        
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
         private void button2_Click_1(object sender, EventArgs e)
         {
             try
@@ -224,11 +241,25 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                // Construct the query to concatenate first and last names and search
+                // Query to search appointments by exact patient name
                 string query = @"
-                    SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, city, country, phone_number, gender, age 
-                    FROM tbl_patient
-                    WHERE CONCAT(p_f_name, ' ', p_l_name) = @SearchText";
+            SELECT 
+                a.appointment_id,
+                a.date_of_appointment,
+                a.time_of_appointment,
+                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                 FROM tbl_patient p 
+                 WHERE p.patient_id = a.patient_id) AS PatientName,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                 FROM tbl_employee e 
+                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+            FROM tbl_appointment a
+            WHERE (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                   FROM tbl_patient p 
+                   WHERE p.patient_id = a.patient_id) = @SearchText";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -245,17 +276,13 @@ namespace Clinic_Management_System
                     // Update the DataGridView with the filtered data
                     patientGridView.DataSource = dataTable;
 
-                    // Set user-friendly column names if needed
-                    patientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    patientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    patientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    patientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    patientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    patientGridView.Columns["city"].HeaderText = "City";
-                    patientGridView.Columns["country"].HeaderText = "Country";
-                    patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    patientGridView.Columns["gender"].HeaderText = "Gender";
-                    patientGridView.Columns["age"].HeaderText = "Age";
+                    // Set user-friendly column names
+                    patientGridView.Columns["appointment_id"].HeaderText = "Appointment ID";
+                    patientGridView.Columns["date_of_appointment"].HeaderText = "Date of Appointment";
+                    patientGridView.Columns["time_of_appointment"].HeaderText = "Time of Appointment";
+                    patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                    patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                    patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
 
                     patientGridView.AutoResizeColumns();
                 }
@@ -266,9 +293,5 @@ namespace Clinic_Management_System
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            LoadControl(new PatientUserControl(username, password));
-        }
     }
 }

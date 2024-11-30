@@ -27,7 +27,7 @@ namespace Clinic_Management_System
         private void updatePatientUserCotroller_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
-            
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -123,36 +123,59 @@ namespace Clinic_Management_System
 
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            PopulateDataGridView();
-
-
-            // Ensure the click is not on the header row
-            if (e.RowIndex >= 0)
-            {
-                // Get the selected row
-                DataGridViewRow selectedRow = addPatientGridView.Rows[e.RowIndex];
-
-                // Populate textboxes with data from the selected row
-                pfirstNameTB.Text = selectedRow.Cells["p_f_name"].Value?.ToString() ?? string.Empty;
-                plastNameTB.Text = selectedRow.Cells["p_l_name"].Value?.ToString() ?? string.Empty;
-                pfatherNameTB.Text = selectedRow.Cells["father_name"].Value?.ToString() ?? string.Empty;
-                pDOBTB.Text = selectedRow.Cells["date_of_birth"].Value?.ToString() ?? string.Empty;
-               
-          
-
-                patientIdTextBox.Text = selectedRow.Cells["patient_id"].Value?.ToString() ?? string.Empty;
-            }
-
-
-        }
-        private void PopulateDataGridView()
-        {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
+                // Ensure the click is not on the header row
+                if (e.RowIndex >= 0)
+                {
+                    // Get the selected row
+                    DataGridViewRow selectedRow = addPatientGridView.Rows[e.RowIndex];
 
+                    // Populate textboxes with data from the selected row
+                    pfirstNameTB.Text = selectedRow.Cells["PatientName"].Value?.ToString() ?? string.Empty; // Full name of the patient
+                    plastNameTB.Text = selectedRow.Cells["BookedByEmployee"].Value?.ToString() ?? string.Empty; // Booked by
+                    pDOBTB.Text = selectedRow.Cells["AppointmentDate"].Value?.ToString() ?? string.Empty; // Date of appointment
+                    if (DateTime.TryParse(selectedRow.Cells["AppointmentTime"].Value?.ToString(), out DateTime time))
+                    {
+                        dateTimePicker1.Value = time; // Set the valid time
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid appointment time.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    pfatherNameTB.Text = selectedRow.Cells["BookedForEmployee"].Value?.ToString() ?? string.Empty; // Doctor
+                    patientIdTextBox.Text = selectedRow.Cells["AppointmentID"].Value?.ToString() ?? string.Empty; // Appointment ID
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void PopulateDataGridView()
+        {
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            try
+            {
+                string query = @"
+                SELECT 
+                    a.appointment_id AS AppointmentID,
+                    a.date_of_appointment AS AppointmentDate,
+                    a.time_of_appointment AS AppointmentTime,
+                    (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                     FROM tbl_patient p 
+                     WHERE p.patient_id = a.patient_id) AS PatientName,
+                    (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                     FROM tbl_employee e 
+                     WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                    (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                     FROM tbl_employee e 
+                     WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+                FROM tbl_appointment a;";
+
+                // Using connection and command to fetch data
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -161,23 +184,18 @@ namespace Clinic_Management_System
                     DataTable dataTable = new DataTable();
                     dataAdapter.Fill(dataTable);
 
+                    // Bind the results to the DataGridView
                     addPatientGridView.DataSource = dataTable;
 
                     // Set user-friendly column names
-                    addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    addPatientGridView.Columns["street"].HeaderText = "Street";
-                    addPatientGridView.Columns["block"].HeaderText = "Block";
-                    addPatientGridView.Columns["city"].HeaderText = "City";
-                    addPatientGridView.Columns["country"].HeaderText = "Country";
-                    addPatientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
-                    addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    addPatientGridView.Columns["gender"].HeaderText = "Gender";
-                    addPatientGridView.Columns["age"].HeaderText = "Age";
+                    addPatientGridView.Columns["AppointmentID"].HeaderText = "Appointment ID";
+                    addPatientGridView.Columns["AppointmentDate"].HeaderText = "Appointment Date";
+                    addPatientGridView.Columns["AppointmentTime"].HeaderText = "Appointment Time";
+                    addPatientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                    addPatientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                    addPatientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
 
+                    // Auto-resize columns for better visibility
                     addPatientGridView.AutoResizeColumns();
                 }
             }
@@ -194,49 +212,48 @@ namespace Clinic_Management_System
                 // Validate inputs
                 if (string.IsNullOrWhiteSpace(pfirstNameTB.Text) || string.IsNullOrWhiteSpace(plastNameTB.Text))
                 {
-                    MessageBox.Show("First name and Last name are required.", "Validation Error");
+                    MessageBox.Show("Patient name and 'Booked By' fields are required.", "Validation Error");
                     return;
                 }
 
-                // Validate that a record is selected (e.g., using a hidden `patient_id` TextBox)
                 if (string.IsNullOrWhiteSpace(patientIdTextBox.Text))
                 {
-                    MessageBox.Show("Please select a record to update.", "Validation Error");
+                    MessageBox.Show("Please select an appointment to update.", "Validation Error");
                     return;
                 }
 
-                // Get the date from the DateTimePicker
-                DateTime selectedDOB = pDOBTB.Value;
+                // Get input values
+                string patientFullName = pfirstNameTB.Text;
+                string bookedBy = plastNameTB.Text;
+                string appointmentDate = pDOBTB.Text;
+                string appointmentTime = dateTimePicker1.Value.ToString("HH:mm:ss");
+                string doctor = pfatherNameTB.Text;
+                int appointmentId = int.Parse(patientIdTextBox.Text); // Assuming this is numeric and non-null
 
-                // Connection and SQL Command
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                // Update query to set the appointment status to "Cancelled"
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "UPDATE tbl_patient " +
-                                   "SET p_f_name = @FirstName, p_l_name = @LastName, father_name = @FatherName, date_of_birth = @DOB, street = @Street, block = @Block, city = @City, country = @Country, " +
-                                   "ph_country_code = @CountryCode, phone_number = @PhoneNumber, gender = @Gender, age = @Age, cnic = @CNIC " +
-                                   "WHERE patient_id = @PatientID";
+                    string query = @"
+                UPDATE tbl_appointment
+                SET appointment_status = @Status
+                WHERE appointment_id = @AppointmentID";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@FirstName", pfirstNameTB.Text);
-                    cmd.Parameters.AddWithValue("@LastName", plastNameTB.Text);
-                    cmd.Parameters.AddWithValue("@FatherName", pfatherNameTB.Text);
-                    cmd.Parameters.AddWithValue("@DOB", selectedDOB); // Use DateTimePicker's Value
-          
-                    cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
+                    cmd.Parameters.AddWithValue("@Status", "Cancelled"); // Setting appointment status
+                    cmd.Parameters.AddWithValue("@AppointmentID", appointmentId);
 
                     conn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Patient record updated successfully.");
+                        MessageBox.Show("Appointment status updated to 'Cancelled' successfully.");
                         PopulateDataGridView(); // Refresh DataGridView with updated data
                     }
                     else
                     {
-                        MessageBox.Show("No record found to update. Please check the Patient ID.", "Update Failed");
+                        MessageBox.Show("No record found to update. Please check the Appointment ID.", "Update Failed");
                     }
                 }
             }
@@ -291,8 +308,8 @@ namespace Clinic_Management_System
 
         private void label17_Click(object sender, EventArgs e)
         {
-            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -335,11 +352,6 @@ namespace Clinic_Management_System
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pfirstNameTB_TextChanged_1(object sender, EventArgs e)
         {
 
         }
