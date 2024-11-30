@@ -181,6 +181,7 @@ namespace Clinic_Management_System
             this.button1.TabIndex = 10;
             this.button1.Text = "back";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox4
             // 
@@ -198,7 +199,7 @@ namespace Clinic_Management_System
             this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label16.Location = new System.Drawing.Point(1068, 100);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(297, 31);
+            this.label16.Size = new System.Drawing.Size(350, 38);
             this.label16.TabIndex = 70;
             this.label16.Text = "Incharge: receptionist";
             this.label16.Click += new System.EventHandler(this.label16_Click);

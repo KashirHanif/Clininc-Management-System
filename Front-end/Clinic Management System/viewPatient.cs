@@ -9,8 +9,8 @@ namespace Clinic_Management_System
     public partial class viewPatient : UserControl
     {
         // Connection string to your database
-        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-        // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+         string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         private string username;
         private string password;
         public viewPatient(string username,string password)
@@ -83,6 +83,7 @@ namespace Clinic_Management_System
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
             PopulateDataGridView();
+            LoadControl(new viewPatient(username, password));
         }
 
         // Event handler to handle Add Appointment
@@ -97,15 +98,15 @@ namespace Clinic_Management_System
         // Event handler to handle Cancel Appointment
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
-            // Code to cancel appointment functionality
-            MessageBox.Show("Cancel Appointment functionality goes here");
+            LoadControl(new cancelAppointment(username, password));// Code to cancel appointment functionality
+   
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
             // Code to view appointments
-            MessageBox.Show("View Appointments functionality goes here");
+            LoadControl(new viewAppointment(username, password));
         }
 
         // Event handler to load the user control
@@ -265,6 +266,11 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadControl(new PatientUserControl(username, password));
         }
     }
 }

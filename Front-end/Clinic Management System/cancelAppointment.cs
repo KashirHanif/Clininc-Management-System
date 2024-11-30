@@ -155,8 +155,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -215,8 +215,8 @@ namespace Clinic_Management_System
                 DateTime selectedDOB = pDOBTB.Value;
 
                 // Connection and SQL Command
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = "UPDATE tbl_patient " +
@@ -305,7 +305,8 @@ namespace Clinic_Management_System
 
         private void label17_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -341,9 +342,15 @@ namespace Clinic_Management_System
                 MessageBox.Show("Error fetching employee name: " + ex.Message);
             }
         }
-       
 
-        
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new PatientUserControl(username, password));
+        }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

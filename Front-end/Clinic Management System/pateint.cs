@@ -10,8 +10,8 @@ namespace Clinic_Management_System
     public partial class PatientUserControl : UserControl
     {
         // Connection string to your database
-        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-        //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
         private string username;
         private string password;
@@ -130,7 +130,9 @@ namespace Clinic_Management_System
 
         private void label16_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+
             try
             {
                 string query = @"
@@ -166,6 +168,10 @@ namespace Clinic_Management_System
                 MessageBox.Show("Error fetching employee name: " + ex.Message);
             }
         }
-        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadControl(new menu(username, password));
+        }
     }
 }
