@@ -27,7 +27,30 @@ namespace Clinic_Management_System
         {
             try
             {
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, city, country, phone_number, gender, age FROM tbl_patient";
+                string query = @"
+                SELECT 
+                    patient_id, 
+                    p_f_name, 
+                    p_l_name, 
+                    father_name, 
+                    date_of_birth, 
+                    city, 
+                    country, 
+                    phone_number, 
+                    gender, 
+                    age 
+                FROM 
+                    tbl_patient p
+                WHERE 
+                    p.patient_id IN (
+                        SELECT 
+                            a.patient_id 
+                        FROM 
+                            tbl_appointment a 
+                        WHERE 
+                            a.date_of_appointment = CAST(GETDATE() AS DATE)
+                    )";
+
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -114,7 +137,8 @@ namespace Clinic_Management_System
         private void PatientUserControl_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
-            
+            UpdateAppointmentCounts();
+
         }
 
 
@@ -136,12 +160,12 @@ namespace Clinic_Management_System
             try
             {
                 string query = @"
-        SELECT CONCAT(f_name, ' ', l_name)
-        FROM tbl_employee
-        WHERE emp_id IN (
-            SELECT emp_id FROM login_table
-            WHERE username = @username AND password = @password
-        )";
+                SELECT CONCAT(f_name, ' ', l_name)
+                FROM tbl_employee
+                WHERE emp_id IN (
+                    SELECT emp_id FROM login_table
+                    WHERE username = @username AND password = @password
+                )";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -178,8 +202,74 @@ namespace Clinic_Management_System
         {
 
         }
+        private void UpdateAppointmentCounts()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Query for Booked Appointments
+                    string bookedQuery = @"
+                        SELECT COUNT(appointment_id) AS Booked_Appointment 
+                        FROM tbl_appointment
+                        WHERE appointment_status = 'Booked' 
+                          AND date_of_appointment = CAST(GETDATE() AS DATE);";
+
+                    // Query for Attended Appointments
+                    string attendedQuery = @"
+                        SELECT COUNT(appointment_id) AS Attended_Appointment 
+                        FROM tbl_appointment
+                        WHERE appointment_status = 'Attended' 
+                          AND date_of_appointment = CAST(GETDATE() AS DATE);";
+
+                    // Query for Cancelled Appointments
+                    string cancelledQuery = @"
+                        SELECT COUNT(appointment_id) AS Cancelled_Appointment 
+                        FROM tbl_appointment
+                        WHERE appointment_status = 'Cancelled' 
+                          AND date_of_appointment = CAST(GETDATE() AS DATE);";
+
+                    // Execute each query and update the labels
+                    label1.Text = "Booked: " + GetAppointmentCount(connection, bookedQuery).ToString();
+                    label2.Text = "Attended: " + GetAppointmentCount(connection, attendedQuery).ToString();
+                    label3.Text = "Cancelled: " + GetAppointmentCount(connection, cancelledQuery).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private int GetAppointmentCount(SqlConnection connection, string query)
+        {
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                object result = command.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
+        }
+    
+
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

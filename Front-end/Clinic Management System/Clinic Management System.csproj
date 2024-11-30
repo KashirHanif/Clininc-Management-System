@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addTreatment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="addTreatment.Designer.cs">
+      <DependentUpon>addTreatment.cs</DependentUpon>
+    </Compile>
     <Compile Include="addAppointmentController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="addTreatment.resx">
+      <DependentUpon>addTreatment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addAppointmentController.resx">
       <DependentUpon>addAppointmentController.cs</DependentUpon>
     </EmbeddedResource>

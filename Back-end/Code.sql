@@ -78,6 +78,7 @@ create table tbl_treatment (
 	foreign key (patient_id) references tbl_patient(patient_id),
 );
 
+
 create table tbl_billing (
 	bill_id int identity(1,1) primary key,
 	total_bill decimal(10, 2) not null,
@@ -132,6 +133,9 @@ create table tbl_emp_shift (
 	end_time time not null,
 	date_of_shift date not null
 );
+
+alter table tbl_treatment
+drop column treatment_date
 
 alter table tbl_inventory
 add constraint chk_selling_price check (selling_price >= purchase_price);
@@ -318,10 +322,12 @@ where designation = 'Doctor'
       where emp_status = 'Available'
   );
 
+
+
 select * from tbl_patient p
 where p.patient_id in (
 	select patient_id from tbl_appointment a
-	where a.date_of_appointment = CAST(GETDATE() AS DATE)
+	where a.date_of_appointment = CAST(GETDATE() AS DATE) 
 )
 
 select concat(f_name,' ',l_name) from tbl_employee
@@ -329,3 +335,28 @@ where emp_id in (
 	select emp_id from login_table
 	where username = 'receptionist' and password = 'receptionist123'
 )
+
+select a.appointment_id,
+    a.date_of_appointment,
+    a.time_of_appointment,
+    (select concat(p.p_f_name,' ',p.p_l_name) 
+     from tbl_patient p 
+     where p.patient_id = a.patient_id) AS PatientName,
+    (select concat(e.f_name,' ',e.l_name)
+     from tbl_employee e 
+     where e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+    (select concat(e.f_name,' ',e.l_name)
+     from tbl_employee e 
+     where e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+from
+    tbl_appointment a
+where a.appointment_status = 'Cancelled'
+
+select * from tbl_appointment
+
+select count(appointment_id) as Booked_Appointment from tbl_appointment
+where appointment_status = 'Booked' and date_of_appointment = CAST(GETDATE() AS DATE) 
+
+INSERT INTO tbl_appointment (booked_by_emp_id, booked_for_emp_id, date_of_appointment, time_of_appointment, appointment_status,patient_id,appointment_type)
+VALUES
+(1, 4, '2024-11-30', '14:15:00', 'Cancelled',21,'Online')
