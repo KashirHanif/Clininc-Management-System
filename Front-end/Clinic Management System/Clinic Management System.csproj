@@ -52,6 +52,18 @@
     <Compile Include="addAppointmentController.Designer.cs">
       <DependentUpon>addAppointmentController.cs</DependentUpon>
     </Compile>
+    <Compile Include="cancelAppointment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="cancelAppointment.Designer.cs">
+      <DependentUpon>cancelAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="viewAppointment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="viewAppointment.Designer.cs">
+      <DependentUpon>viewAppointment.cs</DependentUpon>
+    </Compile>
     <Compile Include="viewPatient.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +116,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="addAppointmentController.resx">
       <DependentUpon>addAppointmentController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cancelAppointment.resx">
+      <DependentUpon>cancelAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="viewAppointment.resx">
+      <DependentUpon>viewAppointment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="viewPatient.resx">
       <DependentUpon>viewPatient.cs</DependentUpon>

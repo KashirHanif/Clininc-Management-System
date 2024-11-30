@@ -99,14 +99,14 @@ namespace Clinic_Management_System
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
             // Code to cancel appointment functionality
-            MessageBox.Show("Cancel Appointment functionality goes here");
+            LoadControl(new cancelAppointment(username, password));
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
             // Code to view appointments
-            MessageBox.Show("Cancel Appointment functionality goes here");
+            LoadControl(new viewAppointment(username,password));
 
         }
 
