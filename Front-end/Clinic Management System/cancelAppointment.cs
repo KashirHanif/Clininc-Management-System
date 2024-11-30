@@ -137,15 +137,9 @@ namespace Clinic_Management_System
                 plastNameTB.Text = selectedRow.Cells["p_l_name"].Value?.ToString() ?? string.Empty;
                 pfatherNameTB.Text = selectedRow.Cells["father_name"].Value?.ToString() ?? string.Empty;
                 pDOBTB.Text = selectedRow.Cells["date_of_birth"].Value?.ToString() ?? string.Empty;
-                pstreetTB.Text = selectedRow.Cells["street"].Value?.ToString() ?? string.Empty;
-                pBlockTB.Text = selectedRow.Cells["block"].Value?.ToString() ?? string.Empty;
-                pCityTB.Text = selectedRow.Cells["city"].Value?.ToString() ?? string.Empty;
-                pCountryTB.Text = selectedRow.Cells["country"].Value?.ToString() ?? string.Empty;
-                pCountryCodeTB.Text = selectedRow.Cells["ph_country_code"].Value?.ToString() ?? string.Empty;
-                pPhonenumTB.Text = selectedRow.Cells["phone_number"].Value?.ToString() ?? string.Empty;
-                pGender2.Text = selectedRow.Cells["gender"].Value?.ToString() ?? string.Empty;
-                pAgeTB.Text = selectedRow.Cells["age"].Value?.ToString() ?? string.Empty;
-                pCNIC.Text = selectedRow.Cells["CNIC"].Value?.ToString() ?? string.Empty;
+               
+          
+
                 patientIdTextBox.Text = selectedRow.Cells["patient_id"].Value?.ToString() ?? string.Empty;
             }
 
@@ -229,15 +223,7 @@ namespace Clinic_Management_System
                     cmd.Parameters.AddWithValue("@LastName", plastNameTB.Text);
                     cmd.Parameters.AddWithValue("@FatherName", pfatherNameTB.Text);
                     cmd.Parameters.AddWithValue("@DOB", selectedDOB); // Use DateTimePicker's Value
-                    cmd.Parameters.AddWithValue("@Street", pstreetTB.Text);
-                    cmd.Parameters.AddWithValue("@Block", pBlockTB.Text);
-                    cmd.Parameters.AddWithValue("@City", pCityTB.Text);
-                    cmd.Parameters.AddWithValue("@Country", pCountryTB.Text);
-                    cmd.Parameters.AddWithValue("@CountryCode", pCountryCodeTB.Text);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", pPhonenumTB.Text);
-                    cmd.Parameters.AddWithValue("@Gender", pGender2.Text);
-                    cmd.Parameters.AddWithValue("@Age", pAgeTB.Text);
-                    cmd.Parameters.AddWithValue("@CNIC", pCNIC.Text);
+          
                     cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
 
                     conn.Open();
@@ -349,6 +335,11 @@ namespace Clinic_Management_System
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pfirstNameTB_TextChanged_1(object sender, EventArgs e)
         {
 
         }

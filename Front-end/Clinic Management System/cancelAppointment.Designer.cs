@@ -32,8 +32,8 @@ namespace Clinic_Management_System
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cancelAppointment));
             this.updatePatientButton = new System.Windows.Forms.Button();
             this.viewPatientButton = new System.Windows.Forms.Button();
@@ -170,6 +170,7 @@ namespace Clinic_Management_System
             this.pfirstNameTB.Name = "pfirstNameTB";
             this.pfirstNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfirstNameTB.TabIndex = 8;
+            this.pfirstNameTB.TextChanged += new System.EventHandler(this.pfirstNameTB_TextChanged_1);
             // 
             // plastNameTB
             // 
@@ -190,29 +191,29 @@ namespace Clinic_Management_System
             this.pfatherNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.Name = "pfatherNameTB";
-            this.pfatherNameTB.Size = new System.Drawing.Size(351, 35);
+            this.pfatherNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfatherNameTB.TabIndex = 10;
             this.pfatherNameTB.TextChanged += new System.EventHandler(this.pfatherNameTB_TextChanged);
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.addPatientGridView.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.addPatientGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.addPatientGridView.Location = new System.Drawing.Point(423, 202);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addPatientGridView.Name = "addPatientGridView";
@@ -331,11 +332,11 @@ namespace Clinic_Management_System
             this.patientIdTextBox.Enabled = false;
             this.patientIdTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.patientIdTextBox.Location = new System.Drawing.Point(673, 834);
-            this.patientIdTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.patientIdTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.patientIdTextBox.MaximumSize = new System.Drawing.Size(100, 35);
             this.patientIdTextBox.MinimumSize = new System.Drawing.Size(71, 35);
             this.patientIdTextBox.Name = "patientIdTextBox";
-            this.patientIdTextBox.Size = new System.Drawing.Size(71, 35);
+            this.patientIdTextBox.Size = new System.Drawing.Size(71, 27);
             this.patientIdTextBox.TabIndex = 47;
             // 
             // label16

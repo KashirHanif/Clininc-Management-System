@@ -272,5 +272,10 @@ namespace Clinic_Management_System
         {
             LoadControl(new PatientUserControl(username, password));
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
