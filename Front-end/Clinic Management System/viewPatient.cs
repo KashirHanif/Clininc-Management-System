@@ -11,12 +11,15 @@ namespace Clinic_Management_System
         // Connection string to your database
         string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
         // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-        public viewPatient()
+        private string username;
+        private string password;
+        public viewPatient(string username,string password)
         {
             InitializeComponent();
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
 
-
+            this.username = username;
+            this.password = password;
         }
 
         // Populate the DataGridView with patient data
@@ -66,14 +69,14 @@ namespace Clinic_Management_System
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            LoadControl(new addPatientUserCotroller());
+            LoadControl(new addPatientUserCotroller(username,password));
         }
 
         // Event handler to handle Update Patient
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Update Patient form or logic to update patient
-            LoadControl(new updatePatientUserCotroller());
+            LoadControl(new updatePatientUserCotroller(username,password));
         }
 
         // Event handler to handle View Patient
@@ -87,7 +90,7 @@ namespace Clinic_Management_System
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
             // Load the Add Appointment screen
-            LoadControl(new addAppointmentController());
+            LoadControl(new addAppointmentController(username,password));
         }
 
 

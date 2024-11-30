@@ -318,4 +318,14 @@ where designation = 'Doctor'
       where emp_status = 'Available'
   );
 
-select * from tbl_patient
+select * from tbl_patient p
+where p.patient_id in (
+	select patient_id from tbl_appointment a
+	where a.date_of_appointment = CAST(GETDATE() AS DATE)
+)
+
+select concat(f_name,' ',l_name) from tbl_employee
+where emp_id in (
+	select emp_id from login_table
+	where username = 'receptionist' and password = 'receptionist123'
+)

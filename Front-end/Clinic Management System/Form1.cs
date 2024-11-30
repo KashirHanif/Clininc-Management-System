@@ -30,6 +30,7 @@ namespace Clinic_Management_System
                     string username = usernameTextBox.Text;
                     string password = passwordTextBox.Text;
 
+                   
                     // SQL query to retrieve designation based on username and password
                     string query = @"
                                 SELECT e.designation 
@@ -58,7 +59,7 @@ namespace Clinic_Management_System
                             }
                             else if (designation == "Receptionist")
                             {
-                                LoadControl(new menu());
+                                LoadControl(new menu(username,password));
                             }
                             else if (designation == "Admin")
                             {

@@ -8,14 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Clinic_Management_System
 {
     public partial class addPatientUserCotroller : UserControl
     {
-        public addPatientUserCotroller()
+        private string username;
+        private string password;
+        public addPatientUserCotroller(string username,string password)
         {
             InitializeComponent();
+            this.username = username;
+            this.password = password;
         }
 
         private void addPatientUserCotroller_Load(object sender, EventArgs e)
@@ -208,7 +213,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller());
+            LoadControl(new updatePatientUserCotroller(username,password));
         }
 
         private void LoadControl(UserControl control)
@@ -231,6 +236,46 @@ namespace Clinic_Management_System
         private void plastNameTB_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            try
+            {
+                string query = @"
+                SELECT CONCAT(f_name, ' ', l_name)
+                FROM tbl_employee
+                WHERE emp_id IN (
+                    SELECT emp_id FROM login_table
+                    WHERE username = @username AND password = @password
+                )";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    connection.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        label16.Text = " ";
+                        string employeeName = result.ToString();
+                        label16.Text = "Incharge: " + employeeName;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Employee not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching employee name: " + ex.Message);
+            }
         }
     }
 }

@@ -13,9 +13,13 @@ namespace Clinic_Management_System
 {
     public partial class menu : UserControl
     {
-        public menu()
+        private string username;
+        private string password;
+        public menu(string username,string password)
         {
             InitializeComponent();
+            this.username = username;
+            this.password = password;
         }
 
         private void LoadControl(UserControl control)
@@ -26,7 +30,7 @@ namespace Clinic_Management_System
         }
         private void btnPatient_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl());
+            LoadControl(new PatientUserControl(username,password));
         }
 
         private void menu_Load(object sender, EventArgs e)

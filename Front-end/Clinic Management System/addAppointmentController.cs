@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace Clinic_Management_System
 {
     public partial class addAppointmentController : UserControl
     {
-        public addAppointmentController()
+        private string username;
+        private string password;
+        public addAppointmentController(string username,string password)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
@@ -26,12 +29,15 @@ namespace Clinic_Management_System
             this.comboBox1.DropDown += comboBox1_DropDown;
             this.comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
 
-
+            this.username = username;
+            this.password = password;
         }
 
         private void addAppointmentController_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
+            
+            
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -163,8 +169,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -205,8 +211,8 @@ namespace Clinic_Management_System
         {
             try
             {
-               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // Validate selected items in combo boxes
                 string bookedForName = comboBox2.SelectedItem?.ToString();
                 string bookedByName = comboBox1.SelectedItem?.ToString();
@@ -285,7 +291,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller());
+            LoadControl(new updatePatientUserCotroller(username,password));
         }
 
         private void LoadControl(UserControl control)
@@ -297,7 +303,7 @@ namespace Clinic_Management_System
 
         private void addPatientBtn_Click(object sender, EventArgs e)
         {
-            LoadControl(new addPatientUserCotroller());
+            LoadControl(new addPatientUserCotroller(username,password));
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -358,8 +364,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = @"SELECT CONCAT(f_name, ' ', l_name) AS DoctorName
                          FROM tbl_employee
                          WHERE designation = 'Doctor' 
@@ -408,8 +414,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = @"SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
                          FROM tbl_employee";
 
@@ -447,8 +453,8 @@ namespace Clinic_Management_System
         {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // Get the selected doctor name from comboBox2
                 string selectedDoctor = comboBox2.SelectedItem?.ToString();
                 DateTime selectedDate = aptDate.Value.Date;
@@ -535,8 +541,8 @@ namespace Clinic_Management_System
             if (!string.IsNullOrEmpty(phoneNumber))
             {
                 // Your connection string
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // SQL query to filter patients by phone number
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, CNIC FROM tbl_patient WHERE phone_number = @PhoneNumber";
 
@@ -590,5 +596,45 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            try
+            {
+                string query = @"
+                SELECT CONCAT(f_name, ' ', l_name)
+                FROM tbl_employee
+                WHERE emp_id IN (
+                    SELECT emp_id FROM login_table
+                    WHERE username = @username AND password = @password
+                )";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    connection.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        string employeeName = result.ToString();
+                        label5.Text = "Incharge: " + employeeName;
+                    }
+                    else
+                    {
+                        label5.Text = "Incharge: Not Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching employee name: " + ex.Message);
+            }
+        }
+        
     }
 }
