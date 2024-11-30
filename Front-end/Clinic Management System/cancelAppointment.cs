@@ -356,5 +356,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

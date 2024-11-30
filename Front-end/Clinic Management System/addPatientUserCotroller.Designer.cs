@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addPatientUserCotroller));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
@@ -98,7 +98,7 @@
             this.addPatientButton.Location = new System.Drawing.Point(75, 247);
             this.addPatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addPatientButton.Name = "addPatientButton";
-            this.addPatientButton.Size = new System.Drawing.Size(291, 85);
+            this.addPatientButton.Size = new System.Drawing.Size(291, 80);
             this.addPatientButton.TabIndex = 0;
             this.addPatientButton.Text = "Add Patient";
             this.addPatientButton.UseVisualStyleBackColor = false;
@@ -109,10 +109,10 @@
             this.updatePatientButton.BackColor = System.Drawing.Color.Maroon;
             this.updatePatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updatePatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.updatePatientButton.Location = new System.Drawing.Point(75, 351);
+            this.updatePatientButton.Location = new System.Drawing.Point(75, 346);
             this.updatePatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updatePatientButton.Name = "updatePatientButton";
-            this.updatePatientButton.Size = new System.Drawing.Size(291, 84);
+            this.updatePatientButton.Size = new System.Drawing.Size(291, 76);
             this.updatePatientButton.TabIndex = 1;
             this.updatePatientButton.Text = "Update Patient";
             this.updatePatientButton.UseVisualStyleBackColor = false;
@@ -123,10 +123,10 @@
             this.viewPatientButton.BackColor = System.Drawing.Color.Maroon;
             this.viewPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewPatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewPatientButton.Location = new System.Drawing.Point(75, 472);
+            this.viewPatientButton.Location = new System.Drawing.Point(75, 444);
             this.viewPatientButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.viewPatientButton.Name = "viewPatientButton";
-            this.viewPatientButton.Size = new System.Drawing.Size(291, 84);
+            this.viewPatientButton.Size = new System.Drawing.Size(291, 75);
             this.viewPatientButton.TabIndex = 2;
             this.viewPatientButton.Text = "View Patient";
             this.viewPatientButton.UseVisualStyleBackColor = false;
@@ -137,10 +137,10 @@
             this.cancelAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.cancelAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.cancelAppointmentButton.Location = new System.Drawing.Point(75, 660);
+            this.cancelAppointmentButton.Location = new System.Drawing.Point(75, 631);
             this.cancelAppointmentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelAppointmentButton.Name = "cancelAppointmentButton";
-            this.cancelAppointmentButton.Size = new System.Drawing.Size(291, 87);
+            this.cancelAppointmentButton.Size = new System.Drawing.Size(291, 76);
             this.cancelAppointmentButton.TabIndex = 3;
             this.cancelAppointmentButton.Text = "Cancel Appointment";
             this.cancelAppointmentButton.UseVisualStyleBackColor = false;
@@ -151,10 +151,10 @@
             this.viewAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.viewAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewAppointmentButton.Location = new System.Drawing.Point(75, 783);
+            this.viewAppointmentButton.Location = new System.Drawing.Point(75, 726);
             this.viewAppointmentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.viewAppointmentButton.Name = "viewAppointmentButton";
-            this.viewAppointmentButton.Size = new System.Drawing.Size(291, 94);
+            this.viewAppointmentButton.Size = new System.Drawing.Size(291, 79);
             this.viewAppointmentButton.TabIndex = 4;
             this.viewAppointmentButton.Text = "View Appointment";
             this.viewAppointmentButton.UseVisualStyleBackColor = false;
@@ -179,10 +179,10 @@
             this.addAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.addAppointmentButton.Location = new System.Drawing.Point(75, 574);
+            this.addAppointmentButton.Location = new System.Drawing.Point(75, 540);
             this.addAppointmentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addAppointmentButton.Name = "addAppointmentButton";
-            this.addAppointmentButton.Size = new System.Drawing.Size(291, 82);
+            this.addAppointmentButton.Size = new System.Drawing.Size(291, 71);
             this.addAppointmentButton.TabIndex = 7;
             this.addAppointmentButton.Text = "Add Appointment";
             this.addAppointmentButton.UseVisualStyleBackColor = false;
@@ -291,14 +291,14 @@
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(423, 434);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -569,7 +569,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(1545, 75);
+            this.label16.Location = new System.Drawing.Point(1624, 75);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(350, 38);
             this.label16.TabIndex = 46;
@@ -579,7 +579,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1493, 63);
+            this.pictureBox2.Location = new System.Drawing.Point(1573, 75);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(45, 50);
@@ -588,12 +588,15 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(177, 195);
+            this.button2.BackColor = System.Drawing.Color.Maroon;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button2.Location = new System.Drawing.Point(75, 825);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(291, 69);
             this.button2.TabIndex = 78;
-            this.button2.Text = "treatment";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Text = "Add treatment";
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // addPatientUserCotroller
             // 

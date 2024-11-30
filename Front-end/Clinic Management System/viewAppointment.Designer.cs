@@ -71,7 +71,7 @@ namespace Clinic_Management_System
             this.updatePatientButton.BackColor = System.Drawing.Color.Maroon;
             this.updatePatientButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updatePatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.updatePatientButton.Location = new System.Drawing.Point(50, 332);
+            this.updatePatientButton.Location = new System.Drawing.Point(50, 321);
             this.updatePatientButton.Name = "updatePatientButton";
             this.updatePatientButton.Size = new System.Drawing.Size(255, 65);
             this.updatePatientButton.TabIndex = 1;
@@ -84,7 +84,7 @@ namespace Clinic_Management_System
             this.viewPatientButton.BackColor = System.Drawing.Color.Maroon;
             this.viewPatientButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewPatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewPatientButton.Location = new System.Drawing.Point(50, 412);
+            this.viewPatientButton.Location = new System.Drawing.Point(50, 392);
             this.viewPatientButton.Name = "viewPatientButton";
             this.viewPatientButton.Size = new System.Drawing.Size(255, 65);
             this.viewPatientButton.TabIndex = 2;
@@ -97,7 +97,7 @@ namespace Clinic_Management_System
             this.addAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.addAppointmentButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.addAppointmentButton.Location = new System.Drawing.Point(50, 496);
+            this.addAppointmentButton.Location = new System.Drawing.Point(50, 463);
             this.addAppointmentButton.Name = "addAppointmentButton";
             this.addAppointmentButton.Size = new System.Drawing.Size(255, 68);
             this.addAppointmentButton.TabIndex = 3;
@@ -110,7 +110,7 @@ namespace Clinic_Management_System
             this.cancelAppointmentButton.BackColor = System.Drawing.Color.Maroon;
             this.cancelAppointmentButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.cancelAppointmentButton.Location = new System.Drawing.Point(50, 581);
+            this.cancelAppointmentButton.Location = new System.Drawing.Point(50, 537);
             this.cancelAppointmentButton.Name = "cancelAppointmentButton";
             this.cancelAppointmentButton.Size = new System.Drawing.Size(255, 64);
             this.cancelAppointmentButton.TabIndex = 4;
@@ -123,7 +123,7 @@ namespace Clinic_Management_System
             this.viewAppointmentsButton.BackColor = System.Drawing.Color.Maroon;
             this.viewAppointmentsButton.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewAppointmentsButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.viewAppointmentsButton.Location = new System.Drawing.Point(50, 662);
+            this.viewAppointmentsButton.Location = new System.Drawing.Point(50, 607);
             this.viewAppointmentsButton.Name = "viewAppointmentsButton";
             this.viewAppointmentsButton.Size = new System.Drawing.Size(255, 60);
             this.viewAppointmentsButton.TabIndex = 5;
@@ -259,12 +259,15 @@ namespace Clinic_Management_System
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(115, 218);
+            this.button3.BackColor = System.Drawing.Color.Maroon;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button3.Location = new System.Drawing.Point(50, 673);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 23);
+            this.button3.Size = new System.Drawing.Size(255, 54);
             this.button3.TabIndex = 79;
-            this.button3.Text = "treatment";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Text = "Add treatment";
+            this.button3.UseVisualStyleBackColor = false;
             // 
             // viewAppointment
             // 

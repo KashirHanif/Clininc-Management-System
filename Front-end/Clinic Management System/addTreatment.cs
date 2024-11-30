@@ -534,59 +534,59 @@ namespace Clinic_Management_System
         {
        
 
-            if (!string.IsNullOrEmpty(phoneNumber))
-            {
-                // Your connection string
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                // SQL query to filter patients by phone number
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, CNIC FROM tbl_patient WHERE phone_number = @PhoneNumber";
+            //if (!string.IsNullOrEmpty(phoneNumber))
+            //{
+            //    // Your connection string
+            //    //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //    string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //    // SQL query to filter patients by phone number
+            //    string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, CNIC FROM tbl_patient WHERE phone_number = @PhoneNumber";
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    try
-                    {
-                        connection.Open();
-                        using (SqlCommand cmd = new SqlCommand(query, connection))
-                        {
-                            // Add the phone number parameter to prevent SQL injection
-                            cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+            //    using (SqlConnection connection = new SqlConnection(connectionString))
+            //    {
+            //        try
+            //        {
+            //            connection.Open();
+            //            using (SqlCommand cmd = new SqlCommand(query, connection))
+            //            {
+            //                // Add the phone number parameter to prevent SQL injection
+                          
 
-                            // Set up the DataAdapter to fill the DataTable with the query results
-                            SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
-                            DataTable dataTable = new DataTable();
-                            dataAdapter.Fill(dataTable);
+            //                // Set up the DataAdapter to fill the DataTable with the query results
+            //                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+            //                DataTable dataTable = new DataTable();
+            //                dataAdapter.Fill(dataTable);
 
-                            // Bind the result to the DataGridView
-                            addPatientGridView.DataSource = dataTable;
+            //                // Bind the result to the DataGridView
+            //                addPatientGridView.DataSource = dataTable;
 
-                            // Set user-friendly column names
-                            addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                            addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                            addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                            addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                            addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                            addPatientGridView.Columns["street"].HeaderText = "Street";
-                            addPatientGridView.Columns["block"].HeaderText = "Block";
-                            addPatientGridView.Columns["city"].HeaderText = "City";
-                            addPatientGridView.Columns["country"].HeaderText = "Country";
-                            addPatientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
-                            addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                            addPatientGridView.Columns["gender"].HeaderText = "Gender";
-                            addPatientGridView.Columns["age"].HeaderText = "Age";
-                            addPatientGridView.Columns["CNIC"].HeaderText = "CNIC";
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please enter a phone number to search.");
-            }
+            //                // Set user-friendly column names
+            //                addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
+            //                addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
+            //                addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
+            //                addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
+            //                addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+            //                addPatientGridView.Columns["street"].HeaderText = "Street";
+            //                addPatientGridView.Columns["block"].HeaderText = "Block";
+            //                addPatientGridView.Columns["city"].HeaderText = "City";
+            //                addPatientGridView.Columns["country"].HeaderText = "Country";
+            //                addPatientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
+            //                addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+            //                addPatientGridView.Columns["gender"].HeaderText = "Gender";
+            //                addPatientGridView.Columns["age"].HeaderText = "Age";
+            //                addPatientGridView.Columns["CNIC"].HeaderText = "CNIC";
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show("Error: " + ex.Message);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Please enter a phone number to search.");
+            //}
         }
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
