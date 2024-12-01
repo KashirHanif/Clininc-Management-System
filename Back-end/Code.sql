@@ -137,6 +137,9 @@ create table tbl_emp_shift (
 alter table tbl_treatment
 drop column treatment_date
 
+alter table tbl_treatment
+drop column diagnosis
+
 alter table tbl_inventory
 add constraint chk_selling_price check (selling_price >= purchase_price);
 
@@ -192,6 +195,15 @@ ADD appointment_type VARCHAR(50);
 
 ALTER TABLE tbl_appointment
 ADD CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id);
+
+alter table tbl_treatment
+alter column treatment_type varchar(50)
+
+alter table tbl_billing
+add bill_status varchar(50)
+
+alter table tbl_billing
+add remaining_payment varchar(50)
 
 
 --Query
@@ -360,3 +372,23 @@ where appointment_status = 'Booked' and date_of_appointment = CAST(GETDATE() AS 
 INSERT INTO tbl_appointment (booked_by_emp_id, booked_for_emp_id, date_of_appointment, time_of_appointment, appointment_status,patient_id,appointment_type)
 VALUES
 (1, 4, '2024-11-30', '14:15:00', 'Cancelled',21,'Online')
+
+insert into tbl_treatment (treatment_type,emp_id,patient_id) values('consultation & treatment',4,13);
+
+
+SELECT 
+    p.*,
+    t.treatment_type,
+    (SELECT CONCAT(e.f_name, ' ', e.l_name) 
+     FROM tbl_employee e 
+     WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName,
+    a.date_of_appointment,
+    b.bill_status,
+    b.remaining_payment
+FROM 
+    tbl_patient p
+LEFT JOIN tbl_treatment t ON p.patient_id = t.patient_id
+LEFT JOIN tbl_appointment a ON p.patient_id = a.patient_id
+LEFT JOIN tbl_billing b ON t.treatment_id = b.treatment_id;
+
+select * from tbl_treatment

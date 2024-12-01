@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addInventory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="addInventory.Designer.cs">
+      <DependentUpon>addInventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="addTreatment.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -63,6 +69,12 @@
     </Compile>
     <Compile Include="cancelAppointment.Designer.cs">
       <DependentUpon>cancelAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="inventory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="inventory.Designer.cs">
+      <DependentUpon>inventory.cs</DependentUpon>
     </Compile>
     <Compile Include="viewAppointment.cs">
       <SubType>UserControl</SubType>
@@ -120,6 +132,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="addInventory.resx">
+      <DependentUpon>addInventory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addTreatment.resx">
       <DependentUpon>addTreatment.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cancelAppointment.resx">
       <DependentUpon>cancelAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="inventory.resx">
+      <DependentUpon>inventory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="viewAppointment.resx">
       <DependentUpon>viewAppointment.cs</DependentUpon>
