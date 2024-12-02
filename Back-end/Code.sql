@@ -91,22 +91,19 @@ create table tbl_billing (
 	foreign key (patient_id) references tbl_patient(patient_id),
 );
 
-create table tbl_inventory (
-    item_id int identity(1,1) primary key,
-    item_name varchar(50) not null,
-    category varchar(30),
-    num_of_packs decimal(10, 2) default 0.00 check (num_of_packs >= 0),
-    strips_per_pack decimal(10, 2) default 0.00 check (strips_per_pack >= 0),
-    tablets_per_strip int default 0 check (tablets_per_strip >= 0),
-    quantity_of_strips decimal(10, 2) default 0.00 check (quantity_of_strips >= 0),
-    quantity_of_tablets decimal(10, 2) default 0.00 check (quantity_of_tablets >= 0),
-    purchase_price decimal(10, 2) not null check (purchase_price > 0),
-    selling_price decimal(10, 2) not null,
-    expiration_date date not null,
-    date_of_purchase date not null,
-    item_status varchar(20),
-    batch_no varchar(10)
-);
+CREATE TABLE tbl_inventory (
+    item_id INT IDENTITY(1,1) PRIMARY KEY,
+    item_name VARCHAR(50) NOT NULL,
+    category VARCHAR(30) NOT NULL,
+    quantity DECIMAL(10, 2) DEFAULT 0.00 CHECK (quantity >= 0), -- Generic field for quantity
+    unit_of_measurement VARCHAR(20) NOT NULL, -- E.g., "packs", "pieces", "ml", etc.
+    purchase_price DECIMAL(10, 2) NOT NULL CHECK (purchase_price > 0),
+    selling_price DECIMAL(10, 2) NOT NULL CHECK (selling_price > 0),
+    expiration_date DATE, -- Nullable for non-perishable items
+    date_of_purchase DATE NOT NULL,
+    item_status VARCHAR(20) CHECK (item_status IN ('Available', 'Out of Stock', 'Expired')), -- Predefined statuses
+    batch_no VARCHAR(20)
+   );
 
 create table tbl_treatment_inventory (
     treatment_id int,
@@ -204,6 +201,12 @@ add bill_status varchar(50)
 
 alter table tbl_billing
 add remaining_payment varchar(50)
+
+ALTER TABLE tbl_treatment_inventory
+ADD CONSTRAINT FK_tbl_treatment_inventory_item_id
+FOREIGN KEY (item_id)
+REFERENCES tbl_inventory(item_id);
+
 
 
 --Query
@@ -332,7 +335,7 @@ where designation = 'Doctor'
   and emp_id IN (
       select emp_id from tbl_emp_working_hours 
       where emp_status = 'Available'
-  );
+  );
 
 
 
@@ -392,3 +395,39 @@ LEFT JOIN tbl_appointment a ON p.patient_id = a.patient_id
 LEFT JOIN tbl_billing b ON t.treatment_id = b.treatment_id;
 
 select * from tbl_treatment
+
+INSERT INTO tbl_inventory (item_name, category, quantity, unit_of_measurement, purchase_price, selling_price,expiration_date, date_of_purchase, item_status, batch_no) 
+VALUES 
+('Syringe', 'Medical Equipment', 100, 'pieces', 50.00, 75.00,'2025-12-01', '2023-12-01', 'Available', 'BATCH001');
+
+
+
+
+ALTER TABLE tbl_treatment_inventory
+DROP CONSTRAINT FK_tbl_treatitem__51300E55;
+
+delete from tbl_inventory
+
+SELECT 
+    fk.name AS ForeignKeyName,
+    tp.name AS ParentTable,
+    cp.name AS ParentColumn,
+    tr.name AS ReferencedTable,
+    cr.name AS ReferencedColumn
+FROM 
+    sys.foreign_keys AS fk
+INNER JOIN 
+    sys.foreign_key_columns AS fkc ON fk.object_id = fkc.constraint_object_id
+INNER JOIN 
+    sys.tables AS tp ON fk.parent_object_id = tp.object_id
+INNER JOIN 
+    sys.tables AS tr ON fk.referenced_object_id = tr.object_id
+INNER JOIN 
+    sys.columns AS cp ON fkc.parent_object_id = cp.object_id AND fkc.parent_column_id = cp.column_id
+INNER JOIN 
+    sys.columns AS cr ON fkc.referenced_object_id = cr.object_id AND fkc.referenced_column_id = cr.column_id
+WHERE 
+    tp.name = 'tbl_inventory' OR tr.name = 'tbl_inventory'
+ORDER BY 
+    fk.name;
+
