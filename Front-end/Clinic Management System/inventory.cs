@@ -10,8 +10,8 @@ namespace Clinic_Management_System
     public partial class inventory : UserControl
     {
         // Connection string to your database
-        string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-       // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+       // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+       string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
         private string username;
         private string password;
@@ -232,9 +232,8 @@ namespace Clinic_Management_System
                           AND date_of_appointment = CAST(GETDATE() AS DATE);";
 
                     // Execute each query and update the labels
-                    label1.Text = "Booked: " + GetAppointmentCount(connection, bookedQuery).ToString();
-                    label2.Text = "Attended: " + GetAppointmentCount(connection, attendedQuery).ToString();
-                    label3.Text = "Cancelled: " + GetAppointmentCount(connection, cancelledQuery).ToString();
+                    
+                    
                 }
             }
             catch (Exception ex)
@@ -277,6 +276,36 @@ namespace Clinic_Management_System
         private void button2_Click(object sender, EventArgs e)
         {
             LoadControl(new addTreatment(username, password));
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
