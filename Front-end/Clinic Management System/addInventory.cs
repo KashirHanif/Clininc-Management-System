@@ -16,7 +16,7 @@ namespace Clinic_Management_System
     {
         private string username;
         private string password;
-        public addInventory(string username,string password)
+        public addInventory(string username, string password)
         {
             InitializeComponent();
             this.username = username;
@@ -113,7 +113,7 @@ namespace Clinic_Management_System
 
         }
 
-        
+
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateDataGridView();
@@ -122,9 +122,10 @@ namespace Clinic_Management_System
         {
             try
             {
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string query = "SELECT item_id, item_name, category, quantity, unit_of_measurement, " +
+                               "purchase_price, selling_price, expiration_date, date_of_purchase, " +
+                               "item_status, batch_no FROM tbl_inventory";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -137,20 +138,19 @@ namespace Clinic_Management_System
                     addPatientGridView.DataSource = dataTable;
 
                     // Set user-friendly column names
-                    addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    addPatientGridView.Columns["street"].HeaderText = "Street";
-                    addPatientGridView.Columns["block"].HeaderText = "Block";
-                    addPatientGridView.Columns["city"].HeaderText = "City";
-                    addPatientGridView.Columns["country"].HeaderText = "Country";
-                    addPatientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
-                    addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    addPatientGridView.Columns["gender"].HeaderText = "Gender";
-                    addPatientGridView.Columns["age"].HeaderText = "Age";
+                    addPatientGridView.Columns["item_id"].HeaderText = "Item ID";
+                    addPatientGridView.Columns["item_name"].HeaderText = "Item Name";
+                    addPatientGridView.Columns["category"].HeaderText = "Category";
+                    addPatientGridView.Columns["quantity"].HeaderText = "Quantity";
+                    addPatientGridView.Columns["unit_of_measurement"].HeaderText = "Unit of Measurement";
+                    addPatientGridView.Columns["purchase_price"].HeaderText = "Purchase Price";
+                    addPatientGridView.Columns["selling_price"].HeaderText = "Selling Price";
+                    addPatientGridView.Columns["expiration_date"].HeaderText = "Expiration Date";
+                    addPatientGridView.Columns["date_of_purchase"].HeaderText = "Date of Purchase";
+                    addPatientGridView.Columns["item_status"].HeaderText = "Item Status";
+                    addPatientGridView.Columns["batch_no"].HeaderText = "Batch No";
 
+                    // Adjust column widths for better display
                     addPatientGridView.AutoResizeColumns();
                 }
             }
@@ -159,6 +159,7 @@ namespace Clinic_Management_System
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
 
         private void addButton_Click_1(object sender, EventArgs e)
         {
@@ -175,8 +176,8 @@ namespace Clinic_Management_System
                 DateTime selectedDOB = pDOBTB.Value;
 
                 // Connection and SQL Command
-                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = "INSERT INTO tbl_patient (p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic) " +
@@ -213,7 +214,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller(username,password));
+            LoadControl(new updatePatientUserCotroller(username, password));
         }
 
         private void LoadControl(UserControl control)
@@ -240,8 +241,8 @@ namespace Clinic_Management_System
 
         private void label16_Click(object sender, EventArgs e)
         {
-            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
