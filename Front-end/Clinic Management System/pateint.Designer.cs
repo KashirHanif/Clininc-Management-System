@@ -210,7 +210,7 @@ namespace Clinic_Management_System
             this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label16.Location = new System.Drawing.Point(1109, 100);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(297, 31);
+            this.label16.Size = new System.Drawing.Size(350, 38);
             this.label16.TabIndex = 70;
             this.label16.Text = "Incharge: receptionist";
             this.label16.Click += new System.EventHandler(this.label16_Click);
@@ -252,7 +252,7 @@ namespace Clinic_Management_System
             this.label1.ForeColor = System.Drawing.Color.Gold;
             this.label1.Location = new System.Drawing.Point(515, 323);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 30);
+            this.label1.Size = new System.Drawing.Size(165, 37);
             this.label1.TabIndex = 74;
             this.label1.Text = "Booked : 0";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -265,7 +265,7 @@ namespace Clinic_Management_System
             this.label2.ForeColor = System.Drawing.Color.LawnGreen;
             this.label2.Location = new System.Drawing.Point(882, 323);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 30);
+            this.label2.Size = new System.Drawing.Size(191, 37);
             this.label2.TabIndex = 75;
             this.label2.Text = "Attended : 0";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -278,7 +278,7 @@ namespace Clinic_Management_System
             this.label3.ForeColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(1242, 323);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 30);
+            this.label3.Size = new System.Drawing.Size(192, 37);
             this.label3.TabIndex = 76;
             this.label3.Text = "Cancelled : 0";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -288,7 +288,7 @@ namespace Clinic_Management_System
             this.button2.BackColor = System.Drawing.Color.Maroon;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(544, 422);
+            this.button2.Location = new System.Drawing.Point(50, 675);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(255, 62);
             this.button2.TabIndex = 77;
@@ -302,7 +302,7 @@ namespace Clinic_Management_System
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(390, 444);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 20);
+            this.label4.Size = new System.Drawing.Size(149, 25);
             this.label4.TabIndex = 78;
             this.label4.Text = "Patients today";
             // 

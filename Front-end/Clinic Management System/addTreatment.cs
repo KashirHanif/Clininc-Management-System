@@ -172,7 +172,7 @@ namespace Clinic_Management_System
 
         private void PopulateDataGridView()
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 // Query to retrieve appointment details along with patient and employee information
@@ -317,8 +317,8 @@ namespace Clinic_Management_System
 
         private void label5_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -389,7 +389,9 @@ namespace Clinic_Management_System
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+
+            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
             try
             {
@@ -470,6 +472,11 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
 
         }
     }

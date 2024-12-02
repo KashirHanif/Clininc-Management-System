@@ -232,7 +232,8 @@ namespace Clinic_Management_System
                 int appointmentId = int.Parse(patientIdTextBox.Text); // Assuming this is numeric and non-null
 
                 // Update query to set the appointment status to "Cancelled"
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"
@@ -360,6 +361,11 @@ namespace Clinic_Management_System
         private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addTreatment(username, password));
         }
     }
 }

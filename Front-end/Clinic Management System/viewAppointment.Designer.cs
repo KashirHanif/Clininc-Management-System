@@ -157,13 +157,13 @@ namespace Clinic_Management_System
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.patientGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.patientGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.patientGridView.Location = new System.Drawing.Point(395, 250);
+            this.patientGridView.Location = new System.Drawing.Point(395, 266);
             this.patientGridView.Name = "patientGridView";
             this.patientGridView.RowHeadersWidth = 51;
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
             this.patientGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.patientGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.patientGridView.Size = new System.Drawing.Size(1089, 494);
+            this.patientGridView.Size = new System.Drawing.Size(1089, 478);
             this.patientGridView.TabIndex = 8;
             this.patientGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientGridView_CellContentClick);
             // 
@@ -264,10 +264,11 @@ namespace Clinic_Management_System
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button3.Location = new System.Drawing.Point(50, 673);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(255, 54);
+            this.button3.Size = new System.Drawing.Size(255, 64);
             this.button3.TabIndex = 79;
             this.button3.Text = "Add treatment";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // viewAppointment
             // 

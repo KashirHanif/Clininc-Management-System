@@ -298,5 +298,10 @@ namespace Clinic_Management_System
         {
             LoadControl(new PatientUserControl(username, password));
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addTreatment(username, password));
+        }
     }
 }
