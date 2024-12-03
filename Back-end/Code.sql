@@ -101,7 +101,7 @@ CREATE TABLE tbl_inventory (
     selling_price DECIMAL(10, 2) NOT NULL CHECK (selling_price > 0),
     expiration_date DATE, -- Nullable for non-perishable items
     date_of_purchase DATE NOT NULL,
-    item_status VARCHAR(20) CHECK (item_status IN ('Available', 'Out of Stock', 'Expired')), -- Predefined statuses
+    item_status VARCHAR(20) CHECK (item_status IN ('Available', 'Out of Stock', 'Expired'))
     batch_no VARCHAR(20)
    );
 
@@ -400,34 +400,26 @@ INSERT INTO tbl_inventory (item_name, category, quantity, unit_of_measurement, p
 VALUES 
 ('Syringe', 'Medical Equipment', 100, 'pieces', 50.00, 75.00,'2025-12-01', '2023-12-01', 'Available', 'BATCH001');
 
-
-
-
 ALTER TABLE tbl_treatment_inventory
 DROP CONSTRAINT FK_tbl_treatitem__51300E55;
 
 delete from tbl_inventory
 
-SELECT 
-    fk.name AS ForeignKeyName,
-    tp.name AS ParentTable,
-    cp.name AS ParentColumn,
-    tr.name AS ReferencedTable,
-    cr.name AS ReferencedColumn
-FROM 
-    sys.foreign_keys AS fk
-INNER JOIN 
-    sys.foreign_key_columns AS fkc ON fk.object_id = fkc.constraint_object_id
-INNER JOIN 
-    sys.tables AS tp ON fk.parent_object_id = tp.object_id
-INNER JOIN 
-    sys.tables AS tr ON fk.referenced_object_id = tr.object_id
-INNER JOIN 
-    sys.columns AS cp ON fkc.parent_object_id = cp.object_id AND fkc.parent_column_id = cp.column_id
-INNER JOIN 
-    sys.columns AS cr ON fkc.referenced_object_id = cr.object_id AND fkc.referenced_column_id = cr.column_id
-WHERE 
-    tp.name = 'tbl_inventory' OR tr.name = 'tbl_inventory'
-ORDER BY 
-    fk.name;
+SELECT name 
+FROM sys.check_constraints 
+WHERE parent_object_id = OBJECT_ID('tbl_inventory') 
+AND parent_column_id = (
+    SELECT column_id 
+    FROM sys.columns 
+    WHERE object_id = OBJECT_ID('tbl_inventory') 
+    AND name = 'item_status'
+);
+
+
+ALTER TABLE tbl_inventory
+DROP CONSTRAINT CK__tbl_inven__item___0C50D423
+
+ALTER TABLE tbl_inventory
+ADD CONSTRAINT chk_item_status
+CHECK (item_status IN ('Available', 'Out of Stock', 'Expired', 'Near Expiry', 'Top Sold'));
 

@@ -367,5 +367,10 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password));
         }
+
+        private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

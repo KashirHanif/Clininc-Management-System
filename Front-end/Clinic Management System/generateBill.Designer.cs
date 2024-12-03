@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Clinic_Management_System
 {
-    partial class inventory
+    partial class generateBill
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.DataGridView patientGridView;
@@ -591,9 +591,9 @@ namespace Clinic_Management_System
             this.Controls.Add(this.patientGridView);
             this.MaximumSize = new System.Drawing.Size(2000, 1100);
             this.MinimumSize = new System.Drawing.Size(2000, 1000);
-            this.Name = "inventory";
+            this.Name = "generateBill";
             this.Size = new System.Drawing.Size(2000, 1000);
-            this.Load += new System.EventHandler(this.inventory_Load);
+            this.Load += new System.EventHandler(this.generateBill_Load);
             ((System.ComponentModel.ISupportInitialize)(this.patientGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mediAidLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();

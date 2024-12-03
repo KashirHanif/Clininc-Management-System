@@ -479,5 +479,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void genBill_Click(object sender, EventArgs e)
+        {
+            LoadControl(new generateBill(username, password));
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Clinic_Management_System
 {
-    public partial class inventory : UserControl
+    public partial class generateBill : UserControl
     {
         // Connection string to your database
         string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
@@ -16,7 +16,7 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private int selectedItemId = -1;
-        public inventory(string username,string password)
+        public generateBill(string username,string password)
         {
             InitializeComponent();
             this.patientGridView.CellClick += new DataGridViewCellEventHandler(this.patientGridView_CellContentClick);
@@ -156,7 +156,7 @@ namespace Clinic_Management_System
         }
 
         // Event handler to load the user control
-        private void inventory_Load(object sender, EventArgs e)
+        private void generateBill_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
             int outOfStockCount = GetOutOfStockCount();
