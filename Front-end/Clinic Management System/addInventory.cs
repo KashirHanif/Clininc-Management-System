@@ -299,5 +299,15 @@ namespace Clinic_Management_System
         {
             LoadControl(new PatientUserControl(username, password));
         }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
