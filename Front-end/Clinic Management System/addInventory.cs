@@ -165,16 +165,9 @@ namespace Clinic_Management_System
         {
             try
             {
-                // Validate inputs
-                if (string.IsNullOrWhiteSpace(pfirstNameTB.Text) || string.IsNullOrWhiteSpace(plastNameTB.Text))
-                {
-                    MessageBox.Show("First name and Last name are required.", "Validation Error");
-                    return;
-                }
+               
 
-                // Get the date from the DateTimePicker
-                DateTime selectedDOB = pDOBTB.Value;
-
+            
                 // Connection and SQL Command
                 string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
@@ -185,18 +178,8 @@ namespace Clinic_Management_System
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@FirstName", pfirstNameTB.Text);
-                    cmd.Parameters.AddWithValue("@LastName", plastNameTB.Text);
-                    cmd.Parameters.AddWithValue("@FatherName", pfatherNameTB.Text);
-                    cmd.Parameters.AddWithValue("@DOB", selectedDOB); // Use DateTimePicker's Value
-                    cmd.Parameters.AddWithValue("@Street", pstreetTB.Text);
-                    cmd.Parameters.AddWithValue("@Block", pBlockTB.Text);
-                    cmd.Parameters.AddWithValue("@City", pCityTB.Text);
-                    cmd.Parameters.AddWithValue("@Country", pCountryTB.Text);
-                    cmd.Parameters.AddWithValue("@CountryCode", pCountryCodeTB.Text);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", pPhonenumTB.Text);
-                    cmd.Parameters.AddWithValue("@Gender", pGender2.Text);
-                    cmd.Parameters.AddWithValue("@Age", pAgeTB.Text);
-                    cmd.Parameters.AddWithValue("@CNIC", pCNIC.Text);
+                
+
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -306,6 +289,11 @@ namespace Clinic_Management_System
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

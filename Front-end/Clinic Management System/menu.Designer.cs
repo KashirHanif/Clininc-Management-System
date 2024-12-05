@@ -48,9 +48,10 @@
             this.btnPatient.BackColor = System.Drawing.Color.Maroon;
             this.btnPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPatient.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnPatient.Location = new System.Drawing.Point(616, 335);
+            this.btnPatient.Location = new System.Drawing.Point(821, 412);
+            this.btnPatient.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPatient.Name = "btnPatient";
-            this.btnPatient.Size = new System.Drawing.Size(420, 102);
+            this.btnPatient.Size = new System.Drawing.Size(560, 126);
             this.btnPatient.TabIndex = 0;
             this.btnPatient.Text = "PATIENT";
             this.btnPatient.UseVisualStyleBackColor = false;
@@ -61,21 +62,24 @@
             this.btnDoctors.BackColor = System.Drawing.Color.Maroon;
             this.btnDoctors.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDoctors.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDoctors.Location = new System.Drawing.Point(616, 490);
+            this.btnDoctors.Location = new System.Drawing.Point(821, 603);
+            this.btnDoctors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDoctors.Name = "btnDoctors";
-            this.btnDoctors.Size = new System.Drawing.Size(420, 102);
+            this.btnDoctors.Size = new System.Drawing.Size(560, 126);
             this.btnDoctors.TabIndex = 1;
             this.btnDoctors.Text = "DOCTORS";
             this.btnDoctors.UseVisualStyleBackColor = false;
+            this.btnDoctors.Click += new System.EventHandler(this.btnDoctors_Click);
             // 
             // btnInventory
             // 
             this.btnInventory.BackColor = System.Drawing.Color.Maroon;
             this.btnInventory.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInventory.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnInventory.Location = new System.Drawing.Point(616, 630);
+            this.btnInventory.Location = new System.Drawing.Point(821, 775);
+            this.btnInventory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnInventory.Name = "btnInventory";
-            this.btnInventory.Size = new System.Drawing.Size(420, 102);
+            this.btnInventory.Size = new System.Drawing.Size(560, 126);
             this.btnInventory.TabIndex = 2;
             this.btnInventory.Text = "INVENTORY";
             this.btnInventory.UseVisualStyleBackColor = false;
@@ -86,55 +90,56 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(692, 247);
+            this.label1.Location = new System.Drawing.Point(923, 304);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 55);
+            this.label1.Size = new System.Drawing.Size(210, 69);
             this.label1.TabIndex = 4;
             this.label1.Text = "MENU";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(484, 60);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(645, 74);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(593, 146);
+            this.pictureBox1.Size = new System.Drawing.Size(791, 180);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(491, 335);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Location = new System.Drawing.Point(655, 412);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 96);
+            this.pictureBox2.Size = new System.Drawing.Size(133, 118);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(491, 501);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Location = new System.Drawing.Point(655, 617);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 90);
+            this.pictureBox3.Size = new System.Drawing.Size(133, 111);
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(484, 630);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox4.Location = new System.Drawing.Point(645, 775);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(100, 102);
+            this.pictureBox4.Size = new System.Drawing.Size(133, 126);
             this.pictureBox4.TabIndex = 8;
             this.pictureBox4.TabStop = false;
             // 
             // menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.pictureBox4);
@@ -146,10 +151,11 @@
             this.Controls.Add(this.btnDoctors);
             this.Controls.Add(this.btnPatient);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.MaximumSize = new System.Drawing.Size(1500, 894);
-            this.MinimumSize = new System.Drawing.Size(1500, 894);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximumSize = new System.Drawing.Size(2000, 1100);
+            this.MinimumSize = new System.Drawing.Size(2000, 1100);
             this.Name = "menu";
-            this.Size = new System.Drawing.Size(1500, 894);
+            this.Size = new System.Drawing.Size(2000, 1100);
             this.Load += new System.EventHandler(this.menu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

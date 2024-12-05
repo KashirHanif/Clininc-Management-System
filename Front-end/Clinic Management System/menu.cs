@@ -42,5 +42,10 @@ namespace Clinic_Management_System
         {
             LoadControl(new inventory(username, password));
         }
+
+        private void btnDoctors_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addInventory(username, password));
+        }
     }
 }
