@@ -27,6 +27,12 @@ create table tbl_employee (
 	institution varchar(50)
 );
 
+create table tbl_department(
+	emp_id int,
+	department varchar(50),
+	foreign key(emp_id) references tbl_employee(emp_id)
+);
+
 create table tbl_patient (
 	patient_id int identity(1,1) primary key,
 	p_f_name varchar(20),
@@ -422,4 +428,33 @@ DROP CONSTRAINT CK__tbl_inven__item___0C50D423
 ALTER TABLE tbl_inventory
 ADD CONSTRAINT chk_item_status
 CHECK (item_status IN ('Available', 'Out of Stock', 'Expired', 'Near Expiry', 'Top Sold'));
+
+ update tbl_inventory 
+ set item_status = 
+     case 
+         when expiration_date <= GETDATE() then 'Expired' 
+         when expiration_date > GETDATE() AND expiration_date <= DATEADD(MONTH, 3, GETDATE()) THEN 'Near Expiry'
+         else item_status 
+    end
+ where item_status not in ('Expired', 'Near Expiry')
+
+ create procedure view_appointments_by_doctor
+ @doctorName varchar(50)
+AS
+BEGIN
+    SELECT 
+        a.appointment_id AS AppointmentID,
+        a.date_of_appointment AS AppointmentDate,
+        a.time_of_appointment AS AppointmentTime,
+        CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+        CONCAT(be.f_name, ' ', be.l_name) AS BookedByEmployee,
+        CONCAT(bfe.f_name, ' ', bfe.l_name) AS BookedForEmployee
+    FROM tbl_appointment a
+    inner join tbl_patient p ON p.patient_id = a.patient_id
+    inner join tbl_employee be ON be.emp_id = a.booked_by_emp_id
+    inner join tbl_employee bfe ON bfe.emp_id = a.booked_for_emp_id
+        and concat(bfe.f_name, ' ', bfe.l_name) = @doctorName
+END
+
+
 
