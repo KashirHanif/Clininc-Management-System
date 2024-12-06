@@ -47,7 +47,7 @@ namespace Clinic_Management_System
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.findByDoctor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.patientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mediAidLogo)).BeginInit();
@@ -204,7 +204,7 @@ namespace Clinic_Management_System
             this.comboBox1.MaximumSize = new System.Drawing.Size(250, 0);
             this.comboBox1.MinimumSize = new System.Drawing.Size(250, 0);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(250, 33);
+            this.comboBox1.Size = new System.Drawing.Size(250, 28);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -224,7 +224,7 @@ namespace Clinic_Management_System
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(1230, 186);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 22);
+            this.label1.Size = new System.Drawing.Size(153, 18);
             this.label1.TabIndex = 13;
             this.label1.Text = "Filter Appointments";
             // 
@@ -233,7 +233,7 @@ namespace Clinic_Management_System
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(1174, 84);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(310, 27);
+            this.textBox1.Size = new System.Drawing.Size(310, 23);
             this.textBox1.TabIndex = 14;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -272,20 +272,17 @@ namespace Clinic_Management_System
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // comboBox2
+            // findByDoctor
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Ahmad Raza",
-            "Imran Shah"});
-            this.comboBox2.Location = new System.Drawing.Point(902, 211);
-            this.comboBox2.MaximumSize = new System.Drawing.Size(250, 0);
-            this.comboBox2.MinimumSize = new System.Drawing.Size(250, 0);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(250, 33);
-            this.comboBox2.TabIndex = 80;
+            this.findByDoctor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.findByDoctor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findByDoctor.FormattingEnabled = true;
+            this.findByDoctor.Location = new System.Drawing.Point(902, 211);
+            this.findByDoctor.MaximumSize = new System.Drawing.Size(250, 0);
+            this.findByDoctor.MinimumSize = new System.Drawing.Size(250, 0);
+            this.findByDoctor.Name = "findByDoctor";
+            this.findByDoctor.Size = new System.Drawing.Size(250, 28);
+            this.findByDoctor.TabIndex = 80;
             // 
             // label2
             // 
@@ -294,7 +291,7 @@ namespace Clinic_Management_System
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(898, 186);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(148, 22);
+            this.label2.Size = new System.Drawing.Size(125, 18);
             this.label2.TabIndex = 81;
             this.label2.Text = "Filter by Doctor";
             // 
@@ -302,7 +299,7 @@ namespace Clinic_Management_System
             // 
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.findByDoctor);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button2);
@@ -342,7 +339,7 @@ namespace Clinic_Management_System
         private Button button2;
         private PictureBox pictureBox2;
         private Button button3;
-        private ComboBox comboBox2;
+        private ComboBox findByDoctor;
         private Label label2;
     }
 }

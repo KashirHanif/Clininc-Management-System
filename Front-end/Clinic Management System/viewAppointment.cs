@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clinic_Management_System
 {
@@ -18,6 +19,12 @@ namespace Clinic_Management_System
         {
             InitializeComponent();
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            
+
+            this.findByDoctor.DropDown += findByDoctor_DropDown;
+            this.findByDoctor.SelectedIndexChanged += findByDoctor_SelectedIndexChanged;
+
+
             this.username = username;
             this.password = password;
             this.connectionString = connectionString;
@@ -31,20 +38,20 @@ namespace Clinic_Management_System
             {
                 // Query to retrieve appointment details along with patient and employee information
                 string query = @"
-            SELECT 
-                a.appointment_id AS AppointmentID,
-                a.date_of_appointment AS AppointmentDate,
-                a.time_of_appointment AS AppointmentTime,
-                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
-                 FROM tbl_patient p 
-                 WHERE p.patient_id = a.patient_id) AS PatientName,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
-            FROM tbl_appointment a;";
+                    SELECT 
+                        a.appointment_id AS AppointmentID,
+                        a.date_of_appointment AS AppointmentDate,
+                        a.time_of_appointment AS AppointmentTime,
+                        (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                         FROM tbl_patient p 
+                         WHERE p.patient_id = a.patient_id) AS PatientName,
+                        (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                         FROM tbl_employee e 
+                         WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                        (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                         FROM tbl_employee e 
+                         WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+                    FROM tbl_appointment a;";
 
                 // Using connection and command to fetch data
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -226,6 +233,60 @@ namespace Clinic_Management_System
             }
         }
 
+        private void findByDoctor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the selected doctor's name
+                string selectedDoctorName = findByDoctor.SelectedItem?.ToString();
+
+                if (string.IsNullOrEmpty(selectedDoctorName))
+                {
+                    MessageBox.Show("Please select a doctor.");
+                    return;
+                }
+
+                // Use stored procedure to fetch appointments for the selected doctor
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Open the connection
+                    connection.Open();
+
+                    // Set up the SqlCommand for the stored procedure
+                    SqlCommand cmd = new SqlCommand("view_appointments_by_doctor", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    // Add the doctor name parameter
+                    cmd.Parameters.AddWithValue("@doctorName", selectedDoctorName);
+
+                    // Execute the procedure and fill a DataTable
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // Bind the DataTable to the DataGridView
+                    patientGridView.DataSource = dataTable;
+
+                    // Set user-friendly column headers
+                    patientGridView.Columns["AppointmentID"].HeaderText = "Appointment ID";
+                    patientGridView.Columns["AppointmentDate"].HeaderText = "Appointment Date";
+                    patientGridView.Columns["AppointmentTime"].HeaderText = "Appointment Time";
+                    patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                    patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                    patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
+
+                    // Auto-resize columns for better visibility
+                    patientGridView.AutoResizeColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -300,5 +361,45 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password, connectionString));
         }
+        private void PopulateDoctorsComboBox()
+        {
+            try
+            {
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string query = @"SELECT CONCAT(f_name, ' ', l_name) AS DoctorName
+                         FROM tbl_employee
+                         WHERE designation = 'Doctor' 
+                        ";
+
+                findByDoctor.Items.Clear(); // Clear existing items before adding new ones
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string doctorName = reader["DoctorName"].ToString();
+                                findByDoctor.Items.Add(doctorName); // Add each doctor name to the ComboBox
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading doctors: " + ex.Message);
+            }
+        }
+        private void findByDoctor_DropDown(object sender, EventArgs e)
+        {
+            PopulateDoctorsComboBox();
+        }
+
+
     }
 }
