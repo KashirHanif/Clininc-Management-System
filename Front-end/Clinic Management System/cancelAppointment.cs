@@ -15,13 +15,15 @@ namespace Clinic_Management_System
     {
         private string username;
         private string password;
-        public cancelAppointment(string username, string password)
+        private string conectionString;
+        public cancelAppointment(string username, string password,string connectionString)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
 
             this.username = username;
             this.password = password;
+            this.conectionString = connectionString;
         }
 
         private void updatePatientUserCotroller_Load(object sender, EventArgs e)
@@ -157,7 +159,7 @@ namespace Clinic_Management_System
         private void PopulateDataGridView()
         {
             //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -177,7 +179,7 @@ namespace Clinic_Management_System
                 FROM tbl_appointment a;";
 
                 // Using connection and command to fetch data
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(conectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, connection);
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
@@ -233,8 +235,8 @@ namespace Clinic_Management_System
 
                 // Update query to set the appointment status to "Cancelled"
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                using (SqlConnection conn = new SqlConnection(conectionString))
                 {
                     string query = @"
                 UPDATE tbl_appointment
@@ -268,7 +270,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller(username, password));
+            LoadControl(new updatePatientUserCotroller(username, password,conectionString));
         }
 
         private void LoadControl(UserControl control)
@@ -280,7 +282,7 @@ namespace Clinic_Management_System
 
         private void addPatientBtn_Click(object sender, EventArgs e)
         {
-            LoadControl(new addPatientUserCotroller(username, password));
+            LoadControl(new addPatientUserCotroller(username, password,conectionString));
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -311,7 +313,7 @@ namespace Clinic_Management_System
         private void label17_Click(object sender, EventArgs e)
         {
           // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-           string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+         //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -322,7 +324,7 @@ namespace Clinic_Management_System
                     WHERE username = @username AND password = @password
                 )";
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(conectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@username", username);
@@ -350,7 +352,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password));
+            LoadControl(new PatientUserControl(username, password, conectionString));
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -365,7 +367,7 @@ namespace Clinic_Management_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LoadControl(new addTreatment(username, password));
+            LoadControl(new addTreatment(username, password,conectionString));
         }
     }
 }

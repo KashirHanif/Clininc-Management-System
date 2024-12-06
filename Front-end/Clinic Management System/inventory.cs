@@ -11,17 +11,19 @@ namespace Clinic_Management_System
     {
         // Connection string to your database
         //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-      string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+     // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
         private string username;
         private string password;
         private int selectedItemId = -1;
-        public inventory(string username,string password)
+        private string connectionString;
+        public inventory(string username,string password,string connectionString)
         {
             InitializeComponent();
             this.patientGridView.CellClick += new DataGridViewCellEventHandler(this.patientGridView_CellContentClick);
             this.username = username;
             this.password = password;
+            this.connectionString = connectionString;
         }
 
         // Populate the DataGridView with patient data
@@ -30,7 +32,7 @@ namespace Clinic_Management_System
             try
             {
                // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
                 // Update statuses for expired and near-expiry items
                 string updateQuery = @"
@@ -115,21 +117,21 @@ namespace Clinic_Management_System
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            LoadControl(new addInventory(username,password));
+            LoadControl(new addInventory(username,password,connectionString));
         }
 
         // Event handler to handle Update Patient
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Update Patient form or logic to update patient
-            LoadControl(new updatePatientUserCotroller(username,password));
+            LoadControl(new updatePatientUserCotroller(username,password, connectionString));
         }
 
         // Event handler to handle View Patient
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
             PopulateDataGridView();
-            LoadControl(new viewPatient(username,password));
+            LoadControl(new viewPatient(username,password, connectionString));
         }
 
         // Event handler to handle Add Appointment
@@ -137,7 +139,7 @@ namespace Clinic_Management_System
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
             // Load the Add Appointment screen
-            LoadControl(new addAppointmentController(username,password));
+            LoadControl(new addAppointmentController(username,password, connectionString));
         }
 
 
@@ -145,14 +147,14 @@ namespace Clinic_Management_System
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
             // Code to cancel appointment functionality
-            LoadControl(new cancelAppointment(username, password));
+            LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
             // Code to view appointments
-            LoadControl(new viewAppointment(username,password));
+            LoadControl(new viewAppointment(username,password, connectionString));
 
         }
 
@@ -200,7 +202,7 @@ namespace Clinic_Management_System
         private void label16_Click(object sender, EventArgs e)
         {
            // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
             try
             {
@@ -240,7 +242,7 @@ namespace Clinic_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadControl(new menu(username, password));
+            LoadControl(new menu(username, password, connectionString));
         }
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
@@ -273,7 +275,7 @@ namespace Clinic_Management_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LoadControl(new addTreatment(username, password));
+            LoadControl(new addTreatment(username, password, connectionString));
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
@@ -599,7 +601,7 @@ namespace Clinic_Management_System
             {
 
                 // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+              //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT COUNT(*) FROM tbl_inventory WHERE quantity <= 0";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -622,7 +624,7 @@ namespace Clinic_Management_System
             try
             {
                 // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+              //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT COUNT(*) FROM tbl_inventory WHERE DATEDIFF(day, GETDATE(), expiration_date) <= 90 AND expiration_date > GETDATE()";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -645,7 +647,7 @@ namespace Clinic_Management_System
             try
             {
                 // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+              //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT COUNT(*) FROM tbl_inventory WHERE expiration_date <= GETDATE()";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))

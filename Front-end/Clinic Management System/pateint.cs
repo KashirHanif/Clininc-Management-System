@@ -11,15 +11,17 @@ namespace Clinic_Management_System
     {
         // Connection string to your database
         //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-        string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+        //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
         private string username;
         private string password;
-        public PatientUserControl(string username,string password)
+        private string connectionString;
+        public PatientUserControl(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.username = username;
             this.password = password;
+            this.connectionString = connectionString;
         }
 
         // Populate the DataGridView with patient data
@@ -92,21 +94,21 @@ namespace Clinic_Management_System
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            LoadControl(new addPatientUserCotroller(username,password));
+            LoadControl(new addPatientUserCotroller(username,password, connectionString));
         }
 
         // Event handler to handle Update Patient
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Update Patient form or logic to update patient
-            LoadControl(new updatePatientUserCotroller(username,password));
+            LoadControl(new updatePatientUserCotroller(username,password, connectionString));
         }
 
         // Event handler to handle View Patient
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
             PopulateDataGridView();
-            LoadControl(new viewPatient(username,password));
+            LoadControl(new viewPatient(username,password, connectionString));
         }
 
         // Event handler to handle Add Appointment
@@ -114,7 +116,7 @@ namespace Clinic_Management_System
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
             // Load the Add Appointment screen
-            LoadControl(new addAppointmentController(username,password));
+            LoadControl(new addAppointmentController(username,password, connectionString));
         }
 
 
@@ -122,14 +124,14 @@ namespace Clinic_Management_System
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
             // Code to cancel appointment functionality
-            LoadControl(new cancelAppointment(username, password));
+            LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
             // Code to view appointments
-            LoadControl(new viewAppointment(username,password));
+            LoadControl(new viewAppointment(username,password, connectionString));
 
         }
 
@@ -155,7 +157,7 @@ namespace Clinic_Management_System
         private void label16_Click(object sender, EventArgs e)
         {
             //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
             try
             {
@@ -195,7 +197,7 @@ namespace Clinic_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadControl(new menu(username, password));
+            LoadControl(new menu(username, password, connectionString));
         }
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
@@ -276,7 +278,7 @@ namespace Clinic_Management_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LoadControl(new addTreatment(username, password));
+            LoadControl(new addTreatment(username, password, connectionString));
         }
     }
 }

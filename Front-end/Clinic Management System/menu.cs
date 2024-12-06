@@ -15,11 +15,13 @@ namespace Clinic_Management_System
     {
         private string username;
         private string password;
-        public menu(string username,string password)
+        private string connectionString;
+        public menu(string username,string password,string connectionString)
         {
             InitializeComponent();
             this.username = username;
             this.password = password;
+            this.connectionString = connectionString;
         }
 
         private void LoadControl(UserControl control)
@@ -30,7 +32,7 @@ namespace Clinic_Management_System
         }
         private void btnPatient_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username,password));
+            LoadControl(new PatientUserControl(username,password,connectionString));
         }
 
         private void menu_Load(object sender, EventArgs e)
@@ -40,12 +42,12 @@ namespace Clinic_Management_System
 
         private void btnInventory_Click(object sender, EventArgs e)
         {
-            LoadControl(new inventory(username, password));
+            LoadControl(new inventory(username, password, connectionString));
         }
 
         private void btnDoctors_Click(object sender, EventArgs e)
         {
-            LoadControl(new addInventory(username, password));
+            LoadControl(new addInventory(username, password, connectionString));
         }
     }
 }

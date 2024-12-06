@@ -16,11 +16,13 @@ namespace Clinic_Management_System
     {
         private string username;
         private string password;
-        public addInventory(string username, string password)
+        private string connectionString;
+        public addInventory(string username, string password,string connectionString)
         {
             InitializeComponent();
             this.username = username;
             this.password = password;
+            this.connectionString = connectionString;
         }
 
         private void addInventory_Load(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace Clinic_Management_System
 
         private void button4_Click(object sender, EventArgs e)
         {
-            LoadControl(new cancelAppointment(username, password));
+            LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
         private void pGender2_TextChanged(object sender, EventArgs e)
@@ -122,7 +124,7 @@ namespace Clinic_Management_System
         {
             try
             {
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT item_id, item_name, category, quantity, unit_of_measurement, " +
                                "purchase_price, selling_price, expiration_date, date_of_purchase, " +
                                "item_status, batch_no FROM tbl_inventory";
@@ -169,7 +171,7 @@ namespace Clinic_Management_System
 
             
                 // Connection and SQL Command
-                string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -197,7 +199,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller(username, password));
+            LoadControl(new updatePatientUserCotroller(username, password, connectionString));
         }
 
         private void LoadControl(UserControl control)
@@ -224,7 +226,7 @@ namespace Clinic_Management_System
 
         private void label16_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
@@ -265,22 +267,22 @@ namespace Clinic_Management_System
 
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewPatient(username, password));
+            LoadControl(new viewPatient(username, password, connectionString));
         }
 
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new addAppointmentController(username, password));
+            LoadControl(new addAppointmentController(username, password, connectionString));
         }
 
         private void viewAppointmentButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewAppointment(username, password));
+            LoadControl(new viewAppointment(username, password, connectionString));
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password));
+            LoadControl(new PatientUserControl(username, password,connectionString));
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)

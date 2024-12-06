@@ -18,7 +18,8 @@ namespace Clinic_Management_System
     {
         private string username;
         private string password;
-        public addAppointmentController(string username,string password)
+        private string connectionString;
+        public addAppointmentController(string username,string password,string connectionString)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
@@ -31,6 +32,7 @@ namespace Clinic_Management_System
 
             this.username = username;
             this.password = password;
+            this.connectionString = connectionString;
         }
 
         private void addAppointmentController_Load(object sender, EventArgs e)
@@ -62,7 +64,7 @@ namespace Clinic_Management_System
 
         private void button4_Click(object sender, EventArgs e)
         {
-            LoadControl(new cancelAppointment(username, password));
+            LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
         private void pGender2_TextChanged(object sender, EventArgs e)
@@ -170,7 +172,7 @@ namespace Clinic_Management_System
             try
             {
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -212,7 +214,7 @@ namespace Clinic_Management_System
             try
             {
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // Validate selected items in combo boxes
                 string bookedForName = comboBox2.SelectedItem?.ToString();
                 string bookedByName = comboBox1.SelectedItem?.ToString();
@@ -291,7 +293,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller(username,password));
+            LoadControl(new updatePatientUserCotroller(username,password, connectionString));
         }
 
         private void LoadControl(UserControl control)
@@ -303,7 +305,7 @@ namespace Clinic_Management_System
 
         private void addPatientBtn_Click(object sender, EventArgs e)
         {
-            LoadControl(new addPatientUserCotroller(username,password));
+            LoadControl(new addPatientUserCotroller(username,password, connectionString));
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -365,7 +367,7 @@ namespace Clinic_Management_System
             try
             {
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = @"SELECT CONCAT(f_name, ' ', l_name) AS DoctorName
                          FROM tbl_employee
                          WHERE designation = 'Doctor' 
@@ -415,7 +417,7 @@ namespace Clinic_Management_System
             try
             {
                // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-               string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = @"SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
                          FROM tbl_employee";
 
@@ -454,7 +456,7 @@ namespace Clinic_Management_System
             try
             {
                // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // Get the selected doctor name from comboBox2
                 string selectedDoctor = comboBox2.SelectedItem?.ToString();
                 DateTime selectedDate = aptDate.Value.Date;
@@ -542,7 +544,7 @@ namespace Clinic_Management_System
             {
                 // Your connection string
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 // SQL query to filter patients by phone number
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, CNIC FROM tbl_patient WHERE phone_number = @PhoneNumber";
 
@@ -594,13 +596,13 @@ namespace Clinic_Management_System
         }
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new addAppointmentController(username, password));
+            LoadControl(new addAppointmentController(username, password, connectionString));
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
             //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-            string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -639,17 +641,17 @@ namespace Clinic_Management_System
 
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewPatient(username, password));
+            LoadControl(new viewPatient(username, password, connectionString));
         }
 
         private void viewAppointmentButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new viewAppointment(username, password));
+            LoadControl(new viewAppointment(username, password, connectionString));
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password));
+            LoadControl(new PatientUserControl(username, password,connectionString));
         }
     }
 }
