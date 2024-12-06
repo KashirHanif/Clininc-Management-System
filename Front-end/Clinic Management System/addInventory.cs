@@ -299,5 +299,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
