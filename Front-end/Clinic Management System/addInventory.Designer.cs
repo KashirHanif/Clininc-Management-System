@@ -456,18 +456,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(144, 803);
+            this.button1.Location = new System.Drawing.Point(233, 803);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(111, 44);
             this.button1.TabIndex = 75;
             this.button1.Text = "Leave";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(63, 803);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(123, 44);
             this.button2.TabIndex = 76;
             this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
@@ -491,7 +492,7 @@
             this.textBox10.MaximumSize = new System.Drawing.Size(351, 35);
             this.textBox10.MinimumSize = new System.Drawing.Size(351, 35);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(351, 35);
+            this.textBox10.Size = new System.Drawing.Size(351, 27);
             this.textBox10.TabIndex = 78;
             this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
             // 
