@@ -456,5 +456,52 @@ BEGIN
         and concat(bfe.f_name, ' ', bfe.l_name) = @doctorName
 END
 
+insert into tbl_department values(1,'Receptionist')
+insert into tbl_department values(2,'Admin')
+insert into tbl_department values(3,'Physician')
+insert into tbl_department values(4,'Gynachologist')
+
+CREATE PROCEDURE UpdateEmployeeDetails
+    @EmployeeId INT,
+    @Designation NVARCHAR(50),
+    @FirstName NVARCHAR(50),
+    @LastName NVARCHAR(50),
+    @Department NVARCHAR(50),
+    @FatherName NVARCHAR(50),
+    @DOB DATE,
+    @DOJ DATE,
+    @Street NVARCHAR(100),
+    @City NVARCHAR(50),
+    @Block NVARCHAR(50),
+    @HouseNo NVARCHAR(20),
+    @PhoneNumber NVARCHAR(20),
+    @Gender NVARCHAR(10),
+    @Institution NVARCHAR(100),
+    @CNIC NVARCHAR(15)
+AS
+BEGIN
+    UPDATE tbl_employee
+    SET 
+        designation = @Designation,
+        f_name = @FirstName,
+        l_name = @LastName,
+        father_name = @FatherName,
+        date_of_birth = @DOB,
+        date_of_joining = @DOJ,
+        street = @Street,
+        city = @City,
+        block = @Block,
+        house_no = @HouseNo,
+        phone_number = @PhoneNumber,
+        gender = @Gender,
+        institution = @Institution,
+        cnic = @CNIC
+    WHERE emp_id = @EmployeeId;
+    UPDATE tbl_department
+    SET department = @Department
+    WHERE emp_id = @EmployeeId;
+END;
+
+
 
 
