@@ -97,6 +97,12 @@
     <Compile Include="inventory.Designer.cs">
       <DependentUpon>inventory.cs</DependentUpon>
     </Compile>
+    <Compile Include="showPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="showPreview.Designer.cs">
+      <DependentUpon>showPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="viewAppointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="inventory.resx">
       <DependentUpon>inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="showPreview.resx">
+      <DependentUpon>showPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="viewAppointment.resx">
       <DependentUpon>viewAppointment.cs</DependentUpon>

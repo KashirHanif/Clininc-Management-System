@@ -53,20 +53,8 @@ namespace Clinic_Management_System
                     FROM tbl_inventory";
 
                 // Apply filters based on comboBox3 selection
-                string filter = comboBox3.SelectedItem?.ToString();
-                if (filter == "Out of Stock")
-                {
-                    selectQuery += " WHERE quantity <= 0"; // Filter for out-of-stock items
-                }
-                else if (filter == "Expired")
-                {
-                    selectQuery += " WHERE item_status = 'Expired'"; // Filter for expired items
-                }
-                else if (filter == "Near Expiry")
-                {
-                    selectQuery += " WHERE item_status = 'Near Expiry'"; // Filter for near-expiry items
-                }
-                // If "All" or any other value, no additional filtering is needed
+           
+          
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -167,10 +155,7 @@ namespace Clinic_Management_System
             int expiredCount = GetExpiredCount();
 
             // Display the count in label12
-            label12.Text = $"Out of Stock: {outOfStockCount}";
-            label15.Text = $"Near Expiry: {nearExpiryCount}";
-            label14.Text = $"Expired: {expiredCount}";
-
+  
         }
 
 
@@ -192,9 +177,7 @@ namespace Clinic_Management_System
                 textBox6.Text = patientGridView.Rows[e.RowIndex].Cells["unit_of_measurement"].Value?.ToString();
                 textBox3.Text = patientGridView.Rows[e.RowIndex].Cells["purchase_price"].Value?.ToString();
                 textBox5.Text = patientGridView.Rows[e.RowIndex].Cells["selling_price"].Value?.ToString();
-                dateTimePicker1.Value = Convert.ToDateTime(patientGridView.Rows[e.RowIndex].Cells["date_of_purchase"].Value);
-                dateTimePicker2.Value = Convert.ToDateTime(patientGridView.Rows[e.RowIndex].Cells["expiration_date"].Value);
-                comboBox2.SelectedItem = patientGridView.Rows[e.RowIndex].Cells["item_status"].Value?.ToString();
+          
                 textBox4.Text = patientGridView.Rows[e.RowIndex].Cells["batch_no"].Value?.ToString();
             }
         }
@@ -347,7 +330,7 @@ namespace Clinic_Management_System
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            LoadControl(new showPreview(username, password, connectionString));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -356,17 +339,16 @@ namespace Clinic_Management_System
             string itemName = textBox1.Text.Trim();
             string category = comboBox1.SelectedItem?.ToString();
             string quantityText = textBox2.Text.Trim();
-            string status = comboBox2.SelectedItem?.ToString();
-            DateTime dateOfPurchase = dateTimePicker1.Value;
+         
+          
             string purchasePriceText = textBox3.Text.Trim();
             string sellingPriceText = textBox5.Text.Trim();
-            DateTime expirationDate = dateTimePicker2.Value;
+           
             string batchNo = textBox4.Text.Trim();
             string unitOfMeasurement = textBox6.Text.Trim();
 
             // Validate input fields
-            if (string.IsNullOrEmpty(itemName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(quantityText) ||
-                string.IsNullOrEmpty(status) || string.IsNullOrEmpty(purchasePriceText) || string.IsNullOrEmpty(sellingPriceText) ||
+            if (string.IsNullOrEmpty(itemName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(quantityText) || string.IsNullOrEmpty(purchasePriceText) || string.IsNullOrEmpty(sellingPriceText) ||
                 string.IsNullOrEmpty(batchNo) || string.IsNullOrEmpty(unitOfMeasurement))
             {
                 MessageBox.Show("Please fill in all fields.");
@@ -402,9 +384,6 @@ namespace Clinic_Management_System
                         cmd.Parameters.AddWithValue("@unit_of_measurement", unitOfMeasurement);
                         cmd.Parameters.AddWithValue("@purchase_price", purchasePrice);
                         cmd.Parameters.AddWithValue("@selling_price", sellingPrice);
-                        cmd.Parameters.AddWithValue("@expiration_date", expirationDate);
-                        cmd.Parameters.AddWithValue("@date_of_purchase", dateOfPurchase);
-                        cmd.Parameters.AddWithValue("@item_status", status);
                         cmd.Parameters.AddWithValue("@batch_no", batchNo);
 
                         connection.Open();
@@ -436,13 +415,12 @@ namespace Clinic_Management_System
             textBox1.Clear();
             comboBox1.SelectedIndex = -1;
             textBox2.Clear();
-            comboBox2.SelectedIndex = -1;
+            
             textBox3.Clear();
             textBox5.Clear();
             textBox4.Clear();
             textBox6.Clear();
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker2.Value = DateTime.Now;
+      
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -457,17 +435,15 @@ namespace Clinic_Management_System
             string itemName = textBox1.Text.Trim();
             string category = comboBox1.SelectedItem?.ToString();
             string quantityText = textBox2.Text.Trim();
-            string status = comboBox2.SelectedItem?.ToString();
-            DateTime dateOfPurchase = dateTimePicker1.Value;
+     
             string purchasePriceText = textBox3.Text.Trim();
             string sellingPriceText = textBox5.Text.Trim();
-            DateTime expirationDate = dateTimePicker2.Value;
+     
             string batchNo = textBox4.Text.Trim();
             string unitOfMeasurement = textBox6.Text.Trim();
 
             // Validate input fields
-            if (string.IsNullOrEmpty(itemName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(quantityText) ||
-                string.IsNullOrEmpty(status) || string.IsNullOrEmpty(purchasePriceText) || string.IsNullOrEmpty(sellingPriceText) ||
+            if (string.IsNullOrEmpty(itemName) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(quantityText) || string.IsNullOrEmpty(purchasePriceText) || string.IsNullOrEmpty(sellingPriceText) ||
                 string.IsNullOrEmpty(batchNo) || string.IsNullOrEmpty(unitOfMeasurement))
             {
                 MessageBox.Show("Please fill in all fields.");
@@ -503,9 +479,8 @@ namespace Clinic_Management_System
                         cmd.Parameters.AddWithValue("@unit_of_measurement", unitOfMeasurement);
                         cmd.Parameters.AddWithValue("@purchase_price", purchasePrice);
                         cmd.Parameters.AddWithValue("@selling_price", sellingPrice);
-                        cmd.Parameters.AddWithValue("@expiration_date", expirationDate);
-                        cmd.Parameters.AddWithValue("@date_of_purchase", dateOfPurchase);
-                        cmd.Parameters.AddWithValue("@item_status", status);
+                      
+             
                         cmd.Parameters.AddWithValue("@batch_no", batchNo);
 
                         connection.Open();
@@ -664,5 +639,9 @@ namespace Clinic_Management_System
             return expiredCount;
         }
 
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
