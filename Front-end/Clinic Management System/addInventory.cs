@@ -460,7 +460,9 @@ namespace Clinic_Management_System
             }
         }
 
+        private void label17_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }
