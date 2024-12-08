@@ -47,3 +47,4 @@ D:\database project\Clininc-Management-System\Front-end\Clinic Management System
 D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.generateBill.resources
 D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.generateBill.resources
 D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.showPreview.resources
+D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.showPreview.resources

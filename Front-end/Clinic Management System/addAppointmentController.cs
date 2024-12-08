@@ -409,42 +409,59 @@ namespace Clinic_Management_System
         }
         private void comboBox1_DropDown(object sender, EventArgs e)
         {
-            PopulateEmployeeComboBox();
+            PopulateEmployeeComboBox(username,password);
         }
 
-        private void PopulateEmployeeComboBox()
+        private void PopulateEmployeeComboBox(string username, string password)
         {
             try
             {
-               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-               //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                string query = @"SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
-                         FROM tbl_employee";
+                // Query to fetch the full name of employees
+                string query = @"
+            SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
+            FROM tbl_employee
+            WHERE emp_id IN (
+                SELECT emp_id FROM login_table
+                WHERE username = @username AND password = @password
+            )";
 
-                comboBox1.Items.Clear(); // Clear existing items before adding new ones
+                // Clear existing items in comboBox1
+                comboBox1.Items.Clear();
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        // Add parameters to prevent SQL injection
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password);
+
+                        // Execute the query and get the data
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
+                            // Loop through the data and add each employee name to the comboBox1
                             while (reader.Read())
                             {
-                                // Use the correct column alias from the query
                                 string employeeName = reader["EmployeeName"].ToString();
-                                comboBox1.Items.Add(employeeName); // Add each employee name to the ComboBox
+                                comboBox1.Items.Add(employeeName);
                             }
                         }
                     }
                 }
+
+                // Optionally, you can set the default selected item
+                if (comboBox1.Items.Count > 0)
+                {
+                    comboBox1.SelectedIndex = 0; // Set the first item as selected by default
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading employees: " + ex.Message);
+                MessageBox.Show("Error loading employee names: " + ex.Message);
             }
         }
+
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Call the method to fetch and display the next appointment time

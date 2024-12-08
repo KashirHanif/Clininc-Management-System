@@ -9,6 +9,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Clinic_Management_System
@@ -278,7 +279,7 @@ namespace Clinic_Management_System
         {
 
         }
-        
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -294,6 +295,11 @@ namespace Clinic_Management_System
         {
 
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -333,6 +339,8 @@ namespace Clinic_Management_System
                 comboBox4.Text = selectedRow.Cells["emp_status"].Value?.ToString();  // Status ComboBox
             }
         }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -426,7 +434,185 @@ namespace Clinic_Management_System
             }
         }
 
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            
 
 
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected availability status from comboBox3
+           
+        }
+
+        private void comboBox3_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            string availabilityStatus = comboBox3.SelectedItem?.ToString();
+
+            // Define the base SQL query
+            string query = @"
+        SELECT 
+            e.emp_id, 
+            e.designation, 
+            e.f_name,  
+            e.l_name, 
+            d.department, 
+            e.father_name, 
+            e.date_of_birth, 
+            e.date_of_joining, 
+            e.street, 
+            e.city, 
+            e.block,
+            e.house_no,
+            e.ph_country_code, 
+            e.phone_number, 
+            e.gender, 
+            e.institution, 
+            e.cnic,
+            wh.emp_status
+        FROM tbl_employee e
+        INNER JOIN tbl_department d
+            ON e.emp_id = d.emp_id
+        INNER JOIN tbl_emp_working_hours wh
+            ON e.emp_id = wh.emp_id";
+
+            // Modify the query based on the availability status selected in comboBox3
+            if (availabilityStatus == "Available")
+            {
+                query += " WHERE wh.emp_status = 'Available'";  // Only available doctors
+            }
+            else if (availabilityStatus == "On Leave")
+            {
+                query += " WHERE wh.emp_status = 'On Leave'";  // Only doctors on leave
+            }
+
+            // If "All" is selected, no additional filter is applied
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open(); // Open the connection
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Execute the query and fetch the data
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                        DataTable dataTable = new DataTable();
+                        dataAdapter.Fill(dataTable);
+
+                        // Bind the data to the DataGridView
+                        addPatientGridView.DataSource = dataTable;
+
+                        // Optional: Set column headers if needed
+                        addPatientGridView.Columns["emp_id"].HeaderText = "Employee ID";
+                        addPatientGridView.Columns["designation"].HeaderText = "Designation";
+                        addPatientGridView.Columns["f_name"].HeaderText = "First Name";
+                        addPatientGridView.Columns["l_name"].HeaderText = "Last Name";
+                        addPatientGridView.Columns["department"].HeaderText = "Department";
+                        addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
+                        addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+                        addPatientGridView.Columns["date_of_joining"].HeaderText = "Date of Joining";
+                        addPatientGridView.Columns["street"].HeaderText = "Street";
+                        addPatientGridView.Columns["city"].HeaderText = "City";
+                        addPatientGridView.Columns["block"].HeaderText = "Block";
+                        addPatientGridView.Columns["house_no"].HeaderText = "House No";
+                        addPatientGridView.Columns["ph_country_code"].HeaderText = "Country Code";
+                        addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+                        addPatientGridView.Columns["gender"].HeaderText = "Gender";
+                        addPatientGridView.Columns["institution"].HeaderText = "Institution";
+                        addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
+                        addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+            string doctorName = textBox10.Text.Trim(); // Get the name entered in the textbox
+
+            // Define the SQL query with a filter using CONCAT for full name match
+            string query = @"
+                SELECT 
+                    e.emp_id, 
+                    e.designation, 
+                    e.f_name,  
+                    e.l_name, 
+                    d.department, 
+                    e.father_name, 
+                    e.date_of_birth, 
+                    e.date_of_joining, 
+                    e.street, 
+                    e.city, 
+                    e.block,
+                    e.house_no,
+                    e.ph_country_code, 
+                    e.phone_number, 
+                    e.gender, 
+                    e.institution, 
+                    e.cnic,
+                    wh.emp_status
+                FROM tbl_employee e
+                INNER JOIN tbl_department d
+                    ON e.emp_id = d.emp_id
+                INNER JOIN tbl_emp_working_hours wh
+                    ON e.emp_id = wh.emp_id
+                WHERE CONCAT(e.f_name, ' ', e.l_name) LIKE '%' + @doctorName + '%'";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create a command to execute the query
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Add parameter for doctorName
+                        command.Parameters.AddWithValue("@doctorName", doctorName);
+
+                        // Create a data adapter to fill the DataTable
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                        DataTable dataTable = new DataTable();
+                        dataAdapter.Fill(dataTable);
+
+                        // Bind the DataTable to the DataGridView
+                        addPatientGridView.DataSource = dataTable;
+
+                        // Optional: Set DataGridView column headers
+                        addPatientGridView.Columns["emp_id"].HeaderText = "Employee ID";
+                        addPatientGridView.Columns["designation"].HeaderText = "Designation";
+                        addPatientGridView.Columns["f_name"].HeaderText = "First Name";
+                        addPatientGridView.Columns["l_name"].HeaderText = "Last Name";
+                        addPatientGridView.Columns["department"].HeaderText = "Department";
+                        addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
+                        addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+                        addPatientGridView.Columns["date_of_joining"].HeaderText = "Date of Joining";
+                        addPatientGridView.Columns["street"].HeaderText = "Street";
+                        addPatientGridView.Columns["city"].HeaderText = "City";
+                        addPatientGridView.Columns["block"].HeaderText = "Block";
+                        addPatientGridView.Columns["house_no"].HeaderText = "House No";
+                        addPatientGridView.Columns["ph_country_code"].HeaderText = "Country Code";
+                        addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+                        addPatientGridView.Columns["gender"].HeaderText = "Gender";
+                        addPatientGridView.Columns["institution"].HeaderText = "Institution";
+                        addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
+                        addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

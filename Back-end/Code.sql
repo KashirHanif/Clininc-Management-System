@@ -3,7 +3,7 @@ create database clinic_management_db
 --Structure
 
 create table login_table (
-	 emp_id int primary key,
+	emp_id int primary key,
 	foreign key (emp_id) references tbl_employee(emp_id),
 	username varchar(50),
 	password varchar(50)
@@ -76,8 +76,6 @@ create table tbl_appointment(
 create table tbl_treatment (
 	treatment_id int identity(1,1) primary key,
 	treatment_type varchar(20),
-	treatment_date date,
-	diagnosis varchar(20),
 	emp_id int,
 	patient_id int,
 	foreign key (emp_id) references tbl_employee(emp_id),
@@ -213,6 +211,21 @@ ADD CONSTRAINT FK_tbl_treatment_inventory_item_id
 FOREIGN KEY (item_id)
 REFERENCES tbl_inventory(item_id);
 
+
+create nonclustered index idx_patient_name_phone
+on tbl_patient (p_f_name, p_l_name, phone_number);
+
+create nonclustered index ix_tbl_employee_f_name_l_name
+on tbl_employee (f_name, l_name);
+
+create clustered index ix_tbl_emp_working_hours_emp_status
+on tbl_emp_working_hours (emp_status);
+
+create nonclustered index ix_tbl_appointment_appointment_status
+on tbl_appointment (appointment_status);
+
+create nonclustered index ix_tbl_inventory_item_name_item_status
+on tbl_inventory (item_name, item_status);
 
 
 --Query
@@ -461,72 +474,15 @@ insert into tbl_department values(2,'Admin')
 insert into tbl_department values(3,'Physician')
 insert into tbl_department values(4,'Gynachologist')
 
-create procedure UpdateEmployeeDetails
-    @EmployeeId INT,
-    @Designation NVARCHAR(50),
-    @FirstName NVARCHAR(50),
-    @LastName NVARCHAR(50),
-    @Department NVARCHAR(50),
-    @FatherName NVARCHAR(50),
-    @DOB DATE,
-    @DOJ DATE,
-    @Street NVARCHAR(100),
-    @City NVARCHAR(50),
-    @Block NVARCHAR(50),
-    @HouseNo NVARCHAR(20),
-    @PhoneNumber NVARCHAR(20),
-    @Gender NVARCHAR(10),
-    @Institution NVARCHAR(100),
-    @CNIC NVARCHAR(15)
-AS
-BEGIN
-    UPDATE tbl_employee
-    SET 
-        designation = @Designation,
-        f_name = @FirstName,
-        l_name = @LastName,
-        father_name = @FatherName,
-        date_of_birth = @DOB,
-        date_of_joining = @DOJ,
-        street = @Street,
-        city = @City,
-        block = @Block,
-        house_no = @HouseNo,
-        phone_number = @PhoneNumber,
-        gender = @Gender,
-        institution = @Institution,
-        cnic = @CNIC
-    WHERE emp_id = @EmployeeId;
-    UPDATE tbl_department
-    SET department = @Department
-    WHERE emp_id = @EmployeeId;
-END;
-
-drop procedure UpdateEmployeeDetails
-
 
 create procedure GetEmployeeDetails
 AS
 BEGIN
     select 
-        e.emp_id, 
-        e.designation, 
-        e.f_name, 
-        e.l_name, 
-        d.department, 
-        e.father_name, 
-        e.date_of_birth, 
-        e.date_of_joining, 
-        e.street, 
-        e.city, 
-        e.block, 
-        e.house_no, 
-        e.ph_country_code, 
-        e.phone_number, 
-        e.gender, 
-        e.institution, 
-        e.cnic,
-        wh.emp_status
+        e.emp_id, e.designation, e.f_name,  e.l_name, d.department, 
+        e.father_name, e.date_of_birth, e.date_of_joining, e.street, e.city, 
+        e.block,e.house_no,e.ph_country_code, e.phone_number, e.gender, 
+        e.institution, e.cnic,wh.emp_status
     FROM tbl_employee e
     INNER JOIN tbl_department d
         ON e.emp_id = d.emp_id
@@ -534,7 +490,7 @@ BEGIN
         ON e.emp_id = wh.emp_id;
 END;
 
-CREATE PROCEDURE UpdateEmployeeDetails
+create procedure UpdateEmployeeDetails
     @EmployeeId INT,
     @Designation NVARCHAR(50),
     @FirstName NVARCHAR(50),
@@ -555,8 +511,7 @@ CREATE PROCEDURE UpdateEmployeeDetails
 AS
 BEGIN
     BEGIN TRANSACTION;
-
-    BEGIN TRY
+	BEGIN TRY
         UPDATE tbl_employee
         SET 
             designation = @Designation,
@@ -574,6 +529,7 @@ BEGIN
             institution = @Institution,
             cnic = @CNIC
         WHERE emp_id = @EmployeeId;
+
         UPDATE tbl_department
         SET department = @Department
         WHERE emp_id = @EmployeeId;
@@ -585,9 +541,9 @@ BEGIN
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
-        -- Rollback transaction if an error occurs
         ROLLBACK TRANSACTION;
         THROW;
     END CATCH
 END;
 
+select * from tbl_emp_working_hours
