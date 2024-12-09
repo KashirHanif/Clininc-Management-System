@@ -211,7 +211,7 @@ namespace Clinic_Management_System
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1174, 196);
+            this.pictureBox1.Location = new System.Drawing.Point(919, 191);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(50, 48);
             this.pictureBox1.TabIndex = 12;
@@ -277,7 +277,7 @@ namespace Clinic_Management_System
             this.findByDoctor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.findByDoctor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.findByDoctor.FormattingEnabled = true;
-            this.findByDoctor.Location = new System.Drawing.Point(902, 211);
+            this.findByDoctor.Location = new System.Drawing.Point(978, 211);
             this.findByDoctor.MaximumSize = new System.Drawing.Size(250, 0);
             this.findByDoctor.MinimumSize = new System.Drawing.Size(250, 0);
             this.findByDoctor.Name = "findByDoctor";
@@ -289,7 +289,7 @@ namespace Clinic_Management_System
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(898, 186);
+            this.label2.Location = new System.Drawing.Point(975, 186);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 18);
             this.label2.TabIndex = 81;

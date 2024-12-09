@@ -303,6 +303,7 @@ namespace Clinic_Management_System
 
         private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            addPatientGridView.ScrollBars = ScrollBars.Both;
             // Ensure a valid row is selected (ignore header row clicks)
             if (e.RowIndex >= 0)
             {
@@ -613,6 +614,26 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

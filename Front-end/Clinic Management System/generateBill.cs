@@ -166,6 +166,7 @@ namespace Clinic_Management_System
 
         private void patientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            patientGridView.ScrollBars = ScrollBars.Both;
             // Ensure the click is not on the header row or an invalid row
             if (e.RowIndex >= 0 && patientGridView.Rows[e.RowIndex].Cells["item_id"].Value != null)
             {
@@ -225,7 +226,7 @@ namespace Clinic_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadControl(new menu(username, password, connectionString));
+            LoadControl(new addTreatment(username, password, connectionString));
         }
 
         private void pictureBox1_Click_1(object sender, EventArgs e)

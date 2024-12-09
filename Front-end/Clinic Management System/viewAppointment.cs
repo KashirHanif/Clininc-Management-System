@@ -146,7 +146,7 @@ namespace Clinic_Management_System
 
         private void patientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            patientGridView.ScrollBars = ScrollBars.Both;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

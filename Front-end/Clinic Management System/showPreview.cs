@@ -20,6 +20,10 @@ namespace Clinic_Management_System
         public showPreview(string username, string password, string connectionString)
         {
             InitializeComponent();
+            button2.Click += button2_Click;
+            this.username = username;
+            this.password = password;
+            this.connectionString = connectionString;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +43,7 @@ namespace Clinic_Management_System
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            LoadControl(new Printable(username, password, connectionString));
         }
 
         private void LoadControl(object control)
@@ -51,6 +55,26 @@ namespace Clinic_Management_System
         {
             LoadControl(new generateBill(username, password, connectionString));
           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new Printable(username, password, connectionString));
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new generateBill(username, password, connectionString));
         }
     }
 }
