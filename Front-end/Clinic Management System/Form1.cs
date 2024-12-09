@@ -18,8 +18,8 @@ namespace Clinic_Management_System
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-           string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-          // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+           //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+          string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 try
@@ -102,6 +102,16 @@ namespace Clinic_Management_System
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+        }
+
+        private void panelFooter_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

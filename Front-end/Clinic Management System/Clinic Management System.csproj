@@ -91,12 +91,6 @@
     <Compile Include="generateBill.Designer.cs">
       <DependentUpon>generateBill.cs</DependentUpon>
     </Compile>
-    <Compile Include="inventory.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="inventory.Designer.cs">
-      <DependentUpon>inventory.cs</DependentUpon>
-    </Compile>
     <Compile Include="Printable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,9 +173,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="generateBill.resx">
       <DependentUpon>generateBill.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="inventory.resx">
-      <DependentUpon>inventory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Printable.resx">
       <DependentUpon>Printable.cs</DependentUpon>
