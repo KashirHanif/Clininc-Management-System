@@ -229,58 +229,25 @@ namespace Clinic_Management_System
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
-                    // Queries to retrieve emp_id based on names
-                    string getEmpIdQuery = "SELECT emp_id FROM tbl_employee WHERE CONCAT(f_name, ' ', l_name) = @EmployeeName";
-
-                    // Get emp_id for Booked By
-                    SqlCommand getBookedByEmpIdCmd = new SqlCommand(getEmpIdQuery, conn);
-                    getBookedByEmpIdCmd.Parameters.AddWithValue("@EmployeeName", bookedByName);
-                    object bookedByEmpIdResult = getBookedByEmpIdCmd.ExecuteScalar();
-
-                    if (bookedByEmpIdResult == null)
+                    using (SqlCommand cmd = new SqlCommand("add_appointment", conn))
                     {
-                        MessageBox.Show($"Could not find an employee with the name '{bookedByName}'.", "Error");
-                        return;
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@booked_by_name", bookedByName);
+                        cmd.Parameters.AddWithValue("@booked_for_name", bookedForName);
+                        cmd.Parameters.AddWithValue("@appointment_date", appointmentDate);
+                        cmd.Parameters.AddWithValue("@appointment_time", appointmentTime);
+                        cmd.Parameters.AddWithValue("@appointment_type", AptTypeComboBox.SelectedItem.ToString());
+                        cmd.Parameters.AddWithValue("@appointment_status", statusComboBox.SelectedItem.ToString());
+                        cmd.Parameters.AddWithValue("@patient_id", int.Parse(patientIdTextBox.Text));
+
+                        cmd.ExecuteNonQuery();
                     }
-                    int bookedByEmpId = Convert.ToInt32(bookedByEmpIdResult);
-
-                    // Get emp_id for Booked For
-                    SqlCommand getBookedForEmpIdCmd = new SqlCommand(getEmpIdQuery, conn);
-                    getBookedForEmpIdCmd.Parameters.AddWithValue("@EmployeeName", bookedForName);
-                    object bookedForEmpIdResult = getBookedForEmpIdCmd.ExecuteScalar();
-
-                    if (bookedForEmpIdResult == null)
-                    {
-                        MessageBox.Show($"Could not find an employee with the name '{bookedForName}'.", "Error");
-                        return;
-                    }
-                    int bookedForEmpId = Convert.ToInt32(bookedForEmpIdResult);
-
-                    // Insert query for appointment
-                    string insertQuery = @"
-                    INSERT INTO tbl_appointment 
-                    (date_of_appointment, time_of_appointment, booked_by_emp_id, booked_for_emp_id, appointment_type, appointment_status, patient_id)
-                    VALUES 
-                    (@DateOfAppointment, @TimeOfAppointment, @BookedByEmpId, @BookedForEmpId, @AppointmentType, @AppointmentStatus,  @PatientId)";
-
-                    SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-
-                    // Add parameters to the insert query
-                    insertCmd.Parameters.AddWithValue("@DateOfAppointment", appointmentDate);
-                    insertCmd.Parameters.AddWithValue("@TimeOfAppointment", appointmentTime);
-                    insertCmd.Parameters.AddWithValue("@BookedByEmpId", bookedByEmpId);
-                    insertCmd.Parameters.AddWithValue("@BookedForEmpId", bookedForEmpId);
-                    insertCmd.Parameters.AddWithValue("@AppointmentType", AptTypeComboBox.SelectedItem.ToString());
-                    insertCmd.Parameters.AddWithValue("@AppointmentStatus", statusComboBox.SelectedItem.ToString());
-
-                    insertCmd.Parameters.AddWithValue("@PatientId", int.Parse(patientIdTextBox.Text));
-
-                    // Execute the insert command
-                    insertCmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Appointment added successfully.", "Success");
                 }
+
+                MessageBox.Show("Appointment added successfully.", "Success");
+                PopulateDataGridView();
+                
             }
             catch (Exception ex)
             {
@@ -418,12 +385,12 @@ namespace Clinic_Management_System
             {
                 // Query to fetch the full name of employees
                 string query = @"
-            SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
-            FROM tbl_employee
-            WHERE emp_id IN (
-                SELECT emp_id FROM login_table
-                WHERE username = @username AND password = @password
-            )";
+                    SELECT CONCAT(f_name, ' ', l_name) AS EmployeeName
+                    FROM tbl_employee
+                    WHERE emp_id IN (
+                        SELECT emp_id FROM login_table
+                        WHERE username = @username AND password = @password
+                    )";
 
                 // Clear existing items in comboBox1
                 comboBox1.Items.Clear();
@@ -484,68 +451,31 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                string query = @"
-                SELECT TOP 1 a.time_of_appointment 
-                FROM tbl_employee e
-                INNER JOIN tbl_appointment a
-                    ON a.date_of_appointment = @AppointmentDate
-                    AND a.appointment_status = 'Booked'
-                WHERE a.booked_for_emp_id IN (
-                    SELECT emp_id 
-                    FROM tbl_employee e
-                    WHERE CONCAT(e.f_name, ' ', e.l_name) = @DoctorName
-                )
-                ORDER BY a.time_of_appointment DESC";
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string nextAppointmentTime;
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("get_next_appointment_time", conn))
                     {
-                        // Add the selected doctor's name as a parameter
-                        cmd.Parameters.AddWithValue("@DoctorName", selectedDoctor);
-                        cmd.Parameters.AddWithValue("@AppointmentDate", selectedDate);
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        object result = cmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@doctor_name", selectedDoctor);
+                        cmd.Parameters.AddWithValue("@appointment_date", selectedDate);
 
-                        if (result != null)
+                        SqlParameter nextTimeParam = new SqlParameter("@next_time", SqlDbType.Time)
                         {
-                            // Parse the retrieved time and add 15 minutes
-                            TimeSpan lastAppointmentTime = (TimeSpan)result;
-                            TimeSpan newAppointmentTime = lastAppointmentTime.Add(new TimeSpan(0, 15, 0));
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(nextTimeParam);
 
-                            // Assign the calculated time to the TextBox
-                            string time = newAppointmentTime.ToString(@"hh\:mm");
-                            aptTime.Text = time;
-                        }
-                        else
-                        {
-                            string dutyQuery = @"
-                            SELECT start_duty 
-                            FROM tbl_emp_working_hours ewh
-                            INNER JOIN tbl_employee e
-                                ON e.emp_id = ewh.emp_id
-                            WHERE CONCAT(e.f_name, ' ', e.l_name) = @DoctorName";
+                        cmd.ExecuteNonQuery();
 
-                            using (SqlCommand dutyCmd = new SqlCommand(dutyQuery, connection))
-                            {
-                                // Add the selected doctor's name as a parameter
-                                dutyCmd.Parameters.AddWithValue("@DoctorName", selectedDoctor);
-
-                                object dutyResult = dutyCmd.ExecuteScalar();
-
-                                if (dutyResult != null)
-                                {
-                                    TimeSpan startDutyTime = (TimeSpan)dutyResult;
-
-                                    // Assign the start duty time to the TextBox
-                                    string dutyTime = startDutyTime.ToString(@"hh\:mm");
-                                    aptTime.Text = dutyTime;
-                                }
-                            }
-                        }
+                        nextAppointmentTime = nextTimeParam.Value?.ToString();
+                        aptTime.Text = nextAppointmentTime ?? "error fetching time.";
                     }
                 }
+
+
             }
             catch (Exception ex)
             {

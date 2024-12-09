@@ -449,10 +449,69 @@ BEGIN
         and concat(bfe.f_name, ' ', bfe.l_name) = @doctorName
 END
 
-insert into tbl_department values(1,'Receptionist')
-insert into tbl_department values(2,'Admin')
-insert into tbl_department values(3,'Physician')
-insert into tbl_department values(4,'Gynachologist')
+create procedure add_appointment
+    @booked_by_name varchar(100),
+    @booked_for_name varchar(100),
+    @appointment_date date,
+    @appointment_time time,
+    @appointment_type varchar(50),
+    @appointment_status varchar(50),
+    @patient_id int
+as
+begin
+    set nocount on;
+
+    declare @booked_by_emp_id int, @booked_for_emp_id int;
+
+    select @booked_by_emp_id = emp_id
+    from tbl_employee
+    where concat(f_name, ' ', l_name) = @booked_by_name;
+
+    if @booked_by_emp_id is null
+    begin
+        throw 50001, 'booked by employee not found', 1;
+    end
+
+    select @booked_for_emp_id = emp_id
+    from tbl_employee
+    where concat(f_name, ' ', l_name) = @booked_for_name;
+
+    if @booked_for_emp_id is null
+    begin
+        throw 50002, 'booked for employee not found', 1;
+    end
+    insert into tbl_appointment 
+    (date_of_appointment, time_of_appointment, booked_by_emp_id, booked_for_emp_id, appointment_type, appointment_status, patient_id)
+    values 
+    (@appointment_date, @appointment_time, @booked_by_emp_id, @booked_for_emp_id, @appointment_type, @appointment_status, @patient_id);
+end;
+
+create procedure get_next_appointment_time
+    @doctor_name varchar(100),
+    @appointment_date date,
+    @next_time time output
+as
+begin
+    set nocount on;
+    select top 1 @next_time = dateadd(minute, 15, a.time_of_appointment)
+    from tbl_appointment a
+    where a.date_of_appointment = @appointment_date
+      and a.appointment_status = 'booked'
+      and a.booked_for_emp_id = (
+          select emp_id 
+          from tbl_employee 
+          where concat(f_name, ' ', l_name) = @doctor_name
+      )
+    order by a.time_of_appointment desc;
+
+    if @next_time is null
+    begin
+        select @next_time = ewh.start_duty
+        from tbl_emp_working_hours ewh
+        inner join tbl_employee e on e.emp_id = ewh.emp_id
+        where concat(e.f_name, ' ', e.l_name) = @doctor_name;
+    end
+end;
 
 
 create procedure GetEmployeeDetails
@@ -551,36 +610,5 @@ drop procedure UpdateEmployeeDetails
 select * from tbl_emp_working_hours
 
 
-
-drop table tbl_inventory
-
--- Query to find foreign keys that reference or are referenced by tbl_inventory
-select 
-    fk.name as foreign_key_name,
-    t.name as table_name,
-    c.name as column_name,
-    rt.name as referenced_table_name,
-    rc.name as referenced_column_name
-from 
-    sys.foreign_keys as fk
-inner join 
-    sys.foreign_key_columns as fkc
-    on fk.object_id = fkc.constraint_object_id
-inner join 
-    sys.tables as t
-    on fkc.parent_object_id = t.object_id
-inner join 
-    sys.columns as c
-    on fkc.parent_object_id = c.object_id and fkc.parent_column_id = c.column_id
-inner join 
-    sys.tables as rt
-    on fkc.referenced_object_id = rt.object_id
-inner join 
-    sys.columns as rc
-    on fkc.referenced_object_id = rc.object_id and fkc.referenced_column_id = rc.column_id
-where 
-    t.name = 'tbl_inventory' or rt.name = 'tbl_inventory'
-order by 
-    fk.name, t.name;
 
 
