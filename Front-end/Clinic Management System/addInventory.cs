@@ -129,8 +129,6 @@ namespace Clinic_Management_System
         }
         private void PopulateDataGridView()
         {
-
-
             // Query to fetch data from tbl_employee
             try
             {
@@ -171,6 +169,10 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["institution"].HeaderText = "Institution";
                         addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
+
+                        // Add headers for new columns
+                        addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
+                        addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
                     }
                 }
             }
@@ -304,6 +306,7 @@ namespace Clinic_Management_System
         private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             addPatientGridView.ScrollBars = ScrollBars.Both;
+
             // Ensure a valid row is selected (ignore header row clicks)
             if (e.RowIndex >= 0)
             {
@@ -338,6 +341,17 @@ namespace Clinic_Management_System
                 // Populate the additional fields (designation and status)
                 textBox11.Text = selectedRow.Cells["designation"].Value?.ToString(); // Designation TextBox
                 comboBox4.Text = selectedRow.Cells["emp_status"].Value?.ToString();  // Status ComboBox
+
+                // Populate Start Duty and End Duty into DateTimePickers
+                if (DateTime.TryParse(selectedRow.Cells["start_duty"].Value?.ToString(), out DateTime startDuty))
+                {
+                    dateTimePicker4.Value = startDuty;
+                }
+
+                if (DateTime.TryParse(selectedRow.Cells["end_duty"].Value?.ToString(), out DateTime endDuty))
+                {
+                    dateTimePicker3.Value = endDuty;
+                }
             }
         }
 
@@ -352,7 +366,7 @@ namespace Clinic_Management_System
                 DataGridViewRow selectedRow = addPatientGridView.SelectedRows[0];
                 int employeeId = Convert.ToInt32(selectedRow.Cells["emp_id"].Value);
 
-                // Retrieve updated values from textboxes and comboboxes
+                // Retrieve updated values from textboxes, comboboxes, and date pickers
                 string updatedFirstName = pfirstNameTB.Text.Trim();  // First Name TextBox
                 string updatedLastName = textBox7.Text.Trim();        // Last Name TextBox
                 string updatedFatherName = textBox3.Text.Trim();      // Father Name TextBox
@@ -369,9 +383,11 @@ namespace Clinic_Management_System
                 string updatedCNIC = textBox1.Text.Trim();            // CNIC TextBox
                 string updatedDepartment = comboBox2.Text.Trim();     // Department ComboBox
 
-                // Retrieve Designation and Status from new controls
+                // Retrieve Designation, Status, Start Duty, and End Duty from controls
                 string updatedDesignation = textBox11.Text.Trim();    // Designation TextBox
                 string updatedStatus = comboBox4.Text.Trim();         // Status ComboBox
+                TimeSpan updatedStartDuty = dateTimePicker4.Value.TimeOfDay; // Start Duty
+                TimeSpan updatedEndDuty = dateTimePicker3.Value.TimeOfDay;   // End Duty
 
                 try
                 {
@@ -403,6 +419,8 @@ namespace Clinic_Management_System
                             cmd.Parameters.AddWithValue("@Institution", updatedInstitution);
                             cmd.Parameters.AddWithValue("@CNIC", updatedCNIC);
                             cmd.Parameters.AddWithValue("@Status", updatedStatus);
+                            cmd.Parameters.AddWithValue("@StartDuty", updatedStartDuty);
+                            cmd.Parameters.AddWithValue("@EndDuty", updatedEndDuty);
 
                             // Execute the stored procedure
                             int rowsAffected = cmd.ExecuteNonQuery();
@@ -454,30 +472,32 @@ namespace Clinic_Management_System
 
             // Define the base SQL query
             string query = @"
-        SELECT 
-            e.emp_id, 
-            e.designation, 
-            e.f_name,  
-            e.l_name, 
-            d.department, 
-            e.father_name, 
-            e.date_of_birth, 
-            e.date_of_joining, 
-            e.street, 
-            e.city, 
-            e.block,
-            e.house_no,
-            e.ph_country_code, 
-            e.phone_number, 
-            e.gender, 
-            e.institution, 
-            e.cnic,
-            wh.emp_status
-        FROM tbl_employee e
-        INNER JOIN tbl_department d
-            ON e.emp_id = d.emp_id
-        INNER JOIN tbl_emp_working_hours wh
-            ON e.emp_id = wh.emp_id";
+                SELECT 
+                    e.emp_id, 
+                    e.designation, 
+                    e.f_name,  
+                    e.l_name, 
+                    d.department, 
+                    e.father_name, 
+                    e.date_of_birth, 
+                    e.date_of_joining, 
+                    e.street, 
+                    e.city, 
+                    e.block,
+                    e.house_no,
+                    e.ph_country_code, 
+                    e.phone_number, 
+                    e.gender, 
+                    e.institution, 
+                    e.cnic,
+                    wh.emp_status,
+                    wh.start_duty,
+                    wh.end_duty
+                FROM tbl_employee e
+                INNER JOIN tbl_department d
+                    ON e.emp_id = d.emp_id
+                INNER JOIN tbl_emp_working_hours wh
+                    ON e.emp_id = wh.emp_id";
 
             // Modify the query based on the availability status selected in comboBox3
             if (availabilityStatus == "Available")
@@ -488,8 +508,6 @@ namespace Clinic_Management_System
             {
                 query += " WHERE wh.emp_status = 'On Leave'";  // Only doctors on leave
             }
-
-            // If "All" is selected, no additional filter is applied
 
             try
             {
@@ -526,6 +544,8 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["institution"].HeaderText = "Institution";
                         addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
+                        addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
+                        addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
                     }
                 }
             }
@@ -534,6 +554,7 @@ namespace Clinic_Management_System
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void button3_Click_2(object sender, EventArgs e)
         {
@@ -559,7 +580,9 @@ namespace Clinic_Management_System
                     e.gender, 
                     e.institution, 
                     e.cnic,
-                    wh.emp_status
+                    wh.emp_status,
+                    wh.start_duty,
+                    wh.end_duty
                 FROM tbl_employee e
                 INNER JOIN tbl_department d
                     ON e.emp_id = d.emp_id
@@ -607,6 +630,8 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["institution"].HeaderText = "Institution";
                         addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
+                        addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
+                        addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
                     }
                 }
             }
@@ -615,6 +640,7 @@ namespace Clinic_Management_System
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
@@ -632,6 +658,11 @@ namespace Clinic_Management_System
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
         {
 
         }

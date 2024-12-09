@@ -87,7 +87,6 @@ create table tbl_billing (
 	bill_id int identity(1,1) primary key,
 	total_bill decimal(10, 2) not null,
 	emp_fee decimal(10, 2) not null,
-	treatment_cost decimal(10, 2) not null,
 	hospital_profit_percent decimal(5,2),
 	emp_id int,
 	patient_id int,
@@ -95,28 +94,9 @@ create table tbl_billing (
 	foreign key (patient_id) references tbl_patient(patient_id),
 );
 
-CREATE TABLE tbl_inventory (
-    item_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_name VARCHAR(50) NOT NULL,
-    category VARCHAR(30) NOT NULL,
-    quantity DECIMAL(10, 2) DEFAULT 0.00 CHECK (quantity >= 0), -- Generic field for quantity
-    unit_of_measurement VARCHAR(20) NOT NULL, -- E.g., "packs", "pieces", "ml", etc.
-    purchase_price DECIMAL(10, 2) NOT NULL CHECK (purchase_price > 0),
-    selling_price DECIMAL(10, 2) NOT NULL CHECK (selling_price > 0),
-    expiration_date DATE, -- Nullable for non-perishable items
-    date_of_purchase DATE NOT NULL,
-    item_status VARCHAR(20) CHECK (item_status IN ('Available', 'Out of Stock', 'Expired'))
-    batch_no VARCHAR(20)
-   );
 
-create table tbl_treatment_inventory (
-    treatment_id int,
-    item_id int,
-    quantity_used decimal(10, 2) not null check (quantity_used >= 0),
-    primary key (treatment_id, item_id),
-    foreign key (treatment_id) references tbl_treatment(treatment_id),
-    foreign key (item_id) references tbl_inventory(item_id)
-);
+
+
 
 create table tbl_emp_working_hours (
 	emp_id int,
@@ -436,7 +416,7 @@ AND parent_column_id = (
 
 
 ALTER TABLE tbl_inventory
-DROP CONSTRAINT CK__tbl_inven__item___0C50D423
+DROP CONSTRAINT CK_tbl_invenitem__0C50D423
 
 ALTER TABLE tbl_inventory
 ADD CONSTRAINT chk_item_status
@@ -478,11 +458,27 @@ insert into tbl_department values(4,'Gynachologist')
 create procedure GetEmployeeDetails
 AS
 BEGIN
-    select 
-        e.emp_id, e.designation, e.f_name,  e.l_name, d.department, 
-        e.father_name, e.date_of_birth, e.date_of_joining, e.street, e.city, 
-        e.block,e.house_no,e.ph_country_code, e.phone_number, e.gender, 
-        e.institution, e.cnic,wh.emp_status
+    SELECT 
+        e.emp_id, 
+        e.designation, 
+        e.f_name,  
+        e.l_name, 
+        d.department, 
+        e.father_name, 
+        e.date_of_birth, 
+        e.date_of_joining, 
+        e.street, 
+        e.city, 
+        e.block,
+        e.house_no,
+        e.ph_country_code, 
+        e.phone_number, 
+        e.gender, 
+        e.institution, 
+        e.cnic,
+        wh.emp_status,
+        wh.start_duty, 
+        wh.end_duty
     FROM tbl_employee e
     INNER JOIN tbl_department d
         ON e.emp_id = d.emp_id
@@ -492,22 +488,24 @@ END;
 
 create procedure UpdateEmployeeDetails
     @EmployeeId INT,
-    @Designation NVARCHAR(50),
-    @FirstName NVARCHAR(50),
-    @LastName NVARCHAR(50),
-    @Department NVARCHAR(50),
-    @FatherName NVARCHAR(50),
+    @Designation VARCHAR(50),
+    @FirstName VARCHAR(50),
+    @LastName VARCHAR(50),
+    @Department VARCHAR(50),
+    @FatherName VARCHAR(50),
     @DOB DATE,
     @DOJ DATE,
-    @Street NVARCHAR(100),
-    @City NVARCHAR(50),
-    @Block NVARCHAR(50),
-    @HouseNo NVARCHAR(20),
-    @PhoneNumber NVARCHAR(20),
-    @Gender NVARCHAR(10),
-    @Institution NVARCHAR(100),
-    @CNIC NVARCHAR(15),
-    @Status NVARCHAR(50) 
+    @Street VARCHAR(100),
+    @City VARCHAR(50),
+    @Block VARCHAR(50),
+    @HouseNo VARCHAR(20),
+    @PhoneNumber VARCHAR(20),
+    @Gender VARCHAR(10),
+    @Institution VARCHAR(100),
+    @CNIC VARCHAR(15),
+    @Status VARCHAR(50),
+    @StartDuty TIME,
+    @EndDuty TIME
 AS
 BEGIN
     BEGIN TRANSACTION;
@@ -535,9 +533,11 @@ BEGIN
         WHERE emp_id = @EmployeeId;
 
         UPDATE tbl_emp_working_hours
-        SET emp_status = @Status
+        SET 
+            emp_status = @Status,
+            start_duty = @StartDuty,
+            end_duty = @EndDuty
         WHERE emp_id = @EmployeeId;
-
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
@@ -546,4 +546,41 @@ BEGIN
     END CATCH
 END;
 
+
+drop procedure UpdateEmployeeDetails
 select * from tbl_emp_working_hours
+
+
+
+drop table tbl_inventory
+
+-- Query to find foreign keys that reference or are referenced by tbl_inventory
+select 
+    fk.name as foreign_key_name,
+    t.name as table_name,
+    c.name as column_name,
+    rt.name as referenced_table_name,
+    rc.name as referenced_column_name
+from 
+    sys.foreign_keys as fk
+inner join 
+    sys.foreign_key_columns as fkc
+    on fk.object_id = fkc.constraint_object_id
+inner join 
+    sys.tables as t
+    on fkc.parent_object_id = t.object_id
+inner join 
+    sys.columns as c
+    on fkc.parent_object_id = c.object_id and fkc.parent_column_id = c.column_id
+inner join 
+    sys.tables as rt
+    on fkc.referenced_object_id = rt.object_id
+inner join 
+    sys.columns as rc
+    on fkc.referenced_object_id = rc.object_id and fkc.referenced_column_id = rc.column_id
+where 
+    t.name = 'tbl_inventory' or rt.name = 'tbl_inventory'
+order by 
+    fk.name, t.name;
+
+
