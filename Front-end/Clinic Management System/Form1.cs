@@ -63,7 +63,7 @@ namespace Clinic_Management_System
                             }
                             else if (designation == "Admin")
                             {
-                                LoadControl(new adminMenu());
+                                LoadControl(new adminMenu(username,password,connectionString));
                             }
                             else
                             {
