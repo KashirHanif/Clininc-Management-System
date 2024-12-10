@@ -155,16 +155,7 @@ namespace Clinic_Management_System
                     MessageBox.Show("Patient Name is not available for the selected row.");
                 }
 
-                if (!string.IsNullOrEmpty(doctorName))
-                {
-                    textBox1.Text = doctorName;
-                }
-                else
-                {
-                    textBox1.Text = string.Empty;
-                    MessageBox.Show("Booked For Employee is not available for the selected row.");
-                }
-
+           
             }
             else
             {
@@ -398,16 +389,11 @@ namespace Clinic_Management_System
             try
             {
                 // Retrieve the selected employee name, patient name, and treatment type
-                string employeeName = textBox1.Text.Trim();
+             
                 string patientName = treatmentptname.Text.Trim();
                 string treatmentType = treatmentTypeComboBox.Text.Trim();
 
-                if (string.IsNullOrEmpty(employeeName) || string.IsNullOrEmpty(patientName) || string.IsNullOrEmpty(treatmentType))
-                {
-                    MessageBox.Show("Please ensure all fields are filled before proceeding.");
-                    return;
-                }
-
+              
                 int employeeId, patientId;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -418,7 +404,7 @@ namespace Clinic_Management_System
                     string employeeQuery = "SELECT emp_id FROM tbl_employee WHERE CONCAT(f_name, ' ', l_name) = @EmployeeName";
                     using (SqlCommand cmd = new SqlCommand(employeeQuery, connection))
                     {
-                        cmd.Parameters.AddWithValue("@EmployeeName", employeeName);
+                        
                         object result = cmd.ExecuteScalar();
                         if (result != null)
                         {
@@ -484,7 +470,17 @@ namespace Clinic_Management_System
 
         private void genBill_Click(object sender, EventArgs e)
         {
-            LoadControl(new generateBill(username, password,connectionString));
+            LoadControl(new Printable(username, password,connectionString));
+        }
+
+        private void label4_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void treatmentptname_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

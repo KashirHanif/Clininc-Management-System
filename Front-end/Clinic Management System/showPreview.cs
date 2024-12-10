@@ -51,11 +51,7 @@ namespace Clinic_Management_System
             // Your logic to handle the control
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            LoadControl(new generateBill(username, password, connectionString));
-          
-        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -72,9 +68,6 @@ namespace Clinic_Management_System
             LoadControl(new Printable(username, password, connectionString));
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            LoadControl(new generateBill(username, password, connectionString));
-        }
+
     }
 }

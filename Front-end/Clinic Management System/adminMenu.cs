@@ -16,5 +16,10 @@ namespace Clinic_Management_System
         {
             InitializeComponent();
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
