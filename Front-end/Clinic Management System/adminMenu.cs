@@ -21,5 +21,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void headerPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
