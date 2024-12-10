@@ -1,6 +1,6 @@
 ﻿namespace Clinic_Management_System
 {
-    partial class addInventory
+    partial class doctor
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addInventory));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(doctor));
             this.backButton = new System.Windows.Forms.Button();
             this.pfirstNameTB = new System.Windows.Forms.TextBox();
             this.addPatientGridView = new System.Windows.Forms.DataGridView();
@@ -728,9 +728,9 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximumSize = new System.Drawing.Size(1500, 894);
             this.MinimumSize = new System.Drawing.Size(1500, 894);
-            this.Name = "addInventory";
+            this.Name = "doctor";
             this.Size = new System.Drawing.Size(1500, 894);
-            this.Load += new System.EventHandler(this.addInventory_Load);
+            this.Load += new System.EventHandler(this.doctor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

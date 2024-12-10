@@ -14,12 +14,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Clinic_Management_System
 {
-    public partial class addInventory : UserControl
+    public partial class doctor : UserControl
     {
         private string username;
         private string password;
         private string connectionString;
-        public addInventory(string username, string password, string connectionString)
+        public doctor(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.username = username;
@@ -28,7 +28,7 @@ namespace Clinic_Management_System
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick_1);
         }
 
-        private void addInventory_Load(object sender, EventArgs e)
+        private void doctor_Load(object sender, EventArgs e)
         {
             PopulateDataGridView();
         }

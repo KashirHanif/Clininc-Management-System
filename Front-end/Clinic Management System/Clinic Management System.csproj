@@ -61,11 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addInventory.cs">
+    <Compile Include="doctor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="addInventory.Designer.cs">
-      <DependentUpon>addInventory.cs</DependentUpon>
+    <Compile Include="doctor.Designer.cs">
+      <DependentUpon>doctor.cs</DependentUpon>
     </Compile>
     <Compile Include="addTreatment.cs">
       <SubType>UserControl</SubType>
@@ -159,8 +159,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="addInventory.resx">
-      <DependentUpon>addInventory.cs</DependentUpon>
+    <EmbeddedResource Include="doctor.resx">
+      <DependentUpon>doctor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="addTreatment.resx">
       <DependentUpon>addTreatment.cs</DependentUpon>

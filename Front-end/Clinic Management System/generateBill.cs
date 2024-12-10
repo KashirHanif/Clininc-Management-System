@@ -105,7 +105,7 @@ namespace Clinic_Management_System
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            LoadControl(new addInventory(username,password, connectionString));
+            LoadControl(new doctor(username,password, connectionString));
         }
 
         // Event handler to handle Update Patient
