@@ -86,6 +86,12 @@
     <Compile Include="cancelAppointment.Designer.cs">
       <DependentUpon>cancelAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="presciption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="presciption.Designer.cs">
+      <DependentUpon>presciption.cs</DependentUpon>
+    </Compile>
     <Compile Include="Printable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cancelAppointment.resx">
       <DependentUpon>cancelAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="presciption.resx">
+      <DependentUpon>presciption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Printable.resx">
       <DependentUpon>Printable.cs</DependentUpon>

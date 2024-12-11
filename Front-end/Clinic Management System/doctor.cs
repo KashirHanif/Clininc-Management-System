@@ -666,5 +666,10 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new presciption(username, password, connectionString));
+        }
     }
 }
