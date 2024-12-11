@@ -610,5 +610,38 @@ drop procedure UpdateEmployeeDetails
 select * from tbl_emp_working_hours
 
 
+CREATE PROCEDURE CountPatientsByDay
+AS
+BEGIN
+    -- Declare a variable to store the date one month ago
+    DECLARE @one_month_ago DATE;
+    
+    -- Set the date to one month ago
+    SET @one_month_ago = DATEADD(MONTH, -1, GETDATE());
+    
+    -- Select count of patients grouped by the day of the week
+    SELECT
+        DATENAME(WEEKDAY, patient_visit_date) AS DayOfWeek,  -- Get the day name
+        COUNT(patient_id) AS PatientCount
+    FROM
+        patients
+    WHERE
+        patient_visit_date >= @one_month_ago
+    GROUP BY
+        DATENAME(WEEKDAY, patient_visit_date)  -- Group by the day name
+    ORDER BY
+        CASE DATENAME(WEEKDAY, patient_visit_date)
+            WHEN 'Monday' THEN 1
+            WHEN 'Tuesday' THEN 2
+            WHEN 'Wednesday' THEN 3
+            WHEN 'Thursday' THEN 4
+            WHEN 'Friday' THEN 5
+            WHEN 'Saturday' THEN 6
+            WHEN 'Sunday' THEN 7
+        END;  -- Order by Monday to Sunday
+END;
+
+
+
 
 

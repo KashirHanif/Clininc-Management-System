@@ -9,9 +9,9 @@ namespace Clinic_Management_System
 {
     public partial class adminMenu : UserControl
     {
-        private string username;
-        private string password;
-        private string connectionString;
+        private readonly string username;
+        private readonly string password;
+        private readonly string connectionString;
 
         public adminMenu(string username, string password, string connectionString)
         {
@@ -28,47 +28,74 @@ namespace Clinic_Management_System
         {
             try
             {
-                // Establish the SQL connection
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("CountPatientsByDay", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Create a SQL command to call the stored procedure
-                    SqlCommand cmd = new SqlCommand("CountPatientsByDay", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
 
-                    // Execute the stored procedure and fill the data table
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                            // Debugging log for data
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                Console.WriteLine($"Day: {row["DayOfWeek"]}, Count: {row["PatientCount"]}");
+                            }
 
-                    // Bind the data to the chart
-                    PopulateChart(dt);
+                            PopulateChart(dt);
+                        }
+                    }
                 }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error fetching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Unexpected error: {ex.Message}\n\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();        // Clear any existing controls on the form
+            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
+            this.Controls.Add(control);
         }
 
         private void PopulateChart(DataTable data)
         {
+            if (chart1 == null)
+            {
+                MessageBox.Show("Chart control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Clear existing chart data
             chart1.Series.Clear();
 
             // Create a new series for the chart
-            Series series = new Series("Patient Count");
-            series.ChartType = SeriesChartType.Column; // Column chart style
-            series.Color = Color.Blue;
-            series.IsValueShownAsLabel = true;
+            Series series = new Series("Patient Count")
+            {
+                ChartType = SeriesChartType.Column, // Column chart style
+                Color = Color.Blue,
+                IsValueShownAsLabel = true
+            };
 
             // Add data points to the series
             foreach (DataRow row in data.Rows)
             {
-                string dayOfWeek = row["DayOfWeek"].ToString(); // Day of the week
-                int patientCount = Convert.ToInt32(row["PatientCount"]); // Patient count
-                series.Points.AddXY(dayOfWeek, patientCount);
+                if (row["DayOfWeek"] != DBNull.Value && row["PatientCount"] != DBNull.Value)
+                {
+                    string dayOfWeek = row["DayOfWeek"].ToString();
+                    int patientCount = Convert.ToInt32(row["PatientCount"]);
+                    series.Points.AddXY(dayOfWeek, patientCount);
+                }
             }
 
             // Add the series to the chart
@@ -81,7 +108,6 @@ namespace Clinic_Management_System
             chart1.Titles.Add("Patient Count Per Day (Last Month)");
         }
 
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Handle click events for pictureBox2 if required
@@ -90,6 +116,32 @@ namespace Clinic_Management_System
         private void headerPanel_Paint(object sender, PaintEventArgs e)
         {
             // Custom drawing logic for the header panel (if required)
+        }
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            // Change the background and text color when the mouse enters the button
+            Button button = sender as Button;
+            if (button != null)
+            {
+                button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                button.ForeColor = System.Drawing.Color.Yellow;
+            }
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            // Revert the background and text color when the mouse leaves the button
+            Button button = sender as Button;
+            if (button != null)
+            {
+                button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                button.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            }
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new Form1());
         }
     }
 }
