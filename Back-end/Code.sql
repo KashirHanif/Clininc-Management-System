@@ -85,16 +85,28 @@ create table tbl_treatment (
 
 create table tbl_billing (
 	bill_id int identity(1,1) primary key,
-	emp_fee int,
-	appointment_id int,
+	emp_fee int default 10 CHECK (emp_fee >= 0),
+	appointment_id int not null,
 	foreign key (appointment_id) references tbl_appointment(appointment_id)
 );
 
+ALTER TABLE tbl_billing
+ALTER COLUMN appointment_id INT NOT NULL;
+
+ALTER TABLE tbl_billing
+ADD CONSTRAINT CK_emp_fee_non_negative CHECK (emp_fee >= 0);
+
+ALTER TABLE tbl_billing
+ADD CONSTRAINT DF_emp_fee DEFAULT 1000 FOR emp_fee;
+
 create table tbl_profit (
-	hospital_profit_percent decimal(10,2),
+	hospital_profit_percent decimal(10,2) default 30.00,
 	start_date date,
 	end_date date
 )
+
+ALTER TABLE tbl_profit
+ADD CONSTRAINT DF_profit_percent DEFAULT 30.00 FOR hospital_profit_percent;
 
 create table tbl_prescription (
     prescription_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -681,6 +693,33 @@ BEGIN
     END
 END;
 
+CREATE PROCEDURE add_prescription_item
+    @item_name VARCHAR(255),
+    @item_type VARCHAR(50),
+    @prescription_id INT
+AS
+BEGIN
+    DECLARE @item_id INT;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        EXEC get_or_create_item @item_name = @item_name, @item_id = @item_id OUTPUT;
+
+        INSERT INTO tbl_prescription_item (prescription_id, item_id, item_type)
+        VALUES (@prescription_id, @item_id, @item_type);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        -- Throw the error
+        THROW;
+    END CATCH
+END;
+
+
 CREATE TRIGGER trg_book_followup_appointment
 ON tbl_prescription
 AFTER INSERT
@@ -734,7 +773,6 @@ END;
 
 
 
-
 create view vw_prescription_details AS
 SELECT
     p.prescription_id,
@@ -742,35 +780,20 @@ SELECT
     CONCAT(d.f_name, ' ', d.l_name) AS doctor_name,
     a.date_of_appointment,
     p.follow_up_date,
-    i.item_name,
-    pi.item_type,
+	p.followUpDoctorName,
     b.bill_id,
     b.emp_fee
 FROM
     tbl_prescription p
-JOIN
+Inner JOIN
     tbl_appointment a ON p.appointment_id = a.appointment_id
-JOIN
+Inner JOIN
     tbl_patient pt ON a.patient_id = pt.patient_id
-JOIN
+Inner JOIN
     tbl_employee d ON a.booked_for_emp_id = d.emp_id
-JOIN
-    tbl_prescription_item pi ON p.prescription_id = pi.prescription_id
-JOIN
-    tbl_item i ON pi.item_id = i.item_id
 LEFT JOIN
     tbl_billing b ON a.appointment_id = b.appointment_id;
 
-
-
-
-select * from tbl_billing
-
-select * from tbl_appointment
-
-select * from tbl_prescription
-
-select * from login_table
 
 CREATE PROCEDURE sp_get_prescription_summary
     @bill_id INT
@@ -797,89 +820,16 @@ END;
 
 
 
- CREATE PROCEDURE CountPatientsByDateRange  --run
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    SELECT 
-        CAST(a.date_of_appointment AS DATE) AS AppointmentDate,
-        COUNT(a.patient_id) AS PatientCount
-    FROM tbl_appointment a
-    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
-    GROUP BY CAST(a.date_of_appointment AS DATE)
-    ORDER BY AppointmentDate;
-END;
+drop table tbl_billing
+
+select * from tbl_billing
 
 select * from tbl_appointment
 
-CREATE PROCEDURE CountAppointmentsByDoctor  --run
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    SELECT 
-        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
-        COUNT(a.appointment_id) AS AppointmentCount
-    FROM tbl_appointment a
-    INNER JOIN tbl_employee e
-        ON a.booked_for_emp_id = e.emp_id
-    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
-    GROUP BY e.f_name, e.l_name
-    ORDER BY AppointmentCount DESC;
-END;
 
-CREATE PROCEDURE CalculateDoctorRevenue  --run
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    SELECT 
-        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
-        SUM(b.emp_fee) AS TotalRevenue
-    FROM tbl_billing b
-    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
-    INNER JOIN tbl_employee e ON a.booked_for_emp_id = e.emp_id
-    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
-    GROUP BY e.f_name, e.l_name
-    ORDER BY TotalRevenue DESC;
-END;
-
-CREATE PROCEDURE GetHospitalProfitData  
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    SELECT 
-        CAST(start_date AS DATE) AS Date,
-        hospital_profit_percent AS ProfitPercent
-    FROM tbl_profit
-    WHERE start_date >= @StartDate AND end_date <= @EndDate
-    ORDER BY start_date;
-END;
+select * from tbl_emp_working_hours
 
 
-
-CREATE PROCEDURE GetHospitalProfitLoss
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    -- Assuming fixed hospital expenses for simplicity (can be made dynamic later)
-    DECLARE @HospitalExpenses DECIMAL(10, 2) = 10000.00; -- Example fixed expense per period
-
-    SELECT 
-        CAST(a.date_of_appointment AS DATE) AS Date, -- Use date_of_appointment instead of start_date
-        (SUM(b.emp_fee) * 0.30 - @HospitalExpenses) AS ProfitPercent -- 30% hospital share minus expenses
-    FROM tbl_billing b
-    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
-    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
-    GROUP BY CAST(a.date_of_appointment AS DATE)
-    ORDER BY Date;
-END;
-
-ALTER TABLE tbl_billing
-ADD CONSTRAINT DF_emp_fee DEFAULT 1000 FOR emp_fee;
 
 CREATE PROCEDURE CountPatientsByDateRange  --run
     @StartDate DATE,
@@ -1024,5 +974,3 @@ BEGIN
 END;
 
 EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
-
-select * from tbl_prescription_item

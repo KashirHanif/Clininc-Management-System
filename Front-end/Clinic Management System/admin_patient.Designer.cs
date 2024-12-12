@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(admin_patient));
             this.addPatientButton = new System.Windows.Forms.Button();
             this.updatePatientButton = new System.Windows.Forms.Button();
@@ -75,6 +76,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.patientIdTextBox = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label17 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -100,7 +107,7 @@
             this.addPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPatientButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.addPatientButton.Location = new System.Drawing.Point(56, 201);
-            this.addPatientButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addPatientButton.Margin = new System.Windows.Forms.Padding(2);
             this.addPatientButton.Name = "addPatientButton";
             this.addPatientButton.Size = new System.Drawing.Size(218, 65);
             this.addPatientButton.TabIndex = 0;
@@ -114,7 +121,7 @@
             this.updatePatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updatePatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.updatePatientButton.Location = new System.Drawing.Point(56, 281);
-            this.updatePatientButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updatePatientButton.Margin = new System.Windows.Forms.Padding(2);
             this.updatePatientButton.Name = "updatePatientButton";
             this.updatePatientButton.Size = new System.Drawing.Size(218, 62);
             this.updatePatientButton.TabIndex = 1;
@@ -128,7 +135,7 @@
             this.viewPatientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewPatientButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.viewPatientButton.Location = new System.Drawing.Point(56, 353);
-            this.viewPatientButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.viewPatientButton.Margin = new System.Windows.Forms.Padding(2);
             this.viewPatientButton.Name = "viewPatientButton";
             this.viewPatientButton.Size = new System.Drawing.Size(218, 61);
             this.viewPatientButton.TabIndex = 2;
@@ -142,7 +149,7 @@
             this.cancelAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.cancelAppointmentButton.Location = new System.Drawing.Point(56, 507);
-            this.cancelAppointmentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelAppointmentButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelAppointmentButton.Name = "cancelAppointmentButton";
             this.cancelAppointmentButton.Size = new System.Drawing.Size(218, 62);
             this.cancelAppointmentButton.TabIndex = 3;
@@ -156,7 +163,7 @@
             this.viewAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.viewAppointmentButton.Location = new System.Drawing.Point(56, 583);
-            this.viewAppointmentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.viewAppointmentButton.Margin = new System.Windows.Forms.Padding(2);
             this.viewAppointmentButton.Name = "viewAppointmentButton";
             this.viewAppointmentButton.Size = new System.Drawing.Size(218, 64);
             this.viewAppointmentButton.TabIndex = 4;
@@ -170,7 +177,7 @@
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.backButton.Location = new System.Drawing.Point(56, 743);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(56, 27);
             this.backButton.TabIndex = 6;
@@ -184,7 +191,7 @@
             this.addAppointmentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAppointmentButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.addAppointmentButton.Location = new System.Drawing.Point(56, 432);
-            this.addAppointmentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addAppointmentButton.Margin = new System.Windows.Forms.Padding(2);
             this.addAppointmentButton.Name = "addAppointmentButton";
             this.addAppointmentButton.Size = new System.Drawing.Size(218, 58);
             this.addAppointmentButton.TabIndex = 7;
@@ -196,7 +203,7 @@
             // 
             this.pfirstNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pfirstNameTB.Location = new System.Drawing.Point(418, 176);
-            this.pfirstNameTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pfirstNameTB.Margin = new System.Windows.Forms.Padding(2);
             this.pfirstNameTB.MaximumSize = new System.Drawing.Size(264, 35);
             this.pfirstNameTB.MinimumSize = new System.Drawing.Size(264, 35);
             this.pfirstNameTB.Name = "pfirstNameTB";
@@ -208,7 +215,7 @@
             // 
             this.plastNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.plastNameTB.Location = new System.Drawing.Point(807, 176);
-            this.plastNameTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plastNameTB.Margin = new System.Windows.Forms.Padding(2);
             this.plastNameTB.MaximumSize = new System.Drawing.Size(264, 35);
             this.plastNameTB.MinimumSize = new System.Drawing.Size(264, 35);
             this.plastNameTB.Name = "plastNameTB";
@@ -220,7 +227,7 @@
             // 
             this.pfatherNameTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pfatherNameTB.Location = new System.Drawing.Point(1215, 176);
-            this.pfatherNameTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pfatherNameTB.Margin = new System.Windows.Forms.Padding(2);
             this.pfatherNameTB.MaximumSize = new System.Drawing.Size(264, 35);
             this.pfatherNameTB.MinimumSize = new System.Drawing.Size(264, 35);
             this.pfatherNameTB.Name = "pfatherNameTB";
@@ -231,7 +238,7 @@
             // pstreetTB
             // 
             this.pstreetTB.Location = new System.Drawing.Point(1247, 237);
-            this.pstreetTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pstreetTB.Margin = new System.Windows.Forms.Padding(2);
             this.pstreetTB.MaximumSize = new System.Drawing.Size(76, 35);
             this.pstreetTB.MinimumSize = new System.Drawing.Size(76, 35);
             this.pstreetTB.Name = "pstreetTB";
@@ -243,7 +250,7 @@
             // 
             this.pBlockTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pBlockTB.Location = new System.Drawing.Point(1395, 242);
-            this.pBlockTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pBlockTB.Margin = new System.Windows.Forms.Padding(2);
             this.pBlockTB.Name = "pBlockTB";
             this.pBlockTB.Size = new System.Drawing.Size(84, 23);
             this.pBlockTB.TabIndex = 13;
@@ -252,7 +259,7 @@
             // 
             this.pPhonenumTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pPhonenumTB.Location = new System.Drawing.Point(949, 306);
-            this.pPhonenumTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pPhonenumTB.Margin = new System.Windows.Forms.Padding(2);
             this.pPhonenumTB.MaximumSize = new System.Drawing.Size(188, 35);
             this.pPhonenumTB.MinimumSize = new System.Drawing.Size(188, 35);
             this.pPhonenumTB.Name = "pPhonenumTB";
@@ -263,7 +270,7 @@
             // 
             this.pCityTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pCityTB.Location = new System.Drawing.Point(970, 237);
-            this.pCityTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pCityTB.Margin = new System.Windows.Forms.Padding(2);
             this.pCityTB.MaximumSize = new System.Drawing.Size(151, 35);
             this.pCityTB.MinimumSize = new System.Drawing.Size(151, 35);
             this.pCityTB.Name = "pCityTB";
@@ -274,7 +281,7 @@
             // 
             this.pAgeTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pAgeTB.Location = new System.Drawing.Point(586, 237);
-            this.pAgeTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pAgeTB.Margin = new System.Windows.Forms.Padding(2);
             this.pAgeTB.MaximumSize = new System.Drawing.Size(76, 35);
             this.pAgeTB.MinimumSize = new System.Drawing.Size(76, 35);
             this.pAgeTB.Name = "pAgeTB";
@@ -286,7 +293,7 @@
             // 
             this.pCountryTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pCountryTB.Location = new System.Drawing.Point(760, 237);
-            this.pCountryTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pCountryTB.Margin = new System.Windows.Forms.Padding(2);
             this.pCountryTB.MaximumSize = new System.Drawing.Size(151, 35);
             this.pCountryTB.MinimumSize = new System.Drawing.Size(151, 35);
             this.pCountryTB.Name = "pCountryTB";
@@ -295,17 +302,17 @@
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(317, 353);
-            this.addPatientGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addPatientGridView.Margin = new System.Windows.Forms.Padding(2);
             this.addPatientGridView.Name = "addPatientGridView";
             this.addPatientGridView.RowHeadersWidth = 51;
             this.addPatientGridView.RowTemplate.Height = 24;
@@ -318,7 +325,7 @@
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.addButton.Location = new System.Drawing.Point(970, 516);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(119, 53);
             this.addButton.TabIndex = 21;
@@ -330,7 +337,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(47, 20);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(614, 105);
             this.pictureBox1.TabIndex = 23;
@@ -485,7 +492,7 @@
             // 
             this.pCNIC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pCNIC.Location = new System.Drawing.Point(368, 306);
-            this.pCNIC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pCNIC.Margin = new System.Windows.Forms.Padding(2);
             this.pCNIC.MaximumSize = new System.Drawing.Size(188, 35);
             this.pCNIC.MaxLength = 13;
             this.pCNIC.MinimumSize = new System.Drawing.Size(188, 35);
@@ -499,7 +506,7 @@
             this.pDOBTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pDOBTB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.pDOBTB.Location = new System.Drawing.Point(368, 244);
-            this.pDOBTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pDOBTB.Margin = new System.Windows.Forms.Padding(2);
             this.pDOBTB.Name = "pDOBTB";
             this.pDOBTB.Size = new System.Drawing.Size(151, 23);
             this.pDOBTB.TabIndex = 38;
@@ -537,7 +544,7 @@
             "female",
             "other"});
             this.pGender2.Location = new System.Drawing.Point(1240, 308);
-            this.pGender2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pGender2.Margin = new System.Windows.Forms.Padding(2);
             this.pGender2.Name = "pGender2";
             this.pGender2.Size = new System.Drawing.Size(92, 25);
             this.pGender2.TabIndex = 43;
@@ -568,7 +575,7 @@
             "+92",
             "+880"});
             this.pCountryCodeTB.Location = new System.Drawing.Point(698, 308);
-            this.pCountryCodeTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pCountryCodeTB.Margin = new System.Windows.Forms.Padding(2);
             this.pCountryCodeTB.Name = "pCountryCodeTB";
             this.pCountryCodeTB.Size = new System.Drawing.Size(92, 25);
             this.pCountryCodeTB.TabIndex = 44;
@@ -600,7 +607,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(1180, 61);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(34, 41);
             this.pictureBox2.TabIndex = 47;
@@ -612,7 +619,7 @@
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button2.Location = new System.Drawing.Point(56, 664);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(218, 56);
             this.button2.TabIndex = 78;
@@ -628,6 +635,7 @@
             this.button1.TabIndex = 79;
             this.button1.Text = "Update";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button3
             // 
@@ -647,11 +655,63 @@
             this.button4.Text = "Back";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(1152, 538);
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox1.TabIndex = 82;
+            // 
+            // patientIdTextBox
+            // 
+            this.patientIdTextBox.Enabled = false;
+            this.patientIdTextBox.Location = new System.Drawing.Point(432, 141);
+            this.patientIdTextBox.Name = "patientIdTextBox";
+            this.patientIdTextBox.Size = new System.Drawing.Size(100, 20);
+            this.patientIdTextBox.TabIndex = 83;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(378, 148);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(50, 13);
+            this.label17.TabIndex = 85;
+            this.label17.Text = "patient id";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(949, 106);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(162, 19);
+            this.button5.TabIndex = 87;
+            this.button5.Text = "Search by patient  name ";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(683, 105);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(254, 20);
+            this.textBox1.TabIndex = 86;
+            // 
             // admin_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.patientIdTextBox);
+            this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
@@ -698,7 +758,7 @@
             this.Controls.Add(this.updatePatientButton);
             this.Controls.Add(this.addPatientButton);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(1500, 894);
             this.MinimumSize = new System.Drawing.Size(1500, 894);
             this.Name = "admin_patient";
@@ -760,5 +820,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.TextBox patientIdTextBox;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

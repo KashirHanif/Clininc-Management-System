@@ -305,5 +305,73 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password, connectionString));
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate inputs
+                if (string.IsNullOrWhiteSpace(pfirstNameTB.Text) || string.IsNullOrWhiteSpace(plastNameTB.Text))
+                {
+                    MessageBox.Show("First name and Last name are required.", "Validation Error");
+                    return;
+                }
+
+                // Validate that a record is selected (e.g., using a hidden `patient_id` TextBox)
+                if (string.IsNullOrWhiteSpace(patientIdTextBox.Text))
+               {
+                   MessageBox.Show("Please select a record to update.", "Validation Error");
+                   return;
+              }
+
+                // Get the date from the DateTimePicker
+                DateTime selectedDOB = pDOBTB.Value;
+
+                // Connection and SQL Command
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "UPDATE tbl_patient " +
+                                   "SET p_f_name = @FirstName, p_l_name = @LastName, father_name = @FatherName, date_of_birth = @DOB, street = @Street, block = @Block, city = @City, country = @Country, " +
+                                   "ph_country_code = @CountryCode, phone_number = @PhoneNumber, gender = @Gender, age = @Age, cnic = @CNIC " +
+                                   "WHERE patient_id = @PatientID";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@FirstName", pfirstNameTB.Text);
+                    cmd.Parameters.AddWithValue("@LastName", plastNameTB.Text);
+                    cmd.Parameters.AddWithValue("@FatherName", pfatherNameTB.Text);
+                    cmd.Parameters.AddWithValue("@DOB", selectedDOB); // Use DateTimePicker's Value
+                    cmd.Parameters.AddWithValue("@Street", pstreetTB.Text);
+                    cmd.Parameters.AddWithValue("@Block", pBlockTB.Text);
+                    cmd.Parameters.AddWithValue("@City", pCityTB.Text);
+                    cmd.Parameters.AddWithValue("@Country", pCountryTB.Text);
+                    cmd.Parameters.AddWithValue("@CountryCode", pCountryCodeTB.Text);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", pPhonenumTB.Text);
+                    cmd.Parameters.AddWithValue("@Gender", pGender2.Text);
+                    cmd.Parameters.AddWithValue("@Age", pAgeTB.Text);
+                    cmd.Parameters.AddWithValue("@CNIC", pCNIC.Text);
+                   cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Patient record updated successfully.");
+                        PopulateDataGridView(); // Refresh DataGridView with updated data
+                    }
+                    else
+                    {
+                        MessageBox.Show("No record found to update. Please check the Patient ID.", "Update Failed");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+            }
+        
+    }
     }
 }
