@@ -134,18 +134,32 @@ namespace Clinic_Management_System
         private void genBill_Click(object sender, EventArgs e)
         {
             // Read input from UI controls
-            string doctorName = textBox1.Text.Trim();
+            string doctorName = null; // Default to null
             int appointmentId = int.Parse(treatmentptname.Text.Trim());
             decimal doctorFee = decimal.Parse(textBox4.Text.Trim());
-            DateTime followUpDate = dateTimePicker1.Value;
+            DateTime? followUpDate = null; // Nullable DateTime for follow-up date
             string bookedByName = textBox2.Text.Trim();
             int billId = 0; // Variable to store generated bill_id
+            int prescriptionId = 0; // Variable to store prescription_id
+
+            // Check if checkbox is selected to determine follow-up information
+            if (checkBox1.Checked)
+            {
+                followUpDate = dateTimePicker1.Value;
+                doctorName = string.IsNullOrWhiteSpace(comboBox1.Text) ? null : comboBox1.Text.Trim(); // Pass null if no selection
+            }
 
             // Validate inputs
-            if (string.IsNullOrEmpty(doctorName) || appointmentId <= 0 || doctorFee <= 0 || string.IsNullOrEmpty(bookedByName))
+            if (appointmentId <= 0 || string.IsNullOrEmpty(bookedByName))
             {
                 MessageBox.Show("Please ensure all fields are filled correctly.");
                 return;
+            }
+
+            // Ensure doctor fee is at least 10
+            if (doctorFee <= 0)
+            {
+                doctorFee = 10;
             }
 
             try
@@ -155,17 +169,17 @@ namespace Clinic_Management_System
                 {
                     conn.Open();
 
-                    // Call the stored procedure
+                    // Call the procedure to insert the bill and prescription
                     using (SqlCommand cmd = new SqlCommand("insert_prescription_and_billing", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         // Add parameters
                         cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-                        cmd.Parameters.AddWithValue("@follow_up_date", followUpDate);
-                        cmd.Parameters.AddWithValue("@doctor_name", doctorName);
+                        cmd.Parameters.AddWithValue("@doctor_name", (object)doctorName ?? DBNull.Value); // Pass DBNull.Value if null
                         cmd.Parameters.AddWithValue("@booked_by_name", bookedByName);
                         cmd.Parameters.AddWithValue("@doctor_fee", doctorFee);
+                        cmd.Parameters.AddWithValue("@follow_up_date", followUpDate ?? (object)DBNull.Value);
 
                         // Add output parameter for bill_id
                         SqlParameter billIdParam = new SqlParameter("@bill_id", SqlDbType.Int)
@@ -181,7 +195,24 @@ namespace Clinic_Management_System
                         billId = (int)billIdParam.Value;
                     }
 
-                    LoadControl(new showPreview(username, password, connectionString, billId));
+                    // Call the procedure to get prescription summary
+                    using (SqlCommand cmd = new SqlCommand("sp_get_prescription_summary", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@bill_id", billId);
+
+                        // Execute and read the results
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                prescriptionId = reader.GetInt32(reader.GetOrdinal("prescription_id"));
+                                // You can retrieve other details here as needed
+                            }
+                        }
+                    }
+                    // Load the next control or form
+                    LoadControl(new showPreview(username, password, connectionString, billId, prescriptionId));
                 }
             }
             catch (Exception ex)
@@ -251,20 +282,21 @@ namespace Clinic_Management_System
             {
                 // Query to retrieve appointment details along with patient and employee information
                 string query = @"
-            SELECT 
-                a.appointment_id AS AppointmentID,
-                a.date_of_appointment AS AppointmentDate,
-                a.time_of_appointment AS AppointmentTime,
-                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
-                 FROM tbl_patient p 
-                 WHERE p.patient_id = a.patient_id) AS PatientName,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
-            FROM tbl_appointment a;";
+                    SELECT 
+                        a.appointment_id AS AppointmentID,
+                        a.date_of_appointment AS AppointmentDate,
+                        a.time_of_appointment AS AppointmentTime,
+                        (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
+                         FROM tbl_patient p 
+                         WHERE p.patient_id = a.patient_id) AS PatientName,
+                        (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                         FROM tbl_employee e 
+                         WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
+                        (SELECT CONCAT(e.f_name, ' ', e.l_name)
+                         FROM tbl_employee e 
+                         WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
+                    FROM tbl_appointment a
+                    WHERE a.appointment_status = 'Booked';";
 
                 // Using connection and command to fetch data
                 using (SqlConnection connection = new SqlConnection(connectionString))

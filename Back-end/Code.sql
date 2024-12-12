@@ -881,6 +881,89 @@ END;
 ALTER TABLE tbl_billing
 ADD CONSTRAINT DF_emp_fee DEFAULT 1000 FOR emp_fee;
 
+CREATE PROCEDURE CountPatientsByDateRange  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CAST(a.date_of_appointment AS DATE) AS AppointmentDate,
+        COUNT(a.patient_id) AS PatientCount
+    FROM tbl_appointment a
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY CAST(a.date_of_appointment AS DATE)
+    ORDER BY AppointmentDate;
+END;
+
+select * from tbl_appointment
+
+CREATE PROCEDURE CountAppointmentsByDoctor  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
+        COUNT(a.appointment_id) AS AppointmentCount
+    FROM tbl_appointment a
+    INNER JOIN tbl_employee e
+        ON a.booked_for_emp_id = e.emp_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY e.f_name, e.l_name
+    ORDER BY AppointmentCount DESC;
+END;
+
+CREATE PROCEDURE CalculateDoctorRevenue  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
+        SUM(b.emp_fee) AS TotalRevenue
+    FROM tbl_billing b
+    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+    INNER JOIN tbl_employee e ON a.booked_for_emp_id = e.emp_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY e.f_name, e.l_name
+    ORDER BY TotalRevenue DESC;
+END;
+
+CREATE PROCEDURE GetHospitalProfitData  
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CAST(start_date AS DATE) AS Date,
+        hospital_profit_percent AS ProfitPercent
+    FROM tbl_profit
+    WHERE start_date >= @StartDate AND end_date <= @EndDate
+    ORDER BY start_date;
+END;
+
+
+
+CREATE PROCEDURE GetHospitalProfitLoss
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    -- Assuming fixed hospital expenses for simplicity (can be made dynamic later)
+    DECLARE @HospitalExpenses DECIMAL(10, 2) = 10000.00; -- Example fixed expense per period
+
+    SELECT 
+        CAST(a.date_of_appointment AS DATE) AS Date, -- Use date_of_appointment instead of start_date
+        (SUM(b.emp_fee) * 0.30 - @HospitalExpenses) AS ProfitPercent -- 30% hospital share minus expenses
+    FROM tbl_billing b
+    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY CAST(a.date_of_appointment AS DATE)
+    ORDER BY Date;
+END;
+
+
+
 
 
 CREATE PROCEDURE sp_calculate_hospital_revenue   --run
@@ -941,3 +1024,5 @@ BEGIN
 END;
 
 EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
+
+select * from tbl_prescription_item

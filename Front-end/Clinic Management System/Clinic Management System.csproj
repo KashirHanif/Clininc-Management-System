@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin_patient.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="admin_patient.Designer.cs">
+      <DependentUpon>admin_patient.cs</DependentUpon>
+    </Compile>
     <Compile Include="doctor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="admin_patient.resx">
+      <DependentUpon>admin_patient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="doctor.resx">
       <DependentUpon>doctor.cs</DependentUpon>
     </EmbeddedResource>
