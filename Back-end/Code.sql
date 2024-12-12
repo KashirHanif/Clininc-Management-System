@@ -771,3 +771,173 @@ select * from tbl_appointment
 select * from tbl_prescription
 
 select * from login_table
+
+CREATE PROCEDURE sp_get_prescription_summary
+    @bill_id INT
+AS
+BEGIN
+    SELECT
+		p.prescription_id,
+        CONCAT(pt.p_f_name, ' ', pt.p_l_name) AS patient_name,
+        CONCAT(d.f_name, ' ', d.l_name) AS doctor_name,
+        b.emp_fee AS doctor_fee
+    FROM
+        tbl_prescription p
+    JOIN
+        tbl_appointment a ON p.appointment_id = a.appointment_id
+    JOIN
+        tbl_patient pt ON a.patient_id = pt.patient_id
+    JOIN
+        tbl_employee d ON a.booked_for_emp_id = d.emp_id
+    LEFT JOIN
+        tbl_billing b ON a.appointment_id = b.appointment_id
+    WHERE
+        b.bill_id = @bill_id; 
+END;
+
+
+
+ CREATE PROCEDURE CountPatientsByDateRange  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CAST(a.date_of_appointment AS DATE) AS AppointmentDate,
+        COUNT(a.patient_id) AS PatientCount
+    FROM tbl_appointment a
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY CAST(a.date_of_appointment AS DATE)
+    ORDER BY AppointmentDate;
+END;
+
+select * from tbl_appointment
+
+CREATE PROCEDURE CountAppointmentsByDoctor  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
+        COUNT(a.appointment_id) AS AppointmentCount
+    FROM tbl_appointment a
+    INNER JOIN tbl_employee e
+        ON a.booked_for_emp_id = e.emp_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY e.f_name, e.l_name
+    ORDER BY AppointmentCount DESC;
+END;
+
+CREATE PROCEDURE CalculateDoctorRevenue  --run
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
+        SUM(b.emp_fee) AS TotalRevenue
+    FROM tbl_billing b
+    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+    INNER JOIN tbl_employee e ON a.booked_for_emp_id = e.emp_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY e.f_name, e.l_name
+    ORDER BY TotalRevenue DESC;
+END;
+
+CREATE PROCEDURE GetHospitalProfitData  
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT 
+        CAST(start_date AS DATE) AS Date,
+        hospital_profit_percent AS ProfitPercent
+    FROM tbl_profit
+    WHERE start_date >= @StartDate AND end_date <= @EndDate
+    ORDER BY start_date;
+END;
+
+
+
+CREATE PROCEDURE GetHospitalProfitLoss
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    -- Assuming fixed hospital expenses for simplicity (can be made dynamic later)
+    DECLARE @HospitalExpenses DECIMAL(10, 2) = 10000.00; -- Example fixed expense per period
+
+    SELECT 
+        CAST(a.date_of_appointment AS DATE) AS Date, -- Use date_of_appointment instead of start_date
+        (SUM(b.emp_fee) * 0.30 - @HospitalExpenses) AS ProfitPercent -- 30% hospital share minus expenses
+    FROM tbl_billing b
+    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
+    GROUP BY CAST(a.date_of_appointment AS DATE)
+    ORDER BY Date;
+END;
+
+ALTER TABLE tbl_billing
+ADD CONSTRAINT DF_emp_fee DEFAULT 1000 FOR emp_fee;
+
+
+
+CREATE PROCEDURE sp_calculate_hospital_revenue   --run
+    @StartDate DATE,
+    @Duration VARCHAR(10),
+	@profitpercent decimal(10,2) = 30.00
+AS
+BEGIN
+    -- Temporary table to store daily revenues
+    CREATE TABLE #DailyRevenue (
+        RevenueDate DATE,
+        RevenueAmount DECIMAL(18, 2)
+    );
+
+    DECLARE @EndDate DATE;
+
+    -- Determine the end date based on the duration
+    IF @Duration = 'weekly'
+    BEGIN
+        SET @EndDate = @StartDate;
+        SET @StartDate = DATEADD(DAY, -6, @EndDate); -- Get the start date of the last week
+    END
+    ELSE IF @Duration = 'monthly'
+    BEGIN
+        SET @EndDate = @StartDate;
+        SET @StartDate = DATEADD(MONTH, -1, @StartDate); -- Get the start date of the last month
+    END
+
+    -- Loop through each day in the range
+    WHILE @StartDate <= @EndDate
+    BEGIN
+
+
+        DECLARE @DailyRevenue DECIMAL(18, 2);
+
+        -- Calculate total revenue for the day by joining tbl_billing and tbl_appointment on appointment_id
+        SELECT @DailyRevenue = SUM((b.emp_fee * @profitpercent) / 100)
+        FROM tbl_billing b
+        INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+        WHERE CAST(a.date_of_appointment AS DATE) = @StartDate;
+
+        -- Handle NULL values (if no revenue, set it to 0)
+        SET @DailyRevenue = ISNULL(@DailyRevenue, 0);
+
+        -- Insert the calculated revenue into the temporary table
+        INSERT INTO #DailyRevenue (RevenueDate, RevenueAmount)
+        VALUES (@StartDate, @DailyRevenue);
+
+        -- Increment the date
+        SET @StartDate = DATEADD(DAY, 1, @StartDate);
+    END;
+
+    -- Return the result
+    SELECT * FROM #DailyRevenue;
+
+    -- Cleanup
+    DROP TABLE #DailyRevenue;
+END;
+
+EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
