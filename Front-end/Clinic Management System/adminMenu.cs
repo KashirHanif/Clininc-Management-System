@@ -20,33 +20,75 @@ namespace Clinic_Management_System
             this.password = password;
             this.connectionString = connectionString;
 
-            // Load data into the chart when the control is initialized
-            LoadChartData();
+            // Set default selection in ComboBox and populate both charts
+            comboBox1.SelectedIndex = 0; // Default to "Past week"
+            FetchDataAndPlotCharts();
         }
 
-        private void LoadChartData()
+        private void FetchDataButton_Click(object sender, EventArgs e)
+        {
+            FetchDataAndPlotCharts();
+        }
+
+        private void FetchDataAndPlotCharts()
+        {
+            try
+            {
+                // Get the current system date
+                DateTime endDate = DateTime.Now;
+
+                // Determine the start date based on dropdown selection
+                string duration = comboBox1.SelectedItem?.ToString();
+                DateTime startDate;
+
+                if (duration == "Past week")
+                {
+                    startDate = endDate.AddDays(-7);
+                }
+                else if (duration == "Past month")
+                {
+                    startDate = endDate.AddMonths(-1);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid duration selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Load data for both charts
+                LoadPatientChartData(startDate, endDate);
+                LoadDoctorAppointmentsChartData(startDate, endDate);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FetchDataAndPlotCharts(); // Automatically updates the charts
+        }
+
+        private void LoadPatientChartData(DateTime startDate, DateTime endDate)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlCommand cmd = new SqlCommand("CountPatientsByDay", conn))
+                    using (SqlCommand cmd = new SqlCommand("CountPatientsByDateRange", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@StartDate", startDate);
+                        cmd.Parameters.AddWithValue("@EndDate", endDate);
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
 
-                            // Debugging log for data
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                Console.WriteLine($"Day: {row["DayOfWeek"]}, Count: {row["PatientCount"]}");
-                            }
-
-                            PopulateChart(dt);
+                            PopulatePatientChart(dt, startDate, endDate);
                         }
                     }
                 }
@@ -61,88 +103,102 @@ namespace Clinic_Management_System
             }
         }
 
-        private void LoadControl(UserControl control)
+        private void LoadDoctorAppointmentsChartData(DateTime startDate, DateTime endDate)
         {
-            this.Controls.Clear();        // Clear any existing controls on the form
-            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
-            this.Controls.Add(control);
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("CountAppointmentsByDoctor", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@StartDate", startDate);
+                        cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+                            PopulateDoctorChart(dt);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}\n\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void PopulateChart(DataTable data)
+        private void PopulatePatientChart(DataTable data, DateTime startDate, DateTime endDate)
         {
             if (chart1 == null)
             {
-                MessageBox.Show("Chart control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chart1 control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Clear existing chart data
             chart1.Series.Clear();
 
-            // Create a new series for the chart
             Series series = new Series("Patient Count")
             {
-                ChartType = SeriesChartType.Column, // Column chart style
+                ChartType = SeriesChartType.Column,
                 Color = Color.Blue,
                 IsValueShownAsLabel = true
             };
 
-            // Add data points to the series
-            foreach (DataRow row in data.Rows)
+            // Fill missing dates in the range with zero count
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                if (row["DayOfWeek"] != DBNull.Value && row["PatientCount"] != DBNull.Value)
-                {
-                    string dayOfWeek = row["DayOfWeek"].ToString();
-                    int patientCount = Convert.ToInt32(row["PatientCount"]);
-                    series.Points.AddXY(dayOfWeek, patientCount);
-                }
+                string dateStr = date.ToString("yyyy-MM-dd");
+                DataRow[] rows = data.Select($"AppointmentDate = '{dateStr}'");
+
+                int patientCount = rows.Length > 0 ? Convert.ToInt32(rows[0]["PatientCount"]) : 0;
+                series.Points.AddXY(dateStr, patientCount);
             }
 
-            // Add the series to the chart
             chart1.Series.Add(series);
-
-            // Customize chart appearance
-            chart1.ChartAreas[0].AxisX.Title = "Day of the Week";
+            chart1.ChartAreas[0].AxisX.Title = "Date";
             chart1.ChartAreas[0].AxisY.Title = "Patient Count";
             chart1.Titles.Clear();
-            chart1.Titles.Add("Patient Count Per Day (Last Month)");
+            chart1.Titles.Add($"Patient Count From {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void PopulateDoctorChart(DataTable data)
         {
-            // Handle click events for pictureBox2 if required
-        }
-
-        private void headerPanel_Paint(object sender, PaintEventArgs e)
-        {
-            // Custom drawing logic for the header panel (if required)
-        }
-        private void Button_MouseEnter(object sender, EventArgs e)
-        {
-            // Change the background and text color when the mouse enters the button
-            Button button = sender as Button;
-            if (button != null)
+            if (chart2 == null)
             {
-                button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                button.ForeColor = System.Drawing.Color.Yellow;
+                MessageBox.Show("Chart2 control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-        }
 
-        private void Button_MouseLeave(object sender, EventArgs e)
-        {
-            // Revert the background and text color when the mouse leaves the button
-            Button button = sender as Button;
-            if (button != null)
+            chart2.Series.Clear();
+
+            Series series = new Series("Appointment Count")
             {
-                button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                button.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            }
-        }
+                ChartType = SeriesChartType.Column,
+                Color = Color.Green,
+                IsValueShownAsLabel = true
+            };
 
-        private void logoutButton_Click(object sender, EventArgs e)
-        {
-            Form1 form1 = new Form1();
-            form1.Show();
+            foreach (DataRow row in data.Rows)
+            {
+                string doctorName = row["DoctorName"].ToString();
+                int appointmentCount = Convert.ToInt32(row["AppointmentCount"]);
+                series.Points.AddXY(doctorName, appointmentCount);
+            }
+
+            chart2.Series.Add(series);
+            chart2.ChartAreas[0].AxisX.Title = "Doctor";
+            chart2.ChartAreas[0].AxisY.Title = "Appointment Count";
+            chart2.Titles.Clear();
+            chart2.Titles.Add("Appointments Per Doctor");
         }
     }
 }

@@ -763,50 +763,6 @@ LEFT JOIN
 
 
 
-CREATE PROCEDURE sp_get_prescription_summary
-    @bill_id INT
-AS
-BEGIN
-    SELECT
-		p.prescription_id,
-        CONCAT(pt.p_f_name, ' ', pt.p_l_name) AS patient_name,
-        CONCAT(d.f_name, ' ', d.l_name) AS doctor_name,
-        b.emp_fee AS doctor_fee
-    FROM
-        tbl_prescription p
-    JOIN
-        tbl_appointment a ON p.appointment_id = a.appointment_id
-    JOIN
-        tbl_patient pt ON a.patient_id = pt.patient_id
-    JOIN
-        tbl_employee d ON a.booked_for_emp_id = d.emp_id
-    LEFT JOIN
-        tbl_billing b ON a.appointment_id = b.appointment_id
-    WHERE
-        b.bill_id = @bill_id; 
-END;
-
-
-SELECT 
-    OBJECT_NAME(fk.constraint_object_id) AS FK_Name,
-    OBJECT_NAME(fk.parent_object_id) AS Table_Name,
-    col1.name AS Column_Name,
-    OBJECT_NAME(fk.referenced_object_id) AS Referenced_Table,
-    col2.name AS Referenced_Column
-FROM 
-    sys.foreign_key_columns fk
-INNER JOIN 
-    sys.columns col1 ON fk.parent_object_id = col1.object_id AND fk.parent_column_id = col1.column_id
-INNER JOIN 
-    sys.columns col2 ON fk.referenced_object_id = col2.object_id AND fk.referenced_column_id = col2.column_id
-WHERE 
-    fk.parent_object_id = OBJECT_ID('tbl_billing');
-
-ALTER TABLE tbl_billing DROP CONSTRAINT FK_tbl_billiemp_i_3F115E1A
-ALTER TABLE tbl_billing DROP CONSTRAINT FK_tbl_billipatie_40058253
-ALTER TABLE tbl_billing DROP CONSTRAINT fk_treatment_id
-
-drop table tbl_billing
 
 select * from tbl_billing
 
