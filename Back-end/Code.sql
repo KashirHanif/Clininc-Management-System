@@ -85,18 +85,40 @@ create table tbl_treatment (
 
 create table tbl_billing (
 	bill_id int identity(1,1) primary key,
-	total_bill decimal(10, 2) not null,
-	emp_fee decimal(10, 2) not null,
-	hospital_profit_percent decimal(5,2),
-	emp_id int,
-	patient_id int,
-	foreign key (emp_id) references tbl_employee(emp_id),
-	foreign key (patient_id) references tbl_patient(patient_id),
+	emp_fee int,
+	appointment_id int,
+	foreign key (appointment_id) references tbl_appointment(appointment_id)
 );
 
+create table tbl_profit (
+	hospital_profit_percent decimal(10,2),
+	start_date date,
+	end_date date
+)
 
+create table tbl_prescription (
+    prescription_id INT IDENTITY(1,1) PRIMARY KEY,
+    appointment_id INT NOT NULL,
+    follow_up_date DATE,
+	followUpDoctorName VARCHAR(100),
+    bookedByName VARCHAR(100),
+    created_at DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
+);
 
+create table tbl_item (
+    item_id INT IDENTITY(1,1) PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL
+);
 
+create table tbl_prescription_item (
+    prescription_item_id INT IDENTITY(1,1) PRIMARY KEY,
+    prescription_id INT NOT NULL,
+    item_id INT NOT NULL,
+    item_type VARCHAR(50) NOT NULL,
+    FOREIGN KEY (prescription_id) REFERENCES tbl_prescription(prescription_id),
+    FOREIGN KEY (item_id) REFERENCES tbl_item(item_id)
+);
 
 create table tbl_emp_working_hours (
 	emp_id int,
@@ -605,43 +627,191 @@ BEGIN
     END CATCH
 END;
 
-
-drop procedure UpdateEmployeeDetails
-select * from tbl_emp_working_hours
-
-
-CREATE PROCEDURE CountPatientsByDay
+CREATE PROCEDURE insert_prescription_and_billing
+    @appointment_id INT,
+    @follow_up_date DATE,
+    @doctor_name VARCHAR(100),
+    @booked_by_name VARCHAR(100),
+    @doctor_fee DECIMAL(10, 2),
+    @bill_id INT OUTPUT 
 AS
 BEGIN
-    -- Declare a variable to store the date one month ago
-    DECLARE @one_month_ago DATE;
-    
-    -- Set the date to one month ago
-    SET @one_month_ago = DATEADD(MONTH, -1, GETDATE());
-    
-    -- Select count of patients grouped by the day of the week
-    SELECT
-        DATENAME(WEEKDAY, patient_visit_date) AS DayOfWeek,  -- Get the day name
-        COUNT(patient_id) AS PatientCount
-    FROM
-        patients
-    WHERE
-        patient_visit_date >= @one_month_ago
-    GROUP BY
-        DATENAME(WEEKDAY, patient_visit_date)  -- Group by the day name
-    ORDER BY
-        CASE DATENAME(WEEKDAY, patient_visit_date)
-            WHEN 'Monday' THEN 1
-            WHEN 'Tuesday' THEN 2
-            WHEN 'Wednesday' THEN 3
-            WHEN 'Thursday' THEN 4
-            WHEN 'Friday' THEN 5
-            WHEN 'Saturday' THEN 6
-            WHEN 'Sunday' THEN 7
-        END;  -- Order by Monday to Sunday
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO tbl_prescription (appointment_id, follow_up_date, followUpDoctorName, bookedByName)
+        VALUES (@appointment_id, @follow_up_date, @doctor_name, @booked_by_name);
+
+        INSERT INTO tbl_billing (appointment_id, emp_fee)
+        VALUES (@appointment_id, @doctor_fee);
+
+        SELECT @bill_id = SCOPE_IDENTITY();
+
+        UPDATE tbl_appointment
+        SET appointment_status = 'Attended'
+        WHERE appointment_id = @appointment_id;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH
 END;
 
 
 
 
+create procedure get_or_create_item
+    @item_name VARCHAR(255),
+    @item_id INT OUTPUT
+AS
+BEGIN
+    SELECT @item_id = item_id
+    FROM tbl_item
+    WHERE item_name = @item_name;
 
+    IF @item_id IS NULL
+    BEGIN
+        INSERT INTO tbl_item (item_name)
+        VALUES (@item_name);
+
+        SET @item_id = SCOPE_IDENTITY();
+    END
+END;
+
+CREATE TRIGGER trg_book_followup_appointment
+ON tbl_prescription
+AFTER INSERT
+AS
+BEGIN
+    DECLARE 
+        @follow_up_date DATE, 
+        @appointment_id INT,
+        @patient_id INT,
+        @doctor_name VARCHAR(100),
+        @booked_by_name VARCHAR(100),
+        @doctor_id INT,
+        @appointment_time TIME,
+        @appointment_status VARCHAR(50) = 'Booked';
+
+    SELECT 
+        @follow_up_date = follow_up_date,
+        @appointment_id = appointment_id,
+        @doctor_name = followUpDoctorName,
+        @booked_by_name = bookedByName
+    FROM inserted;
+
+
+    IF @follow_up_date IS NULL
+        RETURN;
+
+    SELECT 
+        @patient_id = patient_id
+    FROM tbl_appointment
+    WHERE appointment_id = @appointment_id;
+
+    SELECT 
+        @doctor_id = emp_id
+    FROM tbl_employee
+    WHERE CONCAT(f_name, ' ', l_name) = @doctor_name;
+
+    EXEC get_next_appointment_time 
+        @doctor_name = @doctor_name, 
+        @appointment_date = @follow_up_date, 
+        @next_time = @appointment_time OUTPUT;
+
+    EXEC add_appointment
+        @booked_by_name = @booked_by_name,
+        @booked_for_name = @doctor_name,
+        @appointment_date = @follow_up_date,
+        @appointment_time = @appointment_time,
+        @appointment_type = 'Follow-Up',
+        @appointment_status = @appointment_status,
+        @patient_id = @patient_id;
+END;
+
+
+
+
+create view vw_prescription_details AS
+SELECT
+    p.prescription_id,
+    concat(pt.p_f_name,pt.p_l_name) AS patient_name,
+    CONCAT(d.f_name, ' ', d.l_name) AS doctor_name,
+    a.date_of_appointment,
+    p.follow_up_date,
+    i.item_name,
+    pi.item_type,
+    b.bill_id,
+    b.emp_fee
+FROM
+    tbl_prescription p
+JOIN
+    tbl_appointment a ON p.appointment_id = a.appointment_id
+JOIN
+    tbl_patient pt ON a.patient_id = pt.patient_id
+JOIN
+    tbl_employee d ON a.booked_for_emp_id = d.emp_id
+JOIN
+    tbl_prescription_item pi ON p.prescription_id = pi.prescription_id
+JOIN
+    tbl_item i ON pi.item_id = i.item_id
+LEFT JOIN
+    tbl_billing b ON a.appointment_id = b.appointment_id;
+
+
+
+CREATE PROCEDURE sp_get_prescription_summary
+    @bill_id INT
+AS
+BEGIN
+    SELECT
+		p.prescription_id,
+        CONCAT(pt.p_f_name, ' ', pt.p_l_name) AS patient_name,
+        CONCAT(d.f_name, ' ', d.l_name) AS doctor_name,
+        b.emp_fee AS doctor_fee
+    FROM
+        tbl_prescription p
+    JOIN
+        tbl_appointment a ON p.appointment_id = a.appointment_id
+    JOIN
+        tbl_patient pt ON a.patient_id = pt.patient_id
+    JOIN
+        tbl_employee d ON a.booked_for_emp_id = d.emp_id
+    LEFT JOIN
+        tbl_billing b ON a.appointment_id = b.appointment_id
+    WHERE
+        b.bill_id = @bill_id; 
+END;
+
+
+SELECT 
+    OBJECT_NAME(fk.constraint_object_id) AS FK_Name,
+    OBJECT_NAME(fk.parent_object_id) AS Table_Name,
+    col1.name AS Column_Name,
+    OBJECT_NAME(fk.referenced_object_id) AS Referenced_Table,
+    col2.name AS Referenced_Column
+FROM 
+    sys.foreign_key_columns fk
+INNER JOIN 
+    sys.columns col1 ON fk.parent_object_id = col1.object_id AND fk.parent_column_id = col1.column_id
+INNER JOIN 
+    sys.columns col2 ON fk.referenced_object_id = col2.object_id AND fk.referenced_column_id = col2.column_id
+WHERE 
+    fk.parent_object_id = OBJECT_ID('tbl_billing');
+
+ALTER TABLE tbl_billing DROP CONSTRAINT FK_tbl_billiemp_i_3F115E1A
+ALTER TABLE tbl_billing DROP CONSTRAINT FK_tbl_billipatie_40058253
+ALTER TABLE tbl_billing DROP CONSTRAINT fk_treatment_id
+
+drop table tbl_billing
+
+select * from tbl_billing
+
+select * from tbl_appointment
+
+select * from tbl_prescription
+
+select * from login_table

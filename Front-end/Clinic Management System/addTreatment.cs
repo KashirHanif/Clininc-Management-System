@@ -19,11 +19,13 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private string connectionString;
-        public addTreatment(string username, string password,string connectionString)
+
+        public addTreatment(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
 
+            this.comboBox1.DropDown += comboBox1_DropDown;
 
 
 
@@ -129,6 +131,65 @@ namespace Clinic_Management_System
 
         }
 
+        private void genBill_Click(object sender, EventArgs e)
+        {
+            // Read input from UI controls
+            string doctorName = textBox1.Text.Trim();
+            int appointmentId = int.Parse(treatmentptname.Text.Trim());
+            decimal doctorFee = decimal.Parse(textBox4.Text.Trim());
+            DateTime followUpDate = dateTimePicker1.Value;
+            string bookedByName = textBox2.Text.Trim();
+            int billId = 0; // Variable to store generated bill_id
+
+            // Validate inputs
+            if (string.IsNullOrEmpty(doctorName) || appointmentId <= 0 || doctorFee <= 0 || string.IsNullOrEmpty(bookedByName))
+            {
+                MessageBox.Show("Please ensure all fields are filled correctly.");
+                return;
+            }
+
+            try
+            {
+                // Establish database connection
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Call the stored procedure
+                    using (SqlCommand cmd = new SqlCommand("insert_prescription_and_billing", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters
+                        cmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+                        cmd.Parameters.AddWithValue("@follow_up_date", followUpDate);
+                        cmd.Parameters.AddWithValue("@doctor_name", doctorName);
+                        cmd.Parameters.AddWithValue("@booked_by_name", bookedByName);
+                        cmd.Parameters.AddWithValue("@doctor_fee", doctorFee);
+
+                        // Add output parameter for bill_id
+                        SqlParameter billIdParam = new SqlParameter("@bill_id", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(billIdParam);
+
+                        // Execute the procedure
+                        cmd.ExecuteNonQuery();
+
+                        // Retrieve the generated bill_id
+                        billId = (int)billIdParam.Value;
+                    }
+
+                    LoadControl(new showPreview(username, password, connectionString, billId));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
 
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -139,23 +200,42 @@ namespace Clinic_Management_System
                 DataGridViewRow selectedRow = addPatientGridView.Rows[e.RowIndex];
 
                 // Retrieve values from the selected row
-                string patientName = selectedRow.Cells["PatientName"].Value?.ToString();
+                string appointmentId = selectedRow.Cells["AppointmentID"].Value?.ToString();
                 string doctorName = selectedRow.Cells["BookedForEmployee"].Value?.ToString()?.Trim();
-                
-
+                string bookedByEmployee = selectedRow.Cells["BookedByEmployee"].Value?.ToString()?.Trim(); // Retrieve BookedByEmployee
 
                 // Set the retrieved values in the appropriate controls
-                if (!string.IsNullOrEmpty(patientName))
+                if (!string.IsNullOrEmpty(appointmentId))
                 {
-                    treatmentptname.Text = patientName;
+                    treatmentptname.Text = appointmentId; // Set appointment ID in treatmentptname
                 }
                 else
                 {
                     treatmentptname.Text = string.Empty;
-                    MessageBox.Show("Patient Name is not available for the selected row.");
+                    MessageBox.Show("Appointment ID is not available for the selected row.");
                 }
 
-           
+                if (!string.IsNullOrEmpty(doctorName))
+                {
+                    textBox1.Text = doctorName; // Set doctor name in textBox1
+
+                }
+                else
+                {
+                    textBox1.Text = string.Empty;
+
+                    MessageBox.Show("Doctor Name is not available for the selected row.");
+                }
+
+                if (!string.IsNullOrEmpty(bookedByEmployee))
+                {
+                    textBox2.Text = bookedByEmployee; // Set bookedByEmployee in textBox2
+                }
+                else
+                {
+                    textBox2.Text = string.Empty;
+                    MessageBox.Show("Booked By Employee is not available for the selected row.");
+                }
             }
             else
             {
@@ -163,9 +243,10 @@ namespace Clinic_Management_System
             }
         }
 
+
         private void PopulateDataGridView()
         {
-          //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 // Query to retrieve appointment details along with patient and employee information
@@ -208,6 +289,7 @@ namespace Clinic_Management_System
                     // Auto-resize columns for better visibility
                     addPatientGridView.AutoResizeColumns();
                 }
+
             }
             catch (Exception ex)
             {
@@ -293,7 +375,7 @@ namespace Clinic_Management_System
 
         }
 
-        
+
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -311,7 +393,7 @@ namespace Clinic_Management_System
         private void label5_Click(object sender, EventArgs e)
         {
             //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-         //   string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //   string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -360,7 +442,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password,connectionString));
+            LoadControl(new PatientUserControl(username, password, connectionString));
         }
 
         private void label4_Click_1(object sender, EventArgs e)
@@ -373,7 +455,7 @@ namespace Clinic_Management_System
 
         }
 
-       
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -382,18 +464,21 @@ namespace Clinic_Management_System
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-           // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
-          //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
 
             try
             {
-                // Retrieve the selected employee name, patient name, and treatment type
-             
-                string patientName = treatmentptname.Text.Trim();
+                // Retrieve the selected appointment_id and treatment type
+                int appointmentId;
+                if (!int.TryParse(treatmentptname.Text.Trim(), out appointmentId))
+                {
+                    MessageBox.Show("Invalid Appointment ID.");
+                    return;
+                }
                 string treatmentType = treatmentTypeComboBox.Text.Trim();
 
-              
                 int employeeId, patientId;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -404,7 +489,7 @@ namespace Clinic_Management_System
                     string employeeQuery = "SELECT emp_id FROM tbl_employee WHERE CONCAT(f_name, ' ', l_name) = @EmployeeName";
                     using (SqlCommand cmd = new SqlCommand(employeeQuery, connection))
                     {
-                        
+                        cmd.Parameters.AddWithValue("@EmployeeName", textBox1.Text.Trim());
                         object result = cmd.ExecuteScalar();
                         if (result != null)
                         {
@@ -417,11 +502,11 @@ namespace Clinic_Management_System
                         }
                     }
 
-                    // Query to get patient_id
-                    string patientQuery = "SELECT patient_id FROM tbl_patient WHERE CONCAT(p_f_name, ' ', p_l_name) = @PatientName";
+                    // Query to get patient_id using appointment_id
+                    string patientQuery = "SELECT patient_id FROM tbl_appointment WHERE appointment_id = @AppointmentId";
                     using (SqlCommand cmd = new SqlCommand(patientQuery, connection))
                     {
-                        cmd.Parameters.AddWithValue("@PatientName", patientName);
+                        cmd.Parameters.AddWithValue("@AppointmentId", appointmentId);
                         object result = cmd.ExecuteScalar();
                         if (result != null)
                         {
@@ -429,7 +514,7 @@ namespace Clinic_Management_System
                         }
                         else
                         {
-                            MessageBox.Show("Patient not found.");
+                            MessageBox.Show("Appointment not found or patient not associated.");
                             return;
                         }
                     }
@@ -447,7 +532,7 @@ namespace Clinic_Management_System
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Treatment record added successfully.");
+                            MessageBox.Show("Record added successfully!");
                         }
                         else
                         {
@@ -460,7 +545,6 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -468,10 +552,6 @@ namespace Clinic_Management_System
 
         }
 
-        private void genBill_Click(object sender, EventArgs e)
-        {
-            LoadControl(new Printable(username, password,connectionString));
-        }
 
         private void label4_Click_2(object sender, EventArgs e)
         {
@@ -481,6 +561,53 @@ namespace Clinic_Management_System
         private void treatmentptname_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox1_DropDown(object sender, EventArgs e)
+        {
+            PopulateDoctorsComboBox();
+        }
+        private void PopulateDoctorsComboBox()
+        {
+            try
+            {
+                //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                //string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                string query = @"SELECT CONCAT(f_name, ' ', l_name) AS DoctorName
+            FROM tbl_employee
+            WHERE designation = 'Doctor' 
+            AND emp_id IN (
+                SELECT emp_id 
+                FROM tbl_emp_working_hours 
+                WHERE emp_status = 'Available'
+            )";
+
+                comboBox1.Items.Clear(); // Clear existing items before adding new ones
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string doctorName = reader["DoctorName"].ToString();
+                                comboBox1.Items.Add(doctorName); // Add each doctor name to the ComboBox
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading doctors: " + ex.Message);
+            }
         }
     }
 }

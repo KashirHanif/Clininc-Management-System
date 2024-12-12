@@ -141,7 +141,8 @@ namespace Clinic_Management_System
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new Form1());
+            Form1 form1 = new Form1();
+            form1.Show();
         }
     }
 }
