@@ -92,6 +92,12 @@
     <Compile Include="presciption.Designer.cs">
       <DependentUpon>presciption.cs</DependentUpon>
     </Compile>
+    <Compile Include="prescriptionDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="prescriptionDetails.Designer.cs">
+      <DependentUpon>prescriptionDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Printable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="presciption.resx">
       <DependentUpon>presciption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="prescriptionDetails.resx">
+      <DependentUpon>prescriptionDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Printable.resx">
       <DependentUpon>Printable.cs</DependentUpon>

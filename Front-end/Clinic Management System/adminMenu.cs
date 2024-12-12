@@ -20,8 +20,10 @@ namespace Clinic_Management_System
             this.password = password;
             this.connectionString = connectionString;
 
-            // Set default selection in ComboBox and populate both charts
+            // Set default selection in ComboBox and DateTimePicker
             comboBox1.SelectedIndex = 0; // Default to "Past week"
+            dateTimePicker1.MaxDate = DateTime.Now; // Prevent selection of future dates
+            dateTimePicker1.Value = DateTime.Now; // Default to current date
             FetchDataAndPlotCharts();
         }
 
@@ -34,20 +36,21 @@ namespace Clinic_Management_System
         {
             try
             {
-                // Get the current system date
-                DateTime endDate = DateTime.Now;
+                // Get the selected date from the DateTimePicker
+                DateTime selectedDate = dateTimePicker1.Value;
 
-                // Determine the start date based on dropdown selection
+                // Determine the start and end date based on ComboBox selection
                 string duration = comboBox1.SelectedItem?.ToString();
                 DateTime startDate;
+                DateTime endDate = selectedDate;
 
                 if (duration == "Past week")
                 {
-                    startDate = endDate.AddDays(-7);
+                    startDate = selectedDate.AddDays(-7);
                 }
                 else if (duration == "Past month")
                 {
-                    startDate = endDate.AddMonths(-1);
+                    startDate = selectedDate.AddMonths(-1);
                 }
                 else
                 {
@@ -55,16 +58,92 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                // Load data for both charts
+                // Load data for all charts
                 LoadPatientChartData(startDate, endDate);
                 LoadDoctorAppointmentsChartData(startDate, endDate);
+                LoadDoctorRevenueChartData(startDate, endDate);
+
+                // Load data for the hospital revenue chart (Chart 4)
+                LoadHospitalRevenueChart(selectedDate, duration == "Past week" ? "weekly" : "monthly");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void LoadHospitalRevenueChart(DateTime selectedDate, string duration)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("sp_calculate_hospital_revenue", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
+                        // Pass parameters to the stored procedure
+                        cmd.Parameters.AddWithValue("@StartDate", selectedDate);
+                        cmd.Parameters.AddWithValue("@Duration", duration);
+                        cmd.Parameters.AddWithValue("@profitpercent", 30.00m); // Default profit percent
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+                            if (dt.Rows.Count == 0)
+                            {
+                                MessageBox.Show("No data available for the selected range.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            PopulateHospitalRevenueChart(dt, selectedDate, duration);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}\n\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PopulateHospitalRevenueChart(DataTable data, DateTime selectedDate, string duration)
+        {
+            chart4.Series.Clear();
+
+            // Create a series for hospital revenue
+            Series series = new Series("Hospital Revenue")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = Color.Blue,
+                BorderWidth = 2,
+                IsValueShownAsLabel = true
+            };
+
+            foreach (DataRow row in data.Rows)
+            {
+                DateTime revenueDate = Convert.ToDateTime(row["RevenueDate"]);
+                decimal revenueAmount = Convert.ToDecimal(row["RevenueAmount"]);
+
+                // Add points to the series
+                series.Points.AddXY(revenueDate.ToString("yyyy-MM-dd"), revenueAmount);
+            }
+
+            chart4.Series.Add(series);
+            chart4.ChartAreas[0].AxisX.Title = "Date";
+            chart4.ChartAreas[0].AxisY.Title = "Revenue (in PKR)";
+            chart4.ChartAreas[0].AxisY.LabelStyle.Format = "N2"; // Format axis labels as currency
+
+            // Set chart title dynamically
+            chart4.Titles.Clear();
+            chart4.Titles.Add($"Hospital Revenue ({duration}) From {selectedDate:yyyy-MM-dd}");
+        }
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             FetchDataAndPlotCharts(); // Automatically updates the charts
@@ -121,7 +200,40 @@ namespace Clinic_Management_System
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
 
-                            PopulateDoctorChart(dt);
+                            PopulateDoctorAppointmentsChart(dt);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database error: {sqlEx.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error: {ex.Message}\n\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadDoctorRevenueChartData(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("CalculateDoctorRevenue", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@StartDate", startDate);
+                        cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+                            PopulateRevenueChart(dt);
                         }
                     }
                 }
@@ -138,12 +250,6 @@ namespace Clinic_Management_System
 
         private void PopulatePatientChart(DataTable data, DateTime startDate, DateTime endDate)
         {
-            if (chart1 == null)
-            {
-                MessageBox.Show("Chart1 control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             chart1.Series.Clear();
 
             Series series = new Series("Patient Count")
@@ -153,7 +259,6 @@ namespace Clinic_Management_System
                 IsValueShownAsLabel = true
             };
 
-            // Fill missing dates in the range with zero count
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
                 string dateStr = date.ToString("yyyy-MM-dd");
@@ -170,14 +275,8 @@ namespace Clinic_Management_System
             chart1.Titles.Add($"Patient Count From {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
         }
 
-        private void PopulateDoctorChart(DataTable data)
+        private void PopulateDoctorAppointmentsChart(DataTable data)
         {
-            if (chart2 == null)
-            {
-                MessageBox.Show("Chart2 control is not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             chart2.Series.Clear();
 
             Series series = new Series("Appointment Count")
@@ -199,6 +298,54 @@ namespace Clinic_Management_System
             chart2.ChartAreas[0].AxisY.Title = "Appointment Count";
             chart2.Titles.Clear();
             chart2.Titles.Add("Appointments Per Doctor");
+        }
+
+        private void PopulateRevenueChart(DataTable data)
+        {
+            chart3.Series.Clear();
+
+            Series series = new Series("Doctor Revenue")
+            {
+                ChartType = SeriesChartType.Pie,
+                IsValueShownAsLabel = true
+            };
+
+            if (data.Rows.Count == 0)
+            {
+                // Add a placeholder entry if there is no revenue data
+                series.Points.AddXY("No Revenue", 1); // Placeholder point
+                chart3.Series.Add(series);
+                chart3.Titles.Clear();
+                chart3.Titles.Add("Revenue Generated Per Doctor (No Data Available)");
+                chart3.Series[0].Points[0].Color = Color.Gray; // Optional: Color the placeholder differently
+                return;
+            }
+
+            foreach (DataRow row in data.Rows)
+            {
+                string doctorName = row["DoctorName"].ToString();
+                decimal revenue = Convert.ToDecimal(row["TotalRevenue"]);
+                series.Points.AddXY(doctorName, revenue);
+            }
+
+            chart3.Series.Add(series);
+            chart3.Titles.Clear();
+            chart3.Titles.Add("Revenue Generated Per Doctor");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chart2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
