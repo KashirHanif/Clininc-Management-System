@@ -56,3 +56,6 @@ D:\database project\Clininc-Management-System\Front-end\Clinic Management System
 D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.prescriptionDetails.resources
 D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.appointment_admin.resources
 D:\Study\University\4th Semester\Database System\Project\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.revenue.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.appintmentLog.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.appointment_admin.resources
+D:\database project\Clininc-Management-System\Front-end\Clinic Management System\obj\Debug\Clinic_Management_System.revenue.resources
