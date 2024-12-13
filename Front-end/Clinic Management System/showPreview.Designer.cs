@@ -204,7 +204,7 @@
             // textBox9
             // 
             this.textBox9.Location = new System.Drawing.Point(881, 229);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(132, 22);
             this.textBox9.TabIndex = 49;
@@ -223,26 +223,15 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Surgical Instruments  ",
-            "Diagnostic Equipment  ",
-            "Consumables  ",
-            "Personal Protective Equipment (PPE)  ",
-            "Medical Furniture  ",
-            "Orthopedic Supplies  ",
-            "Rehabilitation Devices  ",
-            "Pharmaceuticals  ",
-            "Laboratory Equipment  ",
-            "Dental Supplies  ",
-            "Wound Care Products  ",
-            "Respiratory Equipment  ",
-            "Imaging Equipment  ",
-            "Sterilization Products  ",
-            "Mobility Aids  ",
-            "Patient Monitoring Devices  ",
-            "Cardiology Equipment  ",
-            "Emergency Medical Supplies  ",
-            "Infusion and Injection Products  ",
-            "Disposables"});
+            "Medication",
+            "",
+            "Ointment",
+            "",
+            "Tablet",
+            "",
+            "Syrup",
+            "",
+            "Injection"});
             this.comboBox1.Location = new System.Drawing.Point(702, 779);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox1.Name = "comboBox1";

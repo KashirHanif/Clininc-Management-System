@@ -325,7 +325,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password, connectionString));
+            LoadControl(new adminMenu(username, password, connectionString));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -529,5 +529,9 @@ namespace Clinic_Management_System
             }
         }
 
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
