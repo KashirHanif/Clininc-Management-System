@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label3;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(admin_patient));
             this.backButton = new System.Windows.Forms.Button();
             this.pfirstNameTB = new System.Windows.Forms.TextBox();
@@ -93,6 +93,7 @@
             this.profilePicture = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.button16 = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -140,7 +141,7 @@
             this.pfirstNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfirstNameTB.Name = "pfirstNameTB";
-            this.pfirstNameTB.Size = new System.Drawing.Size(351, 35);
+            this.pfirstNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfirstNameTB.TabIndex = 8;
             this.pfirstNameTB.TextChanged += new System.EventHandler(this.pfirstNameTB_TextChanged_1);
             // 
@@ -152,7 +153,7 @@
             this.plastNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.plastNameTB.Name = "plastNameTB";
-            this.plastNameTB.Size = new System.Drawing.Size(351, 35);
+            this.plastNameTB.Size = new System.Drawing.Size(351, 27);
             this.plastNameTB.TabIndex = 9;
             this.plastNameTB.TextChanged += new System.EventHandler(this.plastNameTB_TextChanged_1);
             // 
@@ -164,7 +165,7 @@
             this.pfatherNameTB.MaximumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.MinimumSize = new System.Drawing.Size(351, 35);
             this.pfatherNameTB.Name = "pfatherNameTB";
-            this.pfatherNameTB.Size = new System.Drawing.Size(351, 35);
+            this.pfatherNameTB.Size = new System.Drawing.Size(351, 27);
             this.pfatherNameTB.TabIndex = 10;
             this.pfatherNameTB.TextChanged += new System.EventHandler(this.pfatherNameTB_TextChanged);
             // 
@@ -175,7 +176,7 @@
             this.pstreetTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pstreetTB.Name = "pstreetTB";
-            this.pstreetTB.Size = new System.Drawing.Size(100, 35);
+            this.pstreetTB.Size = new System.Drawing.Size(100, 22);
             this.pstreetTB.TabIndex = 12;
             this.pstreetTB.TextChanged += new System.EventHandler(this.pstreetTB_TextChanged);
             // 
@@ -196,7 +197,7 @@
             this.pPhonenumTB.MaximumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.MinimumSize = new System.Drawing.Size(249, 35);
             this.pPhonenumTB.Name = "pPhonenumTB";
-            this.pPhonenumTB.Size = new System.Drawing.Size(249, 35);
+            this.pPhonenumTB.Size = new System.Drawing.Size(249, 27);
             this.pPhonenumTB.TabIndex = 14;
             // 
             // pCityTB
@@ -207,7 +208,7 @@
             this.pCityTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCityTB.Name = "pCityTB";
-            this.pCityTB.Size = new System.Drawing.Size(200, 35);
+            this.pCityTB.Size = new System.Drawing.Size(200, 27);
             this.pCityTB.TabIndex = 15;
             // 
             // pAgeTB
@@ -218,7 +219,7 @@
             this.pAgeTB.MaximumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.MinimumSize = new System.Drawing.Size(100, 35);
             this.pAgeTB.Name = "pAgeTB";
-            this.pAgeTB.Size = new System.Drawing.Size(100, 35);
+            this.pAgeTB.Size = new System.Drawing.Size(100, 27);
             this.pAgeTB.TabIndex = 17;
             this.pAgeTB.TextChanged += new System.EventHandler(this.pAgeTB_TextChanged);
             // 
@@ -230,19 +231,19 @@
             this.pCountryTB.MaximumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.MinimumSize = new System.Drawing.Size(200, 35);
             this.pCountryTB.Name = "pCountryTB";
-            this.pCountryTB.Size = new System.Drawing.Size(200, 35);
+            this.pCountryTB.Size = new System.Drawing.Size(200, 27);
             this.pCountryTB.TabIndex = 19;
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addPatientGridView.Location = new System.Drawing.Point(383, 169);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -408,7 +409,7 @@
             this.pCNIC.MaxLength = 13;
             this.pCNIC.MinimumSize = new System.Drawing.Size(249, 35);
             this.pCNIC.Name = "pCNIC";
-            this.pCNIC.Size = new System.Drawing.Size(249, 35);
+            this.pCNIC.Size = new System.Drawing.Size(249, 27);
             this.pCNIC.TabIndex = 37;
             // 
             // pDOBTB
@@ -505,7 +506,7 @@
             this.label16.BackColor = System.Drawing.Color.Black;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label16.Location = new System.Drawing.Point(1495, 38);
+            this.label16.Location = new System.Drawing.Point(1593, 37);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(264, 38);
             this.label16.TabIndex = 46;
@@ -766,6 +767,7 @@
             this.button2.TabIndex = 104;
             this.button2.Text = "Patient";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button4
             // 
@@ -805,6 +807,7 @@
             this.button15.TabIndex = 101;
             this.button15.Text = "Doctor ";
             this.button15.UseVisualStyleBackColor = false;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // label20
             // 
@@ -844,7 +847,7 @@
             // 
             this.profilePicture.BackColor = System.Drawing.Color.Black;
             this.profilePicture.Image = ((System.Drawing.Image)(resources.GetObject("profilePicture.Image")));
-            this.profilePicture.Location = new System.Drawing.Point(1422, 26);
+            this.profilePicture.Location = new System.Drawing.Point(1513, 26);
             this.profilePicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.profilePicture.Name = "profilePicture";
             this.profilePicture.Size = new System.Drawing.Size(67, 62);
@@ -872,11 +875,25 @@
             this.pictureBox9.TabIndex = 96;
             this.pictureBox9.TabStop = false;
             // 
+            // button16
+            // 
+            this.button16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button16.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button16.Location = new System.Drawing.Point(87, 895);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(91, 40);
+            this.button16.TabIndex = 105;
+            this.button16.Text = "back";
+            this.button16.UseVisualStyleBackColor = false;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
             // admin_patient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.button16);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.button2);
@@ -1020,5 +1037,6 @@
         private System.Windows.Forms.PictureBox profilePicture;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.Button button16;
     }
 }

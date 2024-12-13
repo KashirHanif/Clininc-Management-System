@@ -350,7 +350,7 @@ namespace Clinic_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+            LoadControl(new doctor_admin(username, password, connectionString));
         }
         private void LoadControl(UserControl control)
         {

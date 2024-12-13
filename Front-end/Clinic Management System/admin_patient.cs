@@ -533,5 +533,20 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            LoadControl(new doctor_admin(username, password, connectionString));
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            LoadControl(new adminMenu(username, password, connectionString));
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new admin_patient(username, password, connectionString));
+        }
     }
 }
