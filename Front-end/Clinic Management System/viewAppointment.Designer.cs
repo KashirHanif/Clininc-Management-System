@@ -204,7 +204,7 @@ namespace Clinic_Management_System
             this.comboBox1.MaximumSize = new System.Drawing.Size(250, 0);
             this.comboBox1.MinimumSize = new System.Drawing.Size(250, 0);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(250, 28);
+            this.comboBox1.Size = new System.Drawing.Size(250, 33);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -224,7 +224,7 @@ namespace Clinic_Management_System
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(1230, 186);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 18);
+            this.label1.Size = new System.Drawing.Size(183, 22);
             this.label1.TabIndex = 13;
             this.label1.Text = "Filter Appointments";
             // 
@@ -233,7 +233,7 @@ namespace Clinic_Management_System
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(1174, 84);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(310, 23);
+            this.textBox1.Size = new System.Drawing.Size(310, 27);
             this.textBox1.TabIndex = 14;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -268,7 +268,7 @@ namespace Clinic_Management_System
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(255, 64);
             this.button3.TabIndex = 79;
-            this.button3.Text = "Add treatment";
+            this.button3.Text = "Add prescription";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -281,7 +281,7 @@ namespace Clinic_Management_System
             this.findByDoctor.MaximumSize = new System.Drawing.Size(250, 0);
             this.findByDoctor.MinimumSize = new System.Drawing.Size(250, 0);
             this.findByDoctor.Name = "findByDoctor";
-            this.findByDoctor.Size = new System.Drawing.Size(250, 28);
+            this.findByDoctor.Size = new System.Drawing.Size(250, 33);
             this.findByDoctor.TabIndex = 80;
             // 
             // label2
@@ -291,7 +291,7 @@ namespace Clinic_Management_System
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(975, 186);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 18);
+            this.label2.Size = new System.Drawing.Size(148, 22);
             this.label2.TabIndex = 81;
             this.label2.Text = "Filter by Doctor";
             // 

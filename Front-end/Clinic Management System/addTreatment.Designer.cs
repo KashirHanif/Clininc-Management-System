@@ -33,8 +33,8 @@ namespace Clinic_Management_System
         {
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label label2;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addTreatment));
             this.updatePatientButton = new System.Windows.Forms.Button();
             this.viewPatientButton = new System.Windows.Forms.Button();
@@ -77,7 +77,7 @@ namespace Clinic_Management_System
             label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            label3.Location = new System.Drawing.Point(469, 688);
+            label3.Location = new System.Drawing.Point(450, 683);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(90, 29);
             label3.TabIndex = 26;
@@ -89,7 +89,7 @@ namespace Clinic_Management_System
             label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            label2.Location = new System.Drawing.Point(469, 783);
+            label2.Location = new System.Drawing.Point(1187, 736);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(186, 29);
             label2.TabIndex = 85;
@@ -181,29 +181,29 @@ namespace Clinic_Management_System
             // 
             // addPatientGridView
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addPatientGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.addPatientGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.addPatientGridView.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.addPatientGridView.DefaultCellStyle = dataGridViewCellStyle8;
             this.addPatientGridView.Location = new System.Drawing.Point(601, 233);
             this.addPatientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addPatientGridView.Name = "addPatientGridView";
             this.addPatientGridView.RowHeadersWidth = 51;
             this.addPatientGridView.RowTemplate.Height = 24;
-            this.addPatientGridView.Size = new System.Drawing.Size(1119, 418);
+            this.addPatientGridView.Size = new System.Drawing.Size(1091, 418);
             this.addPatientGridView.TabIndex = 20;
             // 
             // pictureBox1
@@ -230,7 +230,7 @@ namespace Clinic_Management_System
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label10.Location = new System.Drawing.Point(469, 739);
+            this.label10.Location = new System.Drawing.Point(450, 736);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(198, 29);
             this.label10.TabIndex = 33;
@@ -258,7 +258,7 @@ namespace Clinic_Management_System
             this.treatmentTypeComboBox.Items.AddRange(new object[] {
             "consultation",
             "consultation & treatment"});
-            this.treatmentTypeComboBox.Location = new System.Drawing.Point(673, 740);
+            this.treatmentTypeComboBox.Location = new System.Drawing.Point(654, 736);
             this.treatmentTypeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treatmentTypeComboBox.MaximumSize = new System.Drawing.Size(300, 0);
             this.treatmentTypeComboBox.MinimumSize = new System.Drawing.Size(300, 0);
@@ -270,7 +270,7 @@ namespace Clinic_Management_System
             // 
             this.treatmentptname.Enabled = false;
             this.treatmentptname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treatmentptname.Location = new System.Drawing.Point(1088, 687);
+            this.treatmentptname.Location = new System.Drawing.Point(1039, 687);
             this.treatmentptname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treatmentptname.Name = "treatmentptname";
             this.treatmentptname.Size = new System.Drawing.Size(79, 27);
@@ -282,7 +282,7 @@ namespace Clinic_Management_System
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(887, 683);
+            this.label1.Location = new System.Drawing.Point(838, 685);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(195, 29);
             this.label1.TabIndex = 62;
@@ -293,10 +293,10 @@ namespace Clinic_Management_System
             this.genBill.BackColor = System.Drawing.Color.Maroon;
             this.genBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genBill.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.genBill.Location = new System.Drawing.Point(1499, 765);
+            this.genBill.Location = new System.Drawing.Point(1549, 788);
             this.genBill.Margin = new System.Windows.Forms.Padding(4);
             this.genBill.Name = "genBill";
-            this.genBill.Size = new System.Drawing.Size(229, 74);
+            this.genBill.Size = new System.Drawing.Size(229, 61);
             this.genBill.TabIndex = 66;
             this.genBill.Text = "show preview";
             this.genBill.UseVisualStyleBackColor = false;
@@ -342,10 +342,10 @@ namespace Clinic_Management_System
             this.button1.BackColor = System.Drawing.Color.Maroon;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(1499, 683);
+            this.button1.Location = new System.Drawing.Point(1303, 788);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(221, 74);
+            this.button1.Size = new System.Drawing.Size(221, 61);
             this.button1.TabIndex = 79;
             this.button1.Text = "add";
             this.button1.UseVisualStyleBackColor = false;
@@ -353,31 +353,34 @@ namespace Clinic_Management_System
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(1146, 740);
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(1550, 688);
             this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(311, 22);
+            this.textBox2.Size = new System.Drawing.Size(228, 27);
             this.textBox2.TabIndex = 81;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(1349, 684);
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(1285, 685);
             this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(88, 22);
+            this.textBox4.Size = new System.Drawing.Size(88, 27);
             this.textBox4.TabIndex = 83;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(673, 788);
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(1379, 741);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(334, 27);
             this.dateTimePicker1.TabIndex = 84;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1034, 788);
+            this.comboBox1.Location = new System.Drawing.Point(601, 811);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(316, 24);
             this.comboBox1.TabIndex = 86;
@@ -387,7 +390,7 @@ namespace Clinic_Management_System
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(1200, 677);
+            this.label4.Location = new System.Drawing.Point(1148, 685);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(131, 29);
             this.label4.TabIndex = 87;
@@ -399,26 +402,26 @@ namespace Clinic_Management_System
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Location = new System.Drawing.Point(999, 736);
+            this.label9.Location = new System.Drawing.Point(1400, 681);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(141, 29);
+            this.label9.Size = new System.Drawing.Size(137, 29);
             this.label9.TabIndex = 90;
-            this.label9.Text = "item name ";
+            this.label9.Text = "Booked by";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(887, 788);
+            this.label6.Location = new System.Drawing.Point(449, 804);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(141, 29);
+            this.label6.Size = new System.Drawing.Size(146, 29);
             this.label6.TabIndex = 91;
-            this.label6.Text = "item name ";
+            this.label6.Text = "booked for ";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(577, 687);
+            this.textBox1.Location = new System.Drawing.Point(546, 687);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(273, 22);
@@ -427,12 +430,12 @@ namespace Clinic_Management_System
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Bell MT", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(432, 615);
+            this.checkBox1.Font = new System.Drawing.Font("Bell MT", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(1018, 739);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(123, 25);
+            this.checkBox1.Size = new System.Drawing.Size(106, 26);
             this.checkBox1.TabIndex = 93;
-            this.checkBox1.Text = "no follow up";
+            this.checkBox1.Text = "follow up";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // addTreatment

@@ -106,6 +106,7 @@ namespace Clinic_Management_System
             this.viewPatientButton.TabIndex = 2;
             this.viewPatientButton.Text = "View Patient";
             this.viewPatientButton.UseVisualStyleBackColor = false;
+            this.viewPatientButton.Click += new System.EventHandler(this.viewPatientButton_Click);
             // 
             // cancelAppointmentButton
             // 
@@ -133,6 +134,7 @@ namespace Clinic_Management_System
             this.viewAppointmentButton.TabIndex = 4;
             this.viewAppointmentButton.Text = "View Appointment";
             this.viewAppointmentButton.UseVisualStyleBackColor = false;
+            this.viewAppointmentButton.Click += new System.EventHandler(this.viewAppointmentButton_Click);
             // 
             // backButton
             // 
@@ -160,6 +162,7 @@ namespace Clinic_Management_System
             this.addAppointmentButton.TabIndex = 7;
             this.addAppointmentButton.Text = "Add Appointment";
             this.addAppointmentButton.UseVisualStyleBackColor = false;
+            this.addAppointmentButton.Click += new System.EventHandler(this.addAppointmentButton_Click);
             // 
             // pfirstNameTB
             // 
@@ -404,7 +407,7 @@ namespace Clinic_Management_System
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(291, 71);
             this.button2.TabIndex = 78;
-            this.button2.Text = "Add treatment";
+            this.button2.Text = "Add prescription";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

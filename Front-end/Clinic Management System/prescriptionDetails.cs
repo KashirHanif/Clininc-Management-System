@@ -8,20 +8,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Clinic_Management_System
 {
     public partial class prescriptionDetails : UserControl
 
     {
+        private string username;
+        private string password;
         private string connectionString;
         private int prescriptionId;
-        public prescriptionDetails(string connectionString,int prescriptionId)
+        public prescriptionDetails(string connectionString, int prescriptionId,string username, string password)
         {
             InitializeComponent();
             this.connectionString = connectionString;
             this.prescriptionId = prescriptionId;
+            this.username = username;
+            this.password = password;
             PopulatePrescriptionGridView();
+        }
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();        // Clear any existing controls on the form
+            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
+            this.Controls.Add(control);
         }
 
         private void PopulatePrescriptionGridView()
@@ -57,6 +68,11 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show("An error occurred while fetching prescription details: " + ex.Message);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadControl(new presciption(username, password,connectionString));
         }
     }
 }

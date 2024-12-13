@@ -369,5 +369,20 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password,conectionString));
         }
+
+        private void viewPatientButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new viewPatient(username, password, conectionString));
+        }
+
+        private void addAppointmentButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addAppointmentController(username, password, conectionString));
+        }
+
+        private void viewAppointmentButton_Click(object sender, EventArgs e)
+        {
+            LoadControl(new viewAppointment(username, password, conectionString));
+        }
     }
 }

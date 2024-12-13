@@ -14,7 +14,7 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private string connectionString;
-        public viewPatient(string username,string password,string connectionString)
+        public viewPatient(string username, string password, string connectionString)
         {
             InitializeComponent();
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
@@ -30,34 +30,7 @@ namespace Clinic_Management_System
             try
             {
                 // Updated query with additional details
-                string query = @"
-                    SELECT 
-                        p.patient_id, 
-                        p.p_f_name, 
-                        p.p_l_name, 
-                        p.father_name, 
-                        p.date_of_birth, 
-                        p.city, 
-                        p.country, 
-                        p.phone_number, 
-                        p.gender, 
-                        p.age, 
-                        t.treatment_type, 
-                        (SELECT CONCAT(e.f_name, ' ', e.l_name) 
-                         FROM tbl_employee e 
-                         WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName, 
-                        a.date_of_appointment, 
-                        b.bill_status, 
-                        b.remaining_payment
-                    FROM 
-                        tbl_patient p
-                    LEFT JOIN 
-                        tbl_treatment t ON p.patient_id = t.patient_id
-                    LEFT JOIN 
-                        tbl_appointment a ON p.patient_id = a.patient_id
-                    LEFT JOIN 
-                        tbl_billing b ON t.treatment_id = b.treatment_id";
-
+                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -79,11 +52,6 @@ namespace Clinic_Management_System
                     patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
                     patientGridView.Columns["gender"].HeaderText = "Gender";
                     patientGridView.Columns["age"].HeaderText = "Age";
-                    patientGridView.Columns["treatment_type"].HeaderText = "Treatment Type";
-                    patientGridView.Columns["DoctorName"].HeaderText = "Doctor Name";
-                    patientGridView.Columns["date_of_appointment"].HeaderText = "Appointment Date";
-                    patientGridView.Columns["bill_status"].HeaderText = "Bill Status";
-                    patientGridView.Columns["remaining_payment"].HeaderText = "Remaining Payment";
 
                     patientGridView.AutoResizeColumns();
                 }
@@ -104,21 +72,21 @@ namespace Clinic_Management_System
         private void addPatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Add Patient form or logic to add a patient
-            LoadControl(new addPatientUserCotroller(username,password, connectionString));
+            LoadControl(new addPatientUserCotroller(username, password, connectionString));
         }
 
         // Event handler to handle Update Patient
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
             // Code to open Update Patient form or logic to update patient
-            LoadControl(new updatePatientUserCotroller(username,password, connectionString));
+            LoadControl(new updatePatientUserCotroller(username, password, connectionString));
         }
 
         // Event handler to handle View Patient
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
             PopulateDataGridView();
-            LoadControl(new viewPatient(username, password,connectionString));
+            LoadControl(new viewPatient(username, password, connectionString));
         }
 
         // Event handler to handle Add Appointment
@@ -126,7 +94,7 @@ namespace Clinic_Management_System
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
             // Load the Add Appointment screen
-            LoadControl(new addAppointmentController(username,password, connectionString));
+            LoadControl(new addAppointmentController(username, password, connectionString));
         }
 
 
@@ -134,7 +102,7 @@ namespace Clinic_Management_System
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
             LoadControl(new cancelAppointment(username, password, connectionString));// Code to cancel appointment functionality
-   
+
         }
 
         // Event handler to handle View Appointments
@@ -190,39 +158,12 @@ namespace Clinic_Management_System
                 }
 
                 // Base query with additional joins and calculated columns
-                string query = @"
-                    SELECT 
-                        p.patient_id, 
-                        p.p_f_name, 
-                        p.p_l_name, 
-                        p.father_name, 
-                        p.date_of_birth, 
-                        p.city, 
-                        p.country, 
-                        p.phone_number, 
-                        p.gender, 
-                        p.age, 
-                        t.treatment_type, 
-                        (SELECT CONCAT(e.f_name, ' ', e.l_name) 
-                         FROM tbl_employee e 
-                         WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName, 
-                        a.date_of_appointment, 
-                        b.bill_status, 
-                        b.remaining_payment
-                    FROM 
-                        tbl_patient p
-                    LEFT JOIN 
-                        tbl_treatment t ON p.patient_id = t.patient_id
-                    LEFT JOIN 
-                        tbl_appointment a ON p.patient_id = a.patient_id
-                    LEFT JOIN 
-                        tbl_billing b ON t.treatment_id = b.treatment_id";
-
+                string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
                 // Modify query based on the selected filter
                 if (selectedFilter == "Last Week")
                 {
                     query += @"
-        WHERE p.patient_id IN (
+        WHERE patient_id IN (
             SELECT patient_id 
             FROM tbl_appointment 
             WHERE date_of_appointment >= DATEADD(DAY, -7, GETDATE())
@@ -232,7 +173,7 @@ namespace Clinic_Management_System
                 else if (selectedFilter == "Last Month")
                 {
                     query += @"
-        WHERE p.patient_id IN (
+        WHERE patient_id IN (
             SELECT patient_id 
             FROM tbl_appointment 
             WHERE date_of_appointment >= DATEADD(MONTH, -1, GETDATE())
@@ -262,11 +203,6 @@ namespace Clinic_Management_System
                     patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
                     patientGridView.Columns["gender"].HeaderText = "Gender";
                     patientGridView.Columns["age"].HeaderText = "Age";
-                    patientGridView.Columns["treatment_type"].HeaderText = "Treatment Type";
-                    patientGridView.Columns["DoctorName"].HeaderText = "Doctor Name";
-                    patientGridView.Columns["date_of_appointment"].HeaderText = "Appointment Date";
-                    patientGridView.Columns["bill_status"].HeaderText = "Bill Status";
-                    patientGridView.Columns["remaining_payment"].HeaderText = "Remaining Payment";
 
                     patientGridView.AutoResizeColumns();
                 }
@@ -294,74 +230,44 @@ namespace Clinic_Management_System
                 }
 
                 // Construct the query with LEFT JOINs and filtering by concatenated patient name
-                string query = @"
-        SELECT 
-            p.patient_id, 
-            p.p_f_name, 
-            p.p_l_name, 
-            p.father_name, 
-            p.date_of_birth, 
-            p.city, 
-            p.country, 
-            p.phone_number, 
-            p.gender, 
-            p.age, 
-            t.treatment_type, 
-            (SELECT CONCAT(e.f_name, ' ', e.l_name) 
-             FROM tbl_employee e 
-             WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName, 
-            a.date_of_appointment, 
-            b.bill_status, 
-            b.remaining_payment
-        FROM 
-            tbl_patient p
-        LEFT JOIN 
-            tbl_treatment t ON p.patient_id = t.patient_id
-        LEFT JOIN 
-            tbl_appointment a ON p.patient_id = a.patient_id
-        LEFT JOIN 
-            tbl_billing b ON t.treatment_id = b.treatment_id
-        WHERE 
-            CONCAT(p.p_f_name, ' ', p.p_l_name) = @SearchText";
+                string query = @"SELECT p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic 
+                         FROM tbl_patient 
+                         WHERE CONCAT(p_f_name,+ ' ' + p_l_name) = @searchText";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        // Add parameter to the command
+                        cmd.Parameters.AddWithValue("@searchText", searchText);
 
-                    // Add the parameter for the search text
-                    cmd.Parameters.AddWithValue("@SearchText", searchText);
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        dataAdapter.Fill(dataTable);
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                        patientGridView.DataSource = dataTable;
 
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
+                        // Set user-friendly column names
+                        patientGridView.Columns["p_f_name"].HeaderText = "First Name";
+                        patientGridView.Columns["p_l_name"].HeaderText = "Last Name";
+                        patientGridView.Columns["father_name"].HeaderText = "Father's Name";
+                        patientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+                        patientGridView.Columns["street"].HeaderText = "Street";
+                        patientGridView.Columns["block"].HeaderText = "Block";
+                        patientGridView.Columns["city"].HeaderText = "City";
+                        patientGridView.Columns["country"].HeaderText = "Country";
+                        patientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
+                        patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+                        patientGridView.Columns["gender"].HeaderText = "Gender";
+                        patientGridView.Columns["age"].HeaderText = "Age";
 
-                    // Update the DataGridView with the filtered data
-                    patientGridView.DataSource = dataTable;
-
-                    // Set user-friendly column names
-                    patientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    patientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    patientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    patientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    patientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    patientGridView.Columns["city"].HeaderText = "City";
-                    patientGridView.Columns["country"].HeaderText = "Country";
-                    patientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    patientGridView.Columns["gender"].HeaderText = "Gender";
-                    patientGridView.Columns["age"].HeaderText = "Age";
-                    patientGridView.Columns["treatment_type"].HeaderText = "Treatment Type";
-                    patientGridView.Columns["DoctorName"].HeaderText = "Doctor Name";
-                    patientGridView.Columns["date_of_appointment"].HeaderText = "Appointment Date";
-                    patientGridView.Columns["bill_status"].HeaderText = "Bill Status";
-                    patientGridView.Columns["remaining_payment"].HeaderText = "Remaining Payment";
-
-                    patientGridView.AutoResizeColumns();
+                        patientGridView.AutoResizeColumns();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show($"An error occurred while fetching the patient record: {ex.Message}", "Error");
             }
 
         }

@@ -106,6 +106,7 @@ namespace Clinic_Management_System
         // Event handler to handle View Patient
         private void viewPatientButton_Click(object sender, EventArgs e)
         {
+            LoadControl(new viewPatient(username, password, connectionString));
             PopulateDataGridView();
         }
 
@@ -121,15 +122,13 @@ namespace Clinic_Management_System
         // Event handler to handle Cancel Appointment
         private void cancelAppointmentButton_Click(object sender, EventArgs e)
         {
-            // Code to cancel appointment functionality
-            MessageBox.Show("Cancel Appointment functionality goes here");
+            LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
         // Event handler to handle View Appointments
         private void viewAppointmentsButton_Click(object sender, EventArgs e)
         {
-            // Code to view appointments
-            MessageBox.Show("View Appointments functionality goes here");
+            LoadControl(new viewAppointment(username, password, connectionString));
         }
 
         // Event handler to load the user control

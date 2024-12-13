@@ -116,12 +116,12 @@ namespace Clinic_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -176,8 +176,8 @@ namespace Clinic_Management_System
                 {
                     MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                }
             }
+        }
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -249,7 +249,7 @@ namespace Clinic_Management_System
                 string prescriptionIdString = selectedRow.Cells["prescription_id"].Value?.ToString();
                 if (int.TryParse(prescriptionIdString, out int prescriptionId))
                 {
-                    LoadControl(new prescriptionDetails(connectionString,prescriptionId));
+                    LoadControl(new prescriptionDetails(connectionString, prescriptionId,username,password));
                 }
 
 
@@ -262,6 +262,11 @@ namespace Clinic_Management_System
             this.Controls.Clear();        // Clear any existing controls on the form
             control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
             this.Controls.Add(control);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LoadControl(new doctor(username, password, connectionString));
         }
     }
 }

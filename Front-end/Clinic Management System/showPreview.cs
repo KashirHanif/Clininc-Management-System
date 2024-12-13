@@ -25,7 +25,7 @@ namespace Clinic_Management_System
         public showPreview(string username, string password, string connectionString, int billId, int prescripitonId)
         {
             InitializeComponent();
-            button2.Click += button2_Click;
+            //button2.Click += button2_Click;
             this.username = username;
             this.password = password;
             this.connectionString = connectionString;
@@ -300,5 +300,15 @@ namespace Clinic_Management_System
         
 
     }
-}
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new addTreatment(username, password, connectionString));
+        }
+
+        private void showPreview_Load_1(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

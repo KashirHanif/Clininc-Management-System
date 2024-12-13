@@ -133,34 +133,37 @@ namespace Clinic_Management_System
 
         private void genBill_Click(object sender, EventArgs e)
         {
-            // Read input from UI controls
-            string doctorName = null; // Default to null
-            int appointmentId = int.Parse(treatmentptname.Text.Trim());
-            decimal doctorFee = decimal.Parse(textBox4.Text.Trim());
-            DateTime? followUpDate = null; // Nullable DateTime for follow-up date
-            string bookedByName = textBox2.Text.Trim();
-            int billId = 0; // Variable to store generated bill_id
-            int prescriptionId = 0; // Variable to store prescription_id
+            
+             // Read input from UI controls
+                string doctorName = null; // Default to null
+                int appointmentId = int.Parse(treatmentptname.Text.Trim());
+                decimal doctorFee = decimal.Parse(textBox4.Text.Trim());
+                DateTime? followUpDate = null; // Nullable DateTime for follow-up date
+                string bookedByName = textBox2.Text.Trim();
+                int billId = 0; // Variable to store generated bill_id
+                int prescriptionId = 0; // Variable to store prescription_id
 
-            // Check if checkbox is selected to determine follow-up information
-            if (checkBox1.Checked)
-            {
-                followUpDate = dateTimePicker1.Value;
-                doctorName = string.IsNullOrWhiteSpace(comboBox1.Text) ? null : comboBox1.Text.Trim(); // Pass null if no selection
-            }
+                // Check if checkbox is selected to determine follow-up information
+                if (checkBox1.Checked)
+                {
+                    followUpDate = dateTimePicker1.Value;
+                    doctorName = string.IsNullOrWhiteSpace(comboBox1.Text) ? null : comboBox1.Text.Trim(); // Pass null if no selection
+                }
 
-            // Validate inputs
-            if (appointmentId <= 0 || string.IsNullOrEmpty(bookedByName))
-            {
-                MessageBox.Show("Please ensure all fields are filled correctly.");
-                return;
-            }
+                // Validate inputs
+                if (appointmentId <= 0 || string.IsNullOrEmpty(bookedByName))
+                {
+                    MessageBox.Show("Please ensure all fields are filled correctly.");
+                    return;
+                }
 
-            // Ensure doctor fee is at least 10
-            if (doctorFee <= 0)
-            {
-                doctorFee = 10;
-            }
+                // Ensure doctor fee is at least 10
+                if (doctorFee <= 0)
+                {
+                    doctorFee = 10;
+                }
+            
+           
 
             try
             {
