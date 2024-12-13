@@ -980,4 +980,3 @@ BEGIN
 END;
 
 EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
-

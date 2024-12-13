@@ -129,28 +129,30 @@ namespace Clinic_Management_System
         }
         private void PopulateDataGridView()
         {
-            // Query to fetch data from tbl_employee
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    // Open the connection
                     connection.Open();
 
-                    // Create a command to execute the stored procedure
-                    using (SqlCommand command = new SqlCommand("GetEmployeeDetails", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
+                    string query = @"
+                SELECT e.emp_id, e.designation, e.f_name, e.l_name, d.department, e.father_name, e.date_of_birth, e.date_of_joining, 
+                e.street, e.city, e.block, e.house_no, e.ph_country_code, e.phone_number, e.gender, e.institution, e.cnic, 
+                wh.emp_status, wh.start_duty, wh.end_duty, lt.username, lt.password
+                FROM tbl_employee e 
+                INNER JOIN tbl_department d ON e.emp_id = d.emp_id 
+                INNER JOIN tbl_emp_working_hours wh ON e.emp_id = wh.emp_id 
+                LEFT JOIN login_table lt ON e.emp_id = lt.emp_id";
 
-                        // Create a data adapter to fill the DataTable
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
                         SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
                         DataTable dataTable = new DataTable();
                         dataAdapter.Fill(dataTable);
 
-                        // Bind the DataTable to the DataGridView
                         addPatientGridView.DataSource = dataTable;
 
-                        // Optional: Set DataGridView column headers
+                        // Set headers for DataGridView columns
                         addPatientGridView.Columns["emp_id"].HeaderText = "Employee ID";
                         addPatientGridView.Columns["designation"].HeaderText = "Designation";
                         addPatientGridView.Columns["f_name"].HeaderText = "First Name";
@@ -169,10 +171,10 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["institution"].HeaderText = "Institution";
                         addPatientGridView.Columns["cnic"].HeaderText = "CNIC";
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
-
-                        // Add headers for new columns
                         addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
                         addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
+                        addPatientGridView.Columns["username"].HeaderText = "Username";
+                        addPatientGridView.Columns["password"].HeaderText = "Password";
                     }
                 }
             }
@@ -181,7 +183,6 @@ namespace Clinic_Management_System
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
 
         private void updatePatientButton_Click(object sender, EventArgs e)
@@ -455,7 +456,7 @@ namespace Clinic_Management_System
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            
+
 
 
         }
@@ -463,7 +464,7 @@ namespace Clinic_Management_System
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected availability status from comboBox3
-           
+
         }
 
         private void comboBox3_SelectedIndexChanged_1(object sender, EventArgs e)

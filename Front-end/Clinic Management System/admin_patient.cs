@@ -17,7 +17,7 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private string connectionString;
-        public admin_patient(string username,string password,string connectionString)
+        public admin_patient(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.username = username;
@@ -117,7 +117,7 @@ namespace Clinic_Management_System
 
         }
 
-        
+
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateDataGridView();
@@ -150,7 +150,7 @@ namespace Clinic_Management_System
             try
             {
                 //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+                // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
                 string query = "SELECT patient_id, p_f_name, p_l_name, father_name, date_of_birth,street,block,city, country,ph_country_code, phone_number, gender, age,CNIC FROM tbl_patient";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -242,7 +242,7 @@ namespace Clinic_Management_System
 
         private void updatePatientButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new updatePatientUserCotroller(username,password,connectionString));
+            LoadControl(new updatePatientUserCotroller(username, password, connectionString));
         }
 
         private void LoadControl(UserControl control)
@@ -270,7 +270,7 @@ namespace Clinic_Management_System
         private void label16_Click(object sender, EventArgs e)
         {
             //string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-          //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
+            //  string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 string query = @"
@@ -325,7 +325,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password,connectionString));
+            LoadControl(new PatientUserControl(username, password, connectionString));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -344,12 +344,12 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                // Validate that a record is selected (e.g., using a hidden `patient_id` TextBox)
+                // Validate that a record is selected (e.g., using a hidden patient_id TextBox)
                 if (string.IsNullOrWhiteSpace(patientIdTextBox.Text))
-               {
-                   MessageBox.Show("Please select a record to update.", "Validation Error");
-                   return;
-              }
+                {
+                    MessageBox.Show("Please select a record to update.", "Validation Error");
+                    return;
+                }
 
                 // Get the date from the DateTimePicker
                 DateTime selectedDOB = pDOBTB.Value;
@@ -400,8 +400,8 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error");
             }
-        
-    }
+
+        }
 
 
         private void button3_Click(object sender, EventArgs e)
@@ -472,7 +472,7 @@ namespace Clinic_Management_System
             pCNIC.Text = string.Empty;
             patientIdTextBox.Text = string.Empty;
         }
-       
+
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -487,76 +487,47 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                // Construct the query with LEFT JOINs and filtering by concatenated patient name
-                string query = @"
-        SELECT 
-            p.patient_id, 
-            p.p_f_name, 
-            p.p_l_name, 
-            p.father_name, 
-            p.date_of_birth, 
-            p.city, 
-            p.country, 
-            p.phone_number, 
-            p.gender, 
-            p.age, 
-            t.treatment_type, 
-            (SELECT CONCAT(e.f_name, ' ', e.l_name) 
-             FROM tbl_employee e 
-             WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName, 
-            a.date_of_appointment, 
-            b.bill_status, 
-            b.remaining_payment
-        FROM 
-            tbl_patient p
-        LEFT JOIN 
-            tbl_treatment t ON p.patient_id = t.patient_id
-        LEFT JOIN 
-            tbl_appointment a ON p.patient_id = a.patient_id
-        LEFT JOIN 
-            tbl_billing b ON t.treatment_id = b.treatment_id
-        WHERE 
-            CONCAT(p.p_f_name, ' ', p.p_l_name) = @SearchText";
+                // Construct the query with filtering by concatenated patient name
+                string query = @"SELECT p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic 
+                         FROM tbl_patient 
+                         WHERE CONCAT(p_f_name,+ ' ' + p_l_name) = @searchText";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand(query, connection);
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        // Add parameter to the command
+                        cmd.Parameters.AddWithValue("@searchText", searchText);
 
-                    // Add the parameter for the search text
-                    cmd.Parameters.AddWithValue("@SearchText", searchText);
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        dataAdapter.Fill(dataTable);
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                        addPatientGridView.DataSource = dataTable;
 
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
+                        // Set user-friendly column names
+                        addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
+                        addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
+                        addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
+                        addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+                        addPatientGridView.Columns["street"].HeaderText = "Street";
+                        addPatientGridView.Columns["block"].HeaderText = "Block";
+                        addPatientGridView.Columns["city"].HeaderText = "City";
+                        addPatientGridView.Columns["country"].HeaderText = "Country";
+                        addPatientGridView.Columns["ph_country_code"].HeaderText = "Phone Country Code";
+                        addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+                        addPatientGridView.Columns["gender"].HeaderText = "Gender";
+                        addPatientGridView.Columns["age"].HeaderText = "Age";
 
-                    // Update the DataGridView with the filtered data
-                    addPatientGridView.DataSource = dataTable;
-
-                    // Set user-friendly column names
-                    addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
-                    addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
-                    addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
-                    addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
-                    addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
-                    addPatientGridView.Columns["city"].HeaderText = "City";
-                    addPatientGridView.Columns["country"].HeaderText = "Country";
-                    addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
-                    addPatientGridView.Columns["gender"].HeaderText = "Gender";
-                    addPatientGridView.Columns["age"].HeaderText = "Age";
-                    addPatientGridView.Columns["treatment_type"].HeaderText = "Treatment Type";
-                    addPatientGridView.Columns["DoctorName"].HeaderText = "Doctor Name";
-                    addPatientGridView.Columns["date_of_appointment"].HeaderText = "Appointment Date";
-                    addPatientGridView.Columns["bill_status"].HeaderText = "Bill Status";
-                    addPatientGridView.Columns["remaining_payment"].HeaderText = "Remaining Payment";
-
-                    addPatientGridView.AutoResizeColumns();
+                        addPatientGridView.AutoResizeColumns();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show($"An error occurred while fetching the patient record: {ex.Message}", "Error");
             }
         }
+
     }
 }
