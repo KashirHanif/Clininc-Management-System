@@ -62,6 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appintmentLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="appintmentLog.Designer.cs">
+      <DependentUpon>appintmentLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="appointment_admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="appointment_admin.Designer.cs">
+      <DependentUpon>appointment_admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="admin_patient.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +127,12 @@
     </Compile>
     <Compile Include="Printable.Designer.cs">
       <DependentUpon>Printable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="revenue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="revenue.Designer.cs">
+      <DependentUpon>revenue.cs</DependentUpon>
     </Compile>
     <Compile Include="showPreview.cs">
       <SubType>UserControl</SubType>
@@ -178,6 +196,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="appintmentLog.resx">
+      <DependentUpon>appintmentLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="appointment_admin.resx">
+      <DependentUpon>appointment_admin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="admin_patient.resx">
       <DependentUpon>admin_patient.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Printable.resx">
       <DependentUpon>Printable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="revenue.resx">
+      <DependentUpon>revenue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="showPreview.resx">
       <DependentUpon>showPreview.cs</DependentUpon>

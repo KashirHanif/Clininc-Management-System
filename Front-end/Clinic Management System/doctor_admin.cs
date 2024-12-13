@@ -270,7 +270,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new adminMenu(username, password, connectionString));
+            LoadControl(new PatientUserControl(username, password, connectionString));
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -353,6 +353,10 @@ namespace Clinic_Management_System
                 {
                     dateTimePicker3.Value = endDuty;
                 }
+
+                // Set username and password into respective TextBoxes
+                textBox12.Text = selectedRow.Cells["username"].Value?.ToString(); // Username TextBox
+                textBox13.Text = selectedRow.Cells["password"].Value?.ToString(); // Password TextBox
             }
         }
 
@@ -368,46 +372,61 @@ namespace Clinic_Management_System
                 int employeeId = Convert.ToInt32(selectedRow.Cells["emp_id"].Value);
 
                 // Retrieve updated values from textboxes, comboboxes, and date pickers
-                string updatedFirstName = pfirstNameTB.Text.Trim();  // First Name TextBox
-                string updatedLastName = textBox7.Text.Trim();        // Last Name TextBox
-                string updatedFatherName = textBox3.Text.Trim();      // Father Name TextBox
+                string updatedFirstName = pfirstNameTB.Text.Trim();
+                string updatedLastName = textBox7.Text.Trim();
+                string updatedFatherName = textBox3.Text.Trim();
+                DateTime updatedDOB = dateTimePicker1.Value;
+                DateTime updatedDOJ = dateTimePicker2.Value;
+                string updatedGender = comboBox1.Text.Trim();
+                string updatedInstitution = textBox4.Text.Trim();
+                string updatedStreet = textBox6.Text.Trim();
+                string updatedHouseNo = textBox9.Text.Trim();
+                string updatedCity = textBox5.Text.Trim();
+                string updatedPhoneNumber = textBox2.Text.Trim();
+                string updatedBlock = textBox8.Text.Trim();
+                string updatedCNIC = textBox1.Text.Trim();
+                string updatedDepartment = comboBox2.Text.Trim();
+                string updatedDesignation = textBox11.Text.Trim();
+                string updatedStatus = comboBox4.Text.Trim();
+                TimeSpan updatedStartDuty = dateTimePicker4.Value.TimeOfDay;
+                TimeSpan updatedEndDuty = dateTimePicker3.Value.TimeOfDay;
 
-                DateTime updatedDOB = DateTime.TryParse(selectedRow.Cells["date_of_birth"].Value?.ToString(), out DateTime dob) ? dob : dateTimePicker1.Value; // Date of Birth
-                DateTime updatedDOJ = DateTime.TryParse(selectedRow.Cells["date_of_joining"].Value?.ToString(), out DateTime doj) ? doj : dateTimePicker2.Value; // Date of Joining
-                string updatedGender = comboBox1.Text.Trim();         // Gender ComboBox
-                string updatedInstitution = textBox4.Text.Trim();     // Institution TextBox
-                string updatedStreet = textBox6.Text.Trim();          // Street TextBox
-                string updatedHouseNo = textBox9.Text.Trim();         // House Number TextBox
-                string updatedCity = textBox5.Text.Trim();            // City TextBox
-                string updatedPhoneNumber = textBox2.Text.Trim();     // Phone Number TextBox
-                string updatedBlock = textBox8.Text.Trim();           // Block TextBox
-                string updatedCNIC = textBox1.Text.Trim();            // CNIC TextBox
-                string updatedDepartment = comboBox2.Text.Trim();     // Department ComboBox
-
-                // Retrieve Designation, Status, Start Duty, and End Duty from controls
-                string updatedDesignation = textBox11.Text.Trim();    // Designation TextBox
-                string updatedStatus = comboBox4.Text.Trim();         // Status ComboBox
-                TimeSpan updatedStartDuty = dateTimePicker4.Value.TimeOfDay; // Start Duty
-                TimeSpan updatedEndDuty = dateTimePicker3.Value.TimeOfDay;   // End Duty
+                // Retrieve Username and Password
+                string updatedUsername = textBox12.Text.Trim();
+                string updatedPassword = textBox13.Text.Trim();
 
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        // Open the database connection
                         conn.Open();
 
-                        // Create the SQL command to execute the stored procedure
-                        using (SqlCommand cmd = new SqlCommand("UpdateEmployeeDetails", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
+                        // Update employee details
+                        string query = @"UPDATE tbl_employee 
+                         SET designation = @Designation, f_name = @FirstName, l_name = @LastName, 
+                             father_name = @FatherName, date_of_birth = @DOB, date_of_joining = @DOJ, 
+                             street = @Street, city = @City, block = @Block, house_no = @HouseNo, 
+                             phone_number = @PhoneNumber, gender = @Gender, institution = @Institution, 
+                             cnic = @CNIC 
+                         WHERE emp_id = @EmployeeId;
 
-                            // Add parameters for the stored procedure
+                         UPDATE tbl_department SET department = @Department WHERE emp_id = @EmployeeId;
+
+                         UPDATE tbl_emp_working_hours 
+                         SET emp_status = @Status, start_duty = @StartDuty, end_duty = @EndDuty 
+                         WHERE emp_id = @EmployeeId;
+
+                         UPDATE login_table 
+                         SET username = @Username, password = @Password 
+                         WHERE emp_id = @EmployeeId;";
+
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            // Add parameters
                             cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
                             cmd.Parameters.AddWithValue("@Designation", updatedDesignation);
                             cmd.Parameters.AddWithValue("@FirstName", updatedFirstName);
                             cmd.Parameters.AddWithValue("@LastName", updatedLastName);
-                            cmd.Parameters.AddWithValue("@Department", updatedDepartment);
                             cmd.Parameters.AddWithValue("@FatherName", updatedFatherName);
                             cmd.Parameters.AddWithValue("@DOB", updatedDOB);
                             cmd.Parameters.AddWithValue("@DOJ", updatedDOJ);
@@ -419,19 +438,19 @@ namespace Clinic_Management_System
                             cmd.Parameters.AddWithValue("@Gender", updatedGender);
                             cmd.Parameters.AddWithValue("@Institution", updatedInstitution);
                             cmd.Parameters.AddWithValue("@CNIC", updatedCNIC);
+                            cmd.Parameters.AddWithValue("@Department", updatedDepartment);
                             cmd.Parameters.AddWithValue("@Status", updatedStatus);
                             cmd.Parameters.AddWithValue("@StartDuty", updatedStartDuty);
                             cmd.Parameters.AddWithValue("@EndDuty", updatedEndDuty);
+                            cmd.Parameters.AddWithValue("@Username", textBox12.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Password", textBox13.Text.Trim());
 
-                            // Execute the stored procedure
+                            // Execute the query
                             int rowsAffected = cmd.ExecuteNonQuery();
 
-                            // Confirm success
                             if (rowsAffected > 0)
                             {
-                                MessageBox.Show("Employee record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                // Refresh the DataGridView
+                                MessageBox.Show("Employee record and login details updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 PopulateDataGridView();
                             }
                             else
@@ -443,20 +462,13 @@ namespace Clinic_Management_System
                 }
                 catch (Exception ex)
                 {
-                    // Handle any errors
                     MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else
-            {
-                // Inform the user to select a row
-                MessageBox.Show("Please select a row to update.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-
 
 
         }
@@ -471,34 +483,38 @@ namespace Clinic_Management_System
         {
             string availabilityStatus = comboBox3.SelectedItem?.ToString();
 
-            // Define the base SQL query
+            // Define the base SQL query with username and password included
             string query = @"
-                SELECT 
-                    e.emp_id, 
-                    e.designation, 
-                    e.f_name,  
-                    e.l_name, 
-                    d.department, 
-                    e.father_name, 
-                    e.date_of_birth, 
-                    e.date_of_joining, 
-                    e.street, 
-                    e.city, 
-                    e.block,
-                    e.house_no,
-                    e.ph_country_code, 
-                    e.phone_number, 
-                    e.gender, 
-                    e.institution, 
-                    e.cnic,
-                    wh.emp_status,
-                    wh.start_duty,
-                    wh.end_duty
-                FROM tbl_employee e
-                INNER JOIN tbl_department d
-                    ON e.emp_id = d.emp_id
-                INNER JOIN tbl_emp_working_hours wh
-                    ON e.emp_id = wh.emp_id";
+        SELECT 
+            e.emp_id, 
+            e.designation, 
+            e.f_name,  
+            e.l_name, 
+            d.department, 
+            e.father_name, 
+            e.date_of_birth, 
+            e.date_of_joining, 
+            e.street, 
+            e.city, 
+            e.block,
+            e.house_no,
+            e.ph_country_code, 
+            e.phone_number, 
+            e.gender, 
+            e.institution, 
+            e.cnic,
+            wh.emp_status,
+            wh.start_duty,
+            wh.end_duty,
+            lt.username,
+            lt.password
+        FROM tbl_employee e
+        INNER JOIN tbl_department d
+            ON e.emp_id = d.emp_id
+        INNER JOIN tbl_emp_working_hours wh
+            ON e.emp_id = wh.emp_id
+        Left JOIN login_table lt
+            ON e.emp_id = lt.emp_id";  // Join with login_table to get username and password
 
             // Modify the query based on the availability status selected in comboBox3
             if (availabilityStatus == "Available")
@@ -547,6 +563,8 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
                         addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
                         addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
+                        addPatientGridView.Columns["username"].HeaderText = "Username";  // Display Username
+                        addPatientGridView.Columns["password"].HeaderText = "Password";  // Display Password
                     }
                 }
             }
@@ -561,35 +579,39 @@ namespace Clinic_Management_System
         {
             string doctorName = textBox10.Text.Trim(); // Get the name entered in the textbox
 
-            // Define the SQL query with a filter using CONCAT for full name match
+            // Define the SQL query with a filter using CONCAT for full name match and join with login_table
             string query = @"
-                SELECT 
-                    e.emp_id, 
-                    e.designation, 
-                    e.f_name,  
-                    e.l_name, 
-                    d.department, 
-                    e.father_name, 
-                    e.date_of_birth, 
-                    e.date_of_joining, 
-                    e.street, 
-                    e.city, 
-                    e.block,
-                    e.house_no,
-                    e.ph_country_code, 
-                    e.phone_number, 
-                    e.gender, 
-                    e.institution, 
-                    e.cnic,
-                    wh.emp_status,
-                    wh.start_duty,
-                    wh.end_duty
-                FROM tbl_employee e
-                INNER JOIN tbl_department d
-                    ON e.emp_id = d.emp_id
-                INNER JOIN tbl_emp_working_hours wh
-                    ON e.emp_id = wh.emp_id
-                WHERE CONCAT(e.f_name, ' ', e.l_name) LIKE '%' + @doctorName + '%'";
+        SELECT 
+            e.emp_id, 
+            e.designation, 
+            e.f_name,  
+            e.l_name, 
+            d.department, 
+            e.father_name, 
+            e.date_of_birth, 
+            e.date_of_joining, 
+            e.street, 
+            e.city, 
+            e.block,
+            e.house_no,
+            e.ph_country_code, 
+            e.phone_number, 
+            e.gender, 
+            e.institution, 
+            e.cnic,
+            wh.emp_status,
+            wh.start_duty,
+            wh.end_duty,
+            lt.username,
+            lt.password
+        FROM tbl_employee e
+        INNER JOIN tbl_department d
+            ON e.emp_id = d.emp_id
+        INNER JOIN tbl_emp_working_hours wh
+            ON e.emp_id = wh.emp_id
+        Left JOIN login_table lt
+            ON e.emp_id = lt.emp_id
+        WHERE CONCAT(e.f_name, ' ', e.l_name) LIKE '%' + @doctorName + '%'";
 
             try
             {
@@ -633,6 +655,8 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["emp_status"].HeaderText = "Employee Status";
                         addPatientGridView.Columns["start_duty"].HeaderText = "Start Duty";
                         addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
+                        addPatientGridView.Columns["username"].HeaderText = "Username";  // Display Username
+                        addPatientGridView.Columns["password"].HeaderText = "Password";  // Display Password
                     }
                 }
             }
@@ -671,6 +695,169 @@ namespace Clinic_Management_System
         private void button1_Click_1(object sender, EventArgs e)
         {
             LoadControl(new presciption(username, password, connectionString));
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button4_Click_2(object sender, EventArgs e)
+        {
+            string firstName = pfirstNameTB.Text.Trim();
+            string lastName = textBox7.Text.Trim();
+            string fatherName = textBox3.Text.Trim();
+            DateTime dob = dateTimePicker1.Value;
+            DateTime doj = dateTimePicker2.Value;
+            string gender = comboBox1.Text.Trim();
+            string institution = string.IsNullOrEmpty(textBox4.Text.Trim()) ? null : textBox4.Text.Trim();
+            string street = textBox6.Text.Trim();
+            string houseNo = textBox9.Text.Trim();
+            string city = textBox5.Text.Trim();
+            string phoneNumber = textBox2.Text.Trim();
+            string block = textBox8.Text.Trim();
+            string cnic = textBox1.Text.Trim();
+            string department = comboBox2.Text.Trim();
+            string designation = textBox11.Text.Trim();
+            string status = comboBox4.Text.Trim();
+            TimeSpan startDuty = dateTimePicker4.Value.TimeOfDay;
+            TimeSpan endDuty = dateTimePicker3.Value.TimeOfDay;
+            string username = string.IsNullOrEmpty(textBox12.Text.Trim()) ? null : textBox12.Text.Trim();
+            string password = string.IsNullOrEmpty(textBox13.Text.Trim()) ? null : textBox13.Text.Trim();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Add employee record
+                    string query = @"
+                INSERT INTO tbl_employee 
+                (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, 
+                city, block, house_no, phone_number, gender, institution, cnic) 
+                VALUES 
+                (@Designation, @FirstName, @LastName, @FatherName, @DOB, @DOJ, @Street, 
+                @City, @Block, @HouseNo, @PhoneNumber, @Gender, @Institution, @CNIC);
+
+                DECLARE @EmployeeId INT = SCOPE_IDENTITY();
+
+                INSERT INTO tbl_department (emp_id, department) 
+                VALUES (@EmployeeId, @Department);
+
+                INSERT INTO tbl_emp_working_hours (emp_id, emp_status, start_duty, end_duty) 
+                VALUES (@EmployeeId, @Status, @StartDuty, @EndDuty);
+
+                IF (@Username IS NOT NULL AND @Password IS NOT NULL)
+                BEGIN
+                    INSERT INTO login_table (emp_id, username, password) 
+                    VALUES (@EmployeeId, @Username, @Password);
+                END;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        // Add parameters
+                        cmd.Parameters.AddWithValue("@Designation", designation);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@FatherName", fatherName);
+                        cmd.Parameters.AddWithValue("@DOB", dob);
+                        cmd.Parameters.AddWithValue("@DOJ", doj);
+                        cmd.Parameters.AddWithValue("@Street", street);
+                        cmd.Parameters.AddWithValue("@City", city);
+                        cmd.Parameters.AddWithValue("@Block", block);
+                        cmd.Parameters.AddWithValue("@HouseNo", houseNo);
+                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                        cmd.Parameters.AddWithValue("@Gender", gender);
+                        cmd.Parameters.AddWithValue("@Institution", (object)institution ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@CNIC", cnic);
+                        cmd.Parameters.AddWithValue("@Department", department);
+                        cmd.Parameters.AddWithValue("@Status", status);
+                        cmd.Parameters.AddWithValue("@StartDuty", startDuty);
+                        cmd.Parameters.AddWithValue("@EndDuty", endDuty);
+                        cmd.Parameters.AddWithValue("@Username", (object)username ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Password", (object)password ?? DBNull.Value);
+
+                        // Execute the query
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("New employee record added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            PopulateDataGridView();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No record was added.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (addPatientGridView.SelectedRows.Count > 0)
+            {
+                // Get the selected row
+                DataGridViewRow selectedRow = addPatientGridView.SelectedRows[0];
+                int employeeId = Convert.ToInt32(selectedRow.Cells["emp_id"].Value);
+
+                // Confirm deletion with the user
+                var confirmResult = MessageBox.Show($"Are you sure you want to delete the employee with ID {employeeId}?",
+                                                    "Confirm Delete",
+                                                    MessageBoxButtons.YesNo,
+                                                    MessageBoxIcon.Warning);
+
+                if (confirmResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        {
+                            conn.Open();
+
+                            // Delete employee and related records from other tables
+                            string query = @"DELETE FROM login_table WHERE emp_id = @EmployeeId;
+                                     DELETE FROM tbl_emp_working_hours WHERE emp_id = @EmployeeId;
+                                     DELETE FROM tbl_department WHERE emp_id = @EmployeeId;
+                                     DELETE FROM tbl_employee WHERE emp_id = @EmployeeId;";
+
+                            using (SqlCommand cmd = new SqlCommand(query, conn))
+                            {
+                                // Add parameter for employee ID
+                                cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+
+                                // Execute the delete command
+                                int rowsAffected = cmd.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    MessageBox.Show("Employee record and related details deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    PopulateDataGridView(); // Refresh the DataGridView to reflect changes
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No record found with the specified Employee ID.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
     }
 }

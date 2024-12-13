@@ -27,6 +27,12 @@ create table tbl_employee (
 	institution varchar(50)
 );
 
+ALTER TABLE tbl_employee
+ADD CONSTRAINT chk_phone_number_length CHECK (LEN(phone_number) = 10);
+
+ALTER TABLE tbl_employee
+ADD CONSTRAINT chk_cnic_number_length CHECK (LEN(cnic) = 13);
+
 create table tbl_department(
 	emp_id int,
 	department varchar(50),
@@ -48,6 +54,11 @@ create table tbl_patient (
 	gender varchar(10),
 	age int
 );
+
+
+ALTER TABLE tbl_patient
+ADD CONSTRAINT chk_patient_phone_number_length CHECK (LEN(phone_number) = 10);
+
 
 create table tbl_specialization (
 	specialization_id int identity(1,1) primary key,
@@ -72,6 +83,12 @@ create table tbl_appointment(
 	time_of_appointment time not null,
 	appointment_status varchar(20) not null
 );
+
+
+ALTER TABLE tbl_appointment
+ADD CONSTRAINT FK_tbl_appointment_booked_by_emp_id 
+FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) 
+ON DELETE CASCADE;
 
 ALTER TABLE tbl_appointment 
 ADD CONSTRAINT FK_tbl_appointment_patient_id 
@@ -980,3 +997,32 @@ BEGIN
 END;
 
 EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
+
+
+create procedure sp_CalculateBillDetails
+    @ProfitPercent DECIMAL(10, 2) = 30.00
+AS
+BEGIN
+    -- Calculate and display the bill details
+    SELECT 
+        b.bill_id AS BillID,
+        CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+        CONCAT(e.f_name, ' ', e.l_name) AS DoctorName,
+        a.date_of_appointment AS AppointmentDate,
+        b.emp_fee AS DoctorFee,
+        ROUND((b.emp_fee * @ProfitPercent) / 100, 2) AS HospitalProfit
+    FROM tbl_billing b
+    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
+    INNER JOIN tbl_employee e ON a.booked_for_emp_id = e.emp_id
+    INNER JOIN tbl_patient p ON a.booked_by_emp_id = p.patient_id;
+END
+
+Exec sp_CalculateBillDetails
+
+select * from tbl_emp_working_hours
+
+insert into tbl_emp_working_hours values(1,'08:00:00','18:00:00','Available')
+insert into tbl_emp_working_hours values(2,'09:00:00','18:00:00','Available')
+update tbl_department
+set department = 'Admin'
+where emp_id = 2
