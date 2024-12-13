@@ -23,6 +23,8 @@ namespace Clinic_Management_System
             this.username = username;
             this.password = password;
             this.connectionString = connectionString;
+
+            this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
         }
 
         private void addPatientUserCotroller_Load(object sender, EventArgs e)
@@ -119,6 +121,29 @@ namespace Clinic_Management_System
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateDataGridView();
+
+            if (e.RowIndex >= 0)
+            {
+                // Get the selected row
+                DataGridViewRow selectedRow = addPatientGridView.Rows[e.RowIndex];
+
+                // Populate textboxes with data from the selected row
+                pfirstNameTB.Text = selectedRow.Cells["p_f_name"].Value?.ToString() ?? string.Empty;
+                plastNameTB.Text = selectedRow.Cells["p_l_name"].Value?.ToString() ?? string.Empty;
+                pfatherNameTB.Text = selectedRow.Cells["father_name"].Value?.ToString() ?? string.Empty;
+                pDOBTB.Text = selectedRow.Cells["date_of_birth"].Value?.ToString() ?? string.Empty;
+                pstreetTB.Text = selectedRow.Cells["street"].Value?.ToString() ?? string.Empty;
+                pBlockTB.Text = selectedRow.Cells["block"].Value?.ToString() ?? string.Empty;
+                pCityTB.Text = selectedRow.Cells["city"].Value?.ToString() ?? string.Empty;
+                pCountryTB.Text = selectedRow.Cells["country"].Value?.ToString() ?? string.Empty;
+                pCountryCodeTB.Text = selectedRow.Cells["ph_country_code"].Value?.ToString() ?? string.Empty;
+                pPhonenumTB.Text = selectedRow.Cells["phone_number"].Value?.ToString() ?? string.Empty;
+                pGender2.Text = selectedRow.Cells["gender"].Value?.ToString() ?? string.Empty;
+                pAgeTB.Text = selectedRow.Cells["age"].Value?.ToString() ?? string.Empty;
+                pCNIC.Text = selectedRow.Cells["CNIC"].Value?.ToString() ?? string.Empty;
+                patientIdTextBox.Text = selectedRow.Cells["patient_id"].Value?.ToString() ?? string.Empty;
+            }
+
         }
         private void PopulateDataGridView()
         {
@@ -204,11 +229,13 @@ namespace Clinic_Management_System
                     MessageBox.Show("Patient added successfully.");
 
                     PopulateDataGridView();
+                    ClearInputFields();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                ClearInputFields();
             }
 
         }
@@ -351,7 +378,7 @@ namespace Clinic_Management_System
                     cmd.Parameters.AddWithValue("@Gender", pGender2.Text);
                     cmd.Parameters.AddWithValue("@Age", pAgeTB.Text);
                     cmd.Parameters.AddWithValue("@CNIC", pCNIC.Text);
-                   cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
+                    cmd.Parameters.AddWithValue("@PatientID", patientIdTextBox.Text); // Unique identifier for the record
 
                     conn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -360,10 +387,12 @@ namespace Clinic_Management_System
                     {
                         MessageBox.Show("Patient record updated successfully.");
                         PopulateDataGridView(); // Refresh DataGridView with updated data
+                        ClearInputFields();
                     }
                     else
                     {
                         MessageBox.Show("No record found to update. Please check the Patient ID.", "Update Failed");
+                        ClearInputFields();
                     }
                 }
             }
@@ -373,5 +402,161 @@ namespace Clinic_Management_System
             }
         
     }
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                // Ensure a patient is selected
+                if (string.IsNullOrWhiteSpace(patientIdTextBox.Text))
+                {
+                    MessageBox.Show("Please select a patient to delete.", "Validation Error");
+                    return;
+                }
+
+                // Confirm deletion
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this patient record?",
+                                                      "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
+                // Delete query
+                string query = "DELETE FROM tbl_patient WHERE patient_id = @PatientId";
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@PatientId", patientIdTextBox.Text);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Patient record deleted successfully.");
+                        PopulateDataGridView(); // Refresh the DataGridView
+                        ClearInputFields();     // Clear the input fields
+                    }
+                    else
+                    {
+                        MessageBox.Show("No record found with the given Patient ID.", "Error");
+                        ClearInputFields();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while deleting the patient record: {ex.Message}", "Error");
+            }
+        }
+
+        // Method to clear input fields after deletion
+        private void ClearInputFields()
+        {
+            pfirstNameTB.Text = string.Empty;
+            plastNameTB.Text = string.Empty;
+            pfatherNameTB.Text = string.Empty;
+            pDOBTB.Text = string.Empty;
+            pstreetTB.Text = string.Empty;
+            pBlockTB.Text = string.Empty;
+            pCityTB.Text = string.Empty;
+            pCountryTB.Text = string.Empty;
+            pCountryCodeTB.Text = string.Empty;
+            pPhonenumTB.Text = string.Empty;
+            pGender2.Text = string.Empty;
+            pAgeTB.Text = string.Empty;
+            pCNIC.Text = string.Empty;
+            patientIdTextBox.Text = string.Empty;
+        }
+       
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the text from the textbox
+                string searchText = textBox1.Text.Trim();
+
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    MessageBox.Show("Please enter a name to search.");
+                    return;
+                }
+
+                // Construct the query with LEFT JOINs and filtering by concatenated patient name
+                string query = @"
+        SELECT 
+            p.patient_id, 
+            p.p_f_name, 
+            p.p_l_name, 
+            p.father_name, 
+            p.date_of_birth, 
+            p.city, 
+            p.country, 
+            p.phone_number, 
+            p.gender, 
+            p.age, 
+            t.treatment_type, 
+            (SELECT CONCAT(e.f_name, ' ', e.l_name) 
+             FROM tbl_employee e 
+             WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName, 
+            a.date_of_appointment, 
+            b.bill_status, 
+            b.remaining_payment
+        FROM 
+            tbl_patient p
+        LEFT JOIN 
+            tbl_treatment t ON p.patient_id = t.patient_id
+        LEFT JOIN 
+            tbl_appointment a ON p.patient_id = a.patient_id
+        LEFT JOIN 
+            tbl_billing b ON t.treatment_id = b.treatment_id
+        WHERE 
+            CONCAT(p.p_f_name, ' ', p.p_l_name) = @SearchText";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    // Add the parameter for the search text
+                    cmd.Parameters.AddWithValue("@SearchText", searchText);
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // Update the DataGridView with the filtered data
+                    addPatientGridView.DataSource = dataTable;
+
+                    // Set user-friendly column names
+                    addPatientGridView.Columns["patient_id"].HeaderText = "Patient ID";
+                    addPatientGridView.Columns["p_f_name"].HeaderText = "First Name";
+                    addPatientGridView.Columns["p_l_name"].HeaderText = "Last Name";
+                    addPatientGridView.Columns["father_name"].HeaderText = "Father's Name";
+                    addPatientGridView.Columns["date_of_birth"].HeaderText = "Date of Birth";
+                    addPatientGridView.Columns["city"].HeaderText = "City";
+                    addPatientGridView.Columns["country"].HeaderText = "Country";
+                    addPatientGridView.Columns["phone_number"].HeaderText = "Phone Number";
+                    addPatientGridView.Columns["gender"].HeaderText = "Gender";
+                    addPatientGridView.Columns["age"].HeaderText = "Age";
+                    addPatientGridView.Columns["treatment_type"].HeaderText = "Treatment Type";
+                    addPatientGridView.Columns["DoctorName"].HeaderText = "Doctor Name";
+                    addPatientGridView.Columns["date_of_appointment"].HeaderText = "Appointment Date";
+                    addPatientGridView.Columns["bill_status"].HeaderText = "Bill Status";
+                    addPatientGridView.Columns["remaining_payment"].HeaderText = "Remaining Payment";
+
+                    addPatientGridView.AutoResizeColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 }

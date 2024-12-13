@@ -347,5 +347,21 @@ namespace Clinic_Management_System
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+        }
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();       
+            control.Dock = DockStyle.Fill; 
+            this.Controls.Add(control);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LoadControl(new admin_patient(username, password, connectionString));
+        }
     }
 }

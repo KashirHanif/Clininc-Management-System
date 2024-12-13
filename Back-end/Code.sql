@@ -73,6 +73,10 @@ create table tbl_appointment(
 	appointment_status varchar(20) not null
 );
 
+ALTER TABLE tbl_appointment 
+ADD CONSTRAINT FK_tbl_appointment_patient_id 
+FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id) ON DELETE CASCADE;
+
 create table tbl_treatment (
 	treatment_id int identity(1,1) primary key,
 	treatment_type varchar(20),
@@ -240,6 +244,8 @@ on tbl_appointment (appointment_status);
 
 create nonclustered index ix_tbl_inventory_item_name_item_status
 on tbl_inventory (item_name, item_status);
+
+
 
 
 --Query
@@ -974,3 +980,4 @@ BEGIN
 END;
 
 EXEC sp_calculate_hospital_revenue '2024-12-12', 'monthly',40.00;
+

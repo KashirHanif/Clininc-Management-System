@@ -68,6 +68,12 @@
     <Compile Include="admin_patient.Designer.cs">
       <DependentUpon>admin_patient.cs</DependentUpon>
     </Compile>
+    <Compile Include="doctor_admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="doctor_admin.Designer.cs">
+      <DependentUpon>doctor_admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="doctor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="admin_patient.resx">
       <DependentUpon>admin_patient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="doctor_admin.resx">
+      <DependentUpon>doctor_admin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="doctor.resx">
       <DependentUpon>doctor.cs</DependentUpon>
