@@ -270,7 +270,7 @@ namespace Clinic_Management_System
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            LoadControl(new PatientUserControl(username, password, connectionString));
+            LoadControl(new adminMenu(username, password, connectionString));
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)

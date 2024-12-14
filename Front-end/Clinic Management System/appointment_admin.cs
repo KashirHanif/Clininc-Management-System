@@ -19,7 +19,7 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private string connectionString;
-        public appointment_admin(string username,string password,string connectionString)
+        public appointment_admin(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
@@ -33,6 +33,13 @@ namespace Clinic_Management_System
             this.username = username;
             this.password = password;
             this.connectionString = connectionString;
+
+            ConfigureDatePicker(); // Configure the date picker during initialization
+        }
+        private void ConfigureDatePicker()
+        {
+            aptDate.MinDate = DateTime.Now.Date; // Set the minimum selectable date to today's date
+            aptDate.Value = DateTime.Now.Date;  // Default to today's date
         }
 
         private void appointment_admin_Load(object sender, EventArgs e)
@@ -67,70 +74,9 @@ namespace Clinic_Management_System
             LoadControl(new cancelAppointment(username, password, connectionString));
         }
 
-        private void pGender2_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
-        private void pfirstNameTB_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void pCityTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pPhonenumTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void plastNameTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pCountryTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pCountryCodeTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pAgeTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pfatherNameTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pDOBTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pstreetTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pBlockTB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
         private void addPatientGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -439,9 +385,6 @@ namespace Clinic_Management_System
         {
             try
             {
-               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                // Get the selected doctor name from comboBox2
                 string selectedDoctor = comboBox2.SelectedItem?.ToString();
                 DateTime selectedDate = aptDate.Value.Date;
 
@@ -474,14 +417,13 @@ namespace Clinic_Management_System
                         aptTime.Text = nextAppointmentTime ?? "error fetching time.";
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error fetching appointment time: " + ex.Message);
             }
         }
+
 
         private void searchPatient_Click(object sender, EventArgs e)
         {
@@ -604,6 +546,45 @@ namespace Clinic_Management_System
         private void button2_Click(object sender, EventArgs e)
         {
             LoadControl(new addTreatment(username, password, connectionString));
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new appointment_admin(username, password, connectionString));
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new appintmentLog(username, password, connectionString));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LoadControl(new revenue(username, password, connectionString));
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LoadControl(new admin_patient(username, password, connectionString));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadControl(new doctor_admin(username, password, connectionString));
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            LoadControl(new adminMenu(username, password, connectionString));
+        }
+
+        private void aptDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (aptDate.Value.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("Appointments cannot be scheduled for past dates. Please select a valid date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                aptDate.Value = DateTime.Now.Date; // Reset to today's date
+            }
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Clinic_Management_System
         private string username;
         private string password;
         private string connectionString;
-        public addAppointmentController(string username,string password,string connectionString)
+
+        public addAppointmentController(string username, string password, string connectionString)
         {
             InitializeComponent();
             this.addPatientGridView.CellClick += new DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick);
@@ -33,6 +34,14 @@ namespace Clinic_Management_System
             this.username = username;
             this.password = password;
             this.connectionString = connectionString;
+
+            ConfigureDatePicker(); // Configure the date picker during initialization
+        }
+
+        private void ConfigureDatePicker()
+        {
+            aptDate.MinDate = DateTime.Now.Date; // Set the minimum selectable date to today's date
+            aptDate.Value = DateTime.Now.Date;  // Default to today's date
         }
 
         private void addAppointmentController_Load(object sender, EventArgs e)
@@ -439,9 +448,6 @@ namespace Clinic_Management_System
         {
             try
             {
-               // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-               // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-                // Get the selected doctor name from comboBox2
                 string selectedDoctor = comboBox2.SelectedItem?.ToString();
                 DateTime selectedDate = aptDate.Value.Date;
 
@@ -474,8 +480,6 @@ namespace Clinic_Management_System
                         aptTime.Text = nextAppointmentTime ?? "error fetching time.";
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -604,6 +608,15 @@ namespace Clinic_Management_System
         private void button2_Click(object sender, EventArgs e)
         {
             LoadControl(new addTreatment(username, password, connectionString));
+        }
+
+        private void aptDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (aptDate.Value.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("Appointments cannot be scheduled for past dates. Please select a valid date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                aptDate.Value = DateTime.Now.Date; // Reset to today's date
+            }
         }
     }
 }
