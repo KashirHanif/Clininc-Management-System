@@ -166,19 +166,9 @@ CREATE TABLE tbl_appointment_log (
     password VARCHAR(50)
 );
 
-ALTER TABLE tbl_emp_working_hours
-ADD CONSTRAINT chk_emp_working_hours CHECK (start_duty < end_duty);
-
-
-
-ALTER TABLE tbl_patient
-ALTER COLUMN gender VARCHAR(10) NOT NULL;
 
 ALTER TABLE tbl_employee
 ADD CONSTRAINT chk_gender CHECK (gender IN ('Male', 'Female', 'Other'));
-
-ALTER TABLE tbl_billing
-ADD CONSTRAINT chk_emp_fee_positive CHECK (emp_fee >= 0);
 
 
 create nonclustered index idx_patient_name_phone

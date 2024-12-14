@@ -280,5 +280,9 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password, connectionString));
         }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+                    }
     }
 }

@@ -39,6 +39,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.logoutButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -173,11 +174,27 @@
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = "Receptionist";
             // 
+            // logoutButton
+            // 
+            this.logoutButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(84)))), ((int)(((byte)(84)))));
+            this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.logoutButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.logoutButton.ForeColor = System.Drawing.Color.White;
+            this.logoutButton.Location = new System.Drawing.Point(1700, 97);
+            this.logoutButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(101, 37);
+            this.logoutButton.TabIndex = 80;
+            this.logoutButton.Text = "Log Out";
+            this.logoutButton.UseVisualStyleBackColor = true;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
             // menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBoxLogo);
@@ -218,5 +235,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button logoutButton;
     }
 }
