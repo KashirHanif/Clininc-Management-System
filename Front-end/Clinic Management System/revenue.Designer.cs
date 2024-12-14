@@ -232,6 +232,7 @@
             this.adminLabel.Size = new System.Drawing.Size(81, 30);
             this.adminLabel.TabIndex = 28;
             this.adminLabel.Text = "Admin";
+            this.adminLabel.Click += new System.EventHandler(this.adminLabel_Click);
             // 
             // profilePicture
             // 

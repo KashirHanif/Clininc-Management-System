@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -228,6 +229,45 @@ namespace Clinic_Management_System
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void adminLabel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string query = @"
+                SELECT CONCAT(f_name, ' ', l_name)
+                FROM tbl_employee
+                WHERE emp_id IN (
+                    SELECT emp_id FROM login_table
+                    WHERE username = @username AND password = @password
+                )";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    connection.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        adminLabel.Text = " ";
+                        string employeeName = result.ToString();
+                        adminLabel.Text = "Admin: " + employeeName;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Employee not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching employee name: " + ex.Message);
+            }
         }
     }
 }

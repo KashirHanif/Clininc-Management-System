@@ -176,7 +176,7 @@ namespace Clinic_Management_System
                     (SELECT CONCAT(e.f_name, ' ', e.l_name)
                      FROM tbl_employee e 
                      WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
-                FROM tbl_appointment a;";
+                FROM tbl_appointment a where a.appointment_status = 'Booked';";
 
                 // Using connection and command to fetch data
                 using (SqlConnection connection = new SqlConnection(conectionString))

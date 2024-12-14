@@ -2,249 +2,183 @@ create database clinic_management_db
 
 --Structure
 
-create table login_table (
-	emp_id int primary key,
-	foreign key (emp_id) references tbl_employee(emp_id),
-	username varchar(50),
-	password varchar(50)
+CREATE TABLE login_table (
+	emp_id INT PRIMARY KEY,
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+	username VARCHAR(50) UNIQUE,
+	password VARCHAR(50)
 );
 
-create table tbl_employee (
-	emp_id int IDENTITY(1,1) primary key,
-	designation varchar(50),
-	f_name varchar(50),
-	l_name varchar(50),
-	father_name varchar(50),
-	date_of_birth date,
-	date_of_joining date,
-	street int,
-	city varchar(50) not null,
-	block varchar(1),
-	house_no int,
-	ph_country_code varchar(10),
-	phone_number varchar(20),
-	gender varchar(10),
-	institution varchar(50)
+CREATE TABLE tbl_employee (
+	emp_id INT IDENTITY(1,1) PRIMARY KEY,
+	designation VARCHAR(50),
+	f_name VARCHAR(50),
+	l_name VARCHAR(50),
+	father_name VARCHAR(50),
+	date_of_birth DATE,
+	date_of_joining DATE,
+	street INT,
+	city VARCHAR(50) NOT NULL,
+	block VARCHAR(1),
+	house_no INT,
+	ph_country_code VARCHAR(10),
+	phone_number VARCHAR(20) CHECK (LEN(phone_number) = 10),
+	gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
+	institution VARCHAR(50),
+	cnic VARCHAR(15) UNIQUE
 );
 
-ALTER TABLE tbl_employee
-ADD CONSTRAINT chk_phone_number_length CHECK (LEN(phone_number) = 10);
-
-ALTER TABLE tbl_employee
-ADD CONSTRAINT chk_cnic_number_length CHECK (LEN(cnic) = 13);
-
-create table tbl_department(
-	emp_id int,
-	department varchar(50),
-	foreign key(emp_id) references tbl_employee(emp_id)
+CREATE TABLE tbl_department (
+	emp_id INT,
+	department VARCHAR(50) NOT NULL,
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id)
 );
 
-create table tbl_patient (
-	patient_id int identity(1,1) primary key,
-	p_f_name varchar(20),
-	p_l_name varchar(20),
-	father_name varchar(30),
-	date_of_birth date,
-	street int,
-	block varchar(1),
-	city varchar(50),
-	country varchar(50),
-	ph_country_code varchar(10),
-	phone_number varchar(20),
-	gender varchar(10),
-	age int
+CREATE TABLE tbl_patient (
+	patient_id INT IDENTITY(1,1) PRIMARY KEY,
+	p_f_name VARCHAR(20) NOT NULL,
+	p_l_name VARCHAR(20) NOT NULL,
+	father_name VARCHAR(30),
+	date_of_birth DATE,
+	street INT,
+	block VARCHAR(1),
+	city VARCHAR(50),
+	country VARCHAR(50),
+	ph_country_code VARCHAR(10),
+	phone_number VARCHAR(20) CHECK (LEN(phone_number) = 10),
+	gender VARCHAR(10) NOT NULL,
+	age INT,
+	cnic VARCHAR(15) UNIQUE
 );
 
-
-ALTER TABLE tbl_patient
-ADD CONSTRAINT chk_patient_phone_number_length CHECK (LEN(phone_number) = 10);
-
-
-create table tbl_specialization (
-	specialization_id int identity(1,1) primary key,
-	specialization varchar(20)
+CREATE TABLE tbl_specialization (
+	specialization_id INT IDENTITY(1,1) PRIMARY KEY,
+	specialization VARCHAR(20)
 );
 
-create table tbl_emp_specialization (
-	employee_id int,
-	specialization_id int,
-	foreign key (employee_id) references tbl_employee(emp_id),
-	foreign key (specialization_id) references tbl_specialization(specialization_id),
-	primary key (employee_id,specialization_id)
+CREATE TABLE tbl_emp_specialization (
+	employee_id INT,
+	specialization_id INT,
+	institute VARCHAR(30),
+	FOREIGN KEY (employee_id) REFERENCES tbl_employee(emp_id),
+	FOREIGN KEY (specialization_id) REFERENCES tbl_specialization(specialization_id),
+	PRIMARY KEY (employee_id, specialization_id)
 );
 
-create table tbl_appointment(
-	appointment_id int identity(1,1) primary key,
-	booked_by_emp_id int,
-	booked_for_emp_id int,
-	foreign key (booked_by_emp_id) references tbl_employee(emp_id),
-	foreign key (booked_for_emp_id) references tbl_employee(emp_id),
-	date_of_appointment date not null,
-	time_of_appointment time not null,
-	appointment_status varchar(20) not null
+CREATE TABLE tbl_appointment (
+	appointment_id INT IDENTITY(1,1) PRIMARY KEY,
+	booked_by_emp_id INT,
+	booked_for_emp_id INT,
+	patient_id INT,
+	date_of_appointment DATE NOT NULL,
+	time_of_appointment TIME NOT NULL,
+	appointment_status VARCHAR(20) NOT NULL,
+	appointment_type VARCHAR(50),
+	FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) ON DELETE CASCADE,
+	FOREIGN KEY (booked_for_emp_id) REFERENCES tbl_employee(emp_id),
+	FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id) ON DELETE CASCADE
 );
 
-
-ALTER TABLE tbl_appointment
-ADD CONSTRAINT FK_tbl_appointment_booked_by_emp_id 
-FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) 
-ON DELETE CASCADE;
-
-ALTER TABLE tbl_appointment 
-ADD CONSTRAINT FK_tbl_appointment_patient_id 
-FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id) ON DELETE CASCADE;
-
-create table tbl_treatment (
-	treatment_id int identity(1,1) primary key,
-	treatment_type varchar(20),
-	emp_id int,
-	patient_id int,
-	foreign key (emp_id) references tbl_employee(emp_id),
-	foreign key (patient_id) references tbl_patient(patient_id),
+CREATE TABLE tbl_treatment (
+	treatment_id INT IDENTITY(1,1) PRIMARY KEY,
+	treatment_type VARCHAR(20),
+	emp_id INT,
+	patient_id INT,
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+	FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id)
 );
 
-
-create table tbl_billing (
-	bill_id int identity(1,1) primary key,
-	emp_fee int default 10 CHECK (emp_fee >= 0),
-	appointment_id int not null,
-	foreign key (appointment_id) references tbl_appointment(appointment_id)
+CREATE TABLE tbl_billing (
+	bill_id INT IDENTITY(1,1) PRIMARY KEY,
+	emp_fee INT DEFAULT 1000 CHECK (emp_fee >= 0),
+	appointment_id INT NOT NULL,
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
 
-ALTER TABLE tbl_billing
-ALTER COLUMN appointment_id INT NOT NULL;
-
-ALTER TABLE tbl_billing
-ADD CONSTRAINT CK_emp_fee_non_negative CHECK (emp_fee >= 0);
-
-ALTER TABLE tbl_billing
-ADD CONSTRAINT DF_emp_fee DEFAULT 1000 FOR emp_fee;
-
-create table tbl_profit (
-	hospital_profit_percent decimal(10,2) default 30.00,
-	start_date date,
-	end_date date
-)
-
-ALTER TABLE tbl_profit
-ADD CONSTRAINT DF_profit_percent DEFAULT 30.00 FOR hospital_profit_percent;
-
-create table tbl_prescription (
-    prescription_id INT IDENTITY(1,1) PRIMARY KEY,
-    appointment_id INT NOT NULL,
-    follow_up_date DATE,
+CREATE TABLE tbl_prescription (
+	prescription_id INT IDENTITY(1,1) PRIMARY KEY,
+	appointment_id INT NOT NULL,
+	follow_up_date DATE,
 	followUpDoctorName VARCHAR(100),
-    bookedByName VARCHAR(100),
-    created_at DATETIME NOT NULL DEFAULT GETDATE(),
-    FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
+	bookedByName VARCHAR(100),
+	created_at DATETIME NOT NULL DEFAULT GETDATE(),
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
 
-create table tbl_item (
-    item_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_name VARCHAR(255) NOT NULL
+CREATE TABLE tbl_item (
+	item_id INT IDENTITY(1,1) PRIMARY KEY,
+	item_name VARCHAR(255) NOT NULL
 );
 
-create table tbl_prescription_item (
-    prescription_item_id INT IDENTITY(1,1) PRIMARY KEY,
-    prescription_id INT NOT NULL,
-    item_id INT NOT NULL,
-    item_type VARCHAR(50) NOT NULL,
-    FOREIGN KEY (prescription_id) REFERENCES tbl_prescription(prescription_id),
-    FOREIGN KEY (item_id) REFERENCES tbl_item(item_id)
+CREATE TABLE tbl_prescription_item (
+	prescription_item_id INT IDENTITY(1,1) PRIMARY KEY,
+	prescription_id INT NOT NULL,
+	item_id INT NOT NULL,
+	item_type VARCHAR(50) NOT NULL,
+	FOREIGN KEY (prescription_id) REFERENCES tbl_prescription(prescription_id),
+	FOREIGN KEY (item_id) REFERENCES tbl_item(item_id)
 );
 
-create table tbl_emp_working_hours (
-	emp_id int,
-	foreign key(emp_id) references tbl_employee(emp_id),
-	start_duty time not null,
-	end_duty time not null,
-	emp_status varchar(20) default 'Available'
-)
-
-
-create table tbl_emp_shift (
-	emp_id int,
-	foreign key(emp_id) references tbl_employee(emp_id),
-	start_time time not null,
-	end_time time not null,
-	date_of_shift date not null
+CREATE TABLE tbl_emp_working_hours (
+	emp_id INT,
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+	start_duty TIME NOT NULL CHECK (start_duty < end_duty),
+	end_duty TIME NOT NULL,
+	emp_status VARCHAR(20) DEFAULT 'Available'
 );
 
-alter table tbl_treatment
-drop column treatment_date
+CREATE TABLE tbl_emp_shift (
+	emp_id INT,
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+	start_time TIME NOT NULL,
+	end_time TIME NOT NULL,
+	date_of_shift DATE NOT NULL
+);
 
-alter table tbl_treatment
-drop column diagnosis
+CREATE TABLE tbl_appointment_log (
+	log_id INT IDENTITY(1,1) PRIMARY KEY,
+	appointment_id INT NOT NULL,
+	patient_name VARCHAR(255) NOT NULL,
+	doctor_name VARCHAR(255) NOT NULL,
+	booked_by VARCHAR(255) NOT NULL,
+	action_type VARCHAR(50) NOT NULL,
+	column_updated VARCHAR(100),
+	previous_value VARCHAR(255),
+	new_value VARCHAR(255),
+	log_date DATETIME NOT NULL,
+	username VARCHAR(50),
+	password VARCHAR(50),
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
+);
 
-alter table tbl_inventory
-add constraint chk_selling_price check (selling_price >= purchase_price);
+CREATE TABLE tbl_appointment_log (
+    log_id INT IDENTITY(1,1) PRIMARY KEY,
+    appointment_id INT NOT NULL,
+    patient_name VARCHAR(255) NOT NULL,
+    doctor_name VARCHAR(255) NOT NULL,
+    booked_by VARCHAR(255) NOT NULL,
+    action_type VARCHAR(50) NOT NULL,
+    column_updated VARCHAR(100), -- Name of the column being updated
+    previous_value VARCHAR(255), -- Previous value of the updated column
+    new_value VARCHAR(255), -- New value of the updated column
+    log_date DATETIME NOT NULL,
+	username VARCHAR(50), 
+    password VARCHAR(50)
+);
 
-alter table tbl_inventory
-add constraint chk_expiration_date check (expiration_date > date_of_purchase);
-
-create index idx_batch_no on tbl_inventory(batch_no);
-
-
-alter table tbl_emp_specialization 
-add institute varchar(30)
-
-alter table tbl_employee
-add cnic varchar(15)
-
-alter table tbl_patient
-add cnic varchar(15)
-
-alter table tbl_inventory
-add bill_id int;
-
-alter table tbl_inventory
-add constraint fk_bill_id foreign key (bill_id) references tbl_billing(bill_id)
-
-alter table tbl_billing
-add treatment_id int
-
-alter table tbl_billing
-add constraint fk_treatment_id foreign key (treatment_id) references tbl_treatment(treatment_id);
+ALTER TABLE tbl_emp_working_hours
+ADD CONSTRAINT chk_emp_working_hours CHECK (start_duty < end_duty);
 
 
-alter table tbl_inventory
-drop constraint fk_bill_id;
-
-alter table tbl_inventory
-drop column bill_id;
-
-ALTER TABLE login_table
-ADD CONSTRAINT UQ_username UNIQUE (username);
-
-ALTER TABLE tbl_employee
-ADD CONSTRAINT unique_cnic_employee UNIQUE (cnic);
 
 ALTER TABLE tbl_patient
-ADD CONSTRAINT unique_cnic_patient UNIQUE (cnic);
+ALTER COLUMN gender VARCHAR(10) NOT NULL;
 
+ALTER TABLE tbl_employee
+ADD CONSTRAINT chk_gender CHECK (gender IN ('Male', 'Female', 'Other'));
 
-ALTER TABLE tbl_appointment
-ADD patient_id INT;
-
-ALTER TABLE tbl_appointment
-ADD appointment_type VARCHAR(50);
-
-ALTER TABLE tbl_appointment
-ADD CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id);
-
-alter table tbl_treatment
-alter column treatment_type varchar(50)
-
-alter table tbl_billing
-add bill_status varchar(50)
-
-alter table tbl_billing
-add remaining_payment varchar(50)
-
-ALTER TABLE tbl_treatment_inventory
-ADD CONSTRAINT FK_tbl_treatment_inventory_item_id
-FOREIGN KEY (item_id)
-REFERENCES tbl_inventory(item_id);
+ALTER TABLE tbl_billing
+ADD CONSTRAINT chk_emp_fee_positive CHECK (emp_fee >= 0);
 
 
 create nonclustered index idx_patient_name_phone
@@ -259,132 +193,16 @@ on tbl_emp_working_hours (emp_status);
 create nonclustered index ix_tbl_appointment_appointment_status
 on tbl_appointment (appointment_status);
 
-create nonclustered index ix_tbl_inventory_item_name_item_status
-on tbl_inventory (item_name, item_status);
+create nonclustered index ix_tbl_billing_appointment_id
+ON tbl_billing (appointment_id);
 
+create nonclustered index ix_tbl_appointment_date_of_appointment
+ON tbl_appointment (date_of_appointment);
 
+create nonclustered index ix_tbl_billing_emp_fee
+ON tbl_billing (emp_fee);
 
-
---Query
-
-
-insert into tbl_patient (p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic) values ('Ali', 'Khan', 'Ahmed Khan', '1990-05-15', 123, 'A', 'Lahore', 'Pakistan', '+92', '3001234567', 'Male', 33,2947192037402);
-
--- Insert 20 more rows into tbl_patient
-INSERT INTO tbl_patient 
-(p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic)
-VALUES
-('Sara', 'Khan', 'Imran Khan', '1995-08-12', 456, 'B', 'Karachi', 'Pakistan', '+92', '3219876543', 'Female', 29, 3847220193842),
-('Ahmed', 'Ali', 'Saeed Ali', '1988-03-10', 789, 'M', 'Islamabad', 'Pakistan', '+92', '3345678901', 'Male', 36, 3849312345671),
-('Fatima', 'Zafar', 'Hassan Zafar', '1992-12-25', 123, 'K', 'Lahore', 'Pakistan', '+92', '3421122334', 'Female', 31, 3748150193847),
-('Hassan', 'Raza', 'Adeel Raza', '1990-06-15', 456, 'A', 'Rawalpindi', 'Pakistan', '+92', '3104567890', 'Male', 34, 3749123478563),
-('Ayesha', 'Malik', 'Hamid Malik', '1985-11-20', 789, 'P', 'Faisalabad', 'Pakistan', '+92', '3225678904', 'Female', 39, 3847220193831),
-('Bilal', 'Hameed', 'Yasir Hameed', '1997-07-07', 123, 'I', 'Multan', 'Pakistan', '+92', '3129876541', 'Male', 27, 3849350127842),
-('Zara', 'Iqbal', 'Shahid Iqbal', '1991-09-09', 456, 'H', 'Quetta', 'Pakistan', '+92', '3312345678', 'Female', 33, 3748120193849),
-('Ali', 'Shah', 'Naveed Shah', '1993-01-01', 789, 'S', 'Peshawar', 'Pakistan', '+92', '3434567890', 'Male', 31, 3849212387456),
-('Maira', 'Ahmed', 'Fahad Ahmed', '1996-04-18', 123, 'F', 'Hyderabad', 'Pakistan', '+92', '3209876543', 'Female', 28, 3748123456789),
-('Usman', 'Zahid', 'Nadeem Zahid', '1989-08-08', 456, 'R', 'Sialkot', 'Pakistan', '+92', '3104567891', 'Male', 35, 3749213947502),
-('Anam', 'Chaudhry', 'Farhan Chaudhry', '1994-10-15', 789, 'H', 'Gujranwala', 'Pakistan', '+92', '3331234567', 'Female', 30, 3847210123456),
-('Hamza', 'Iqbal', 'Sajid Iqbal', '1998-03-25', 123, 'Z', 'Bahawalpur', 'Pakistan', '+92', '3125678910', 'Male', 26, 3849345782930),
-('Rabia', 'Naeem', 'Shafiq Naeem', '1990-12-05', 456, 'F', 'Sargodha', 'Pakistan', '+92', '3456789123', 'Female', 34, 3748134509284),
-('Kashif', 'Ali', 'Irfan Ali', '1987-06-10', 789, 'O', 'Abbottabad', 'Pakistan', '+92', '3145678903', 'Male', 37, 3849203948123),
-('Saima', 'Hassan', 'Faisal Hassan', '1989-09-19', 123, 'L', 'Mardan', 'Pakistan', '+92', '3214567890', 'Female', 35, 3847193048571),
-('Imran', 'Javed', 'Kamran Javed', '1985-01-20', 456, 'G', 'Sahiwal', 'Pakistan', '+92', '3415678912', 'Male', 39, 3748190123945),
-('Neha', 'Rehman', 'Tariq Rehman', '1993-03-13', 789, 'B', 'Okara', 'Pakistan', '+92', '3445678912', 'Female', 9, 3847293847501),
-('Danish', 'Sadiq', 'Zafar Sadiq', '1992-11-30', 123, 'Q', 'Sukkur', 'Pakistan', '+92', '3112345678', 'Male', 32, 3849201938476),
-('Iqra', 'Tariq', 'Rashid Tariq', '1999-02-02', 456, 'E', 'Rahim Yar Khan', 'Pakistan', '+92', '3219876543', 'Female', 25, 3849340123948),
-('Shahzaib', 'Malik', 'Adnan Malik', '1986-07-22', 789, 'B', 'Kasur', 'Pakistan', '+92', '3147890123', 'Male', 38, 3749128374051);
-INSERT INTO tbl_patient 
-(p_f_name, p_l_name, father_name, date_of_birth, street, block, city, country, ph_country_code, phone_number, gender, age, cnic)
-VALUES
-('Nimra', 'Aslam', 'Javed Aslam', '1994-09-11', 123, 'B', 'Sheikhupura', 'Pakistan', '+92', '3106789123', 'Female', 30, 3748123948756),
-('Taimoor', 'Ahmed', 'Asghar Ahmed', '1988-05-19', 456, 'O', 'Gujrat', 'Pakistan', '+92', '3123456789', 'Male', 36, 3847203948123),
-('Sana', 'Zahid', 'Khalid Zahid', '1993-02-14', 789, 'A', 'Chakwal', 'Pakistan', '+92', '3209876541', 'Female', 31, 3847210938475),
-('Raza', 'Hussain', 'Shahbaz Hussain', '1990-10-30', 123, 'B', 'Mansehra', 'Pakistan', '+92', '3434567890', 'Male', 34, 3849123478501),
-('Mahnoor', 'Farooq', 'Tanveer Farooq', '1995-12-20', 456, 'B', 'Haripur', 'Pakistan', '+92', '3112345678', 'Female', 29, 3748192037456);
-
-
-select * from tbl_patient
-select * from tbl_employee
-
-
-
-
---login on base of designation
-SELECT e.designation 
-FROM login_table l
-LEFT OUTER JOIN tbl_employee e 
-ON l.emp_id = e.emp_id
-
-
--- Insert receptionist
-insert into tbl_employee (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
-values ('Receptionist', 'Ayesha', 'Khan', 'Ali Khan', '1990-07-10', '2024-11-20', 456, 'Lahore', 'A', 15, '+92', '3012345678', 'Female', 'Lahore City Clinic', 3220193847567);
-
-insert into login_table (emp_id, username, password)
-values (1, 'receptionist', 'receptionist123');
-
--- Insert admin
-insert into tbl_employee (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
-values ('Admin', 'Imran', 'Shah', 'Zafar Shah', '1988-11-05', '2024-11-21', 789, 'Islamabad', 'C', 12, '+92', '3023456789', 'Male', 'Capital Health Solutions', 3230123984756);
-
-insert into login_table (emp_id, username, password)
-values (2, 'admin', 'admin123');
--- Insert doctor
-insert into tbl_employee (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
-values ('Doctor', 'Ahmed', 'Raza', 'Khalid Raza', '1985-03-20', '2024-11-18', 123, 'Karachi', 'B', 21, '+92', '3001234567', 'Male', 'Karachi General Hospital', 3210123456789);
-
-insert into login_table (emp_id, username, password)
-values (3, 'doctor', 'doctor123');
-
-INSERT INTO tbl_employee (designation, f_name, l_name, father_name, date_of_birth, date_of_joining, street, city, block, house_no, ph_country_code, phone_number, gender, institution, cnic)
-VALUES ('Doctor', 'Sara', 'Iqbal', 'Abdul Sattar', '1988-10-12', '2024-11-20', 789, 'Islamabad', 'D', 10, '+92', '3005551234', 'Female', 'Islamabad International Hospital', 3212345678901);
-
-
-select * from tbl_employee
-
-select * from tbl_appointment
-select appointment_id from tbl_appointment a
-where a.booked_for_emp_id in (
-	SELECT emp_id 
-	FROM tbl_employee e
-	WHERE CONCAT(e.f_name, ' ', e.l_name) = 'Ahmed Raza'
-)
-
-
--- Insert two appointments for emp_id, booked by emp_id = 1
-INSERT INTO tbl_appointment (booked_by_emp_id, booked_for_emp_id, date_of_appointment, time_of_appointment, appointment_status,patient_id,appointment_type)
-VALUES
-(1, 2, '2024-11-29', '10:30:00', 'Attended',2,'Online'),
-(1, 3, '2024-11-29', '14:00:00', 'Booked',5,'Walk in'),
-(1, 3, '2024-10-29', '14:00:00', 'Booked',8,'Online');
-
--- Inserting into tbl_emp_working_hours
-INSERT INTO tbl_emp_working_hours (emp_id, start_duty, end_duty)
-VALUES (3, '09:00:00', '17:00:00');
-
-INSERT INTO tbl_emp_working_hours (emp_id, start_duty, end_duty)
-VALUES (4, '08:00:00', '16:00:00');
-
-
-
-
-select top 1 a.time_of_appointment from tbl_employee e
-inner join tbl_appointment a
-on a.date_of_appointment = CAST(GETDATE() AS DATE) and a.appointment_status = 'booked'
-where a.booked_for_emp_id in (
-	SELECT emp_id 
-	FROM tbl_employee e
-	WHERE CONCAT(e.f_name, ' ', e.l_name) = 'Ahmed Raza'
-)
-order by a.time_of_appointment desc
-
-
-
-
-select * from tbl_emp_working_hours
-select * from tbl_emp_shift
-select * from tbl_appointment
+--Queries
 
 select concat(f_name,' ', l_name) from tbl_employee
 where designation = 'Doctor' 
@@ -394,17 +212,10 @@ where designation = 'Doctor'
   );
 
 
-
 select * from tbl_patient p
 where p.patient_id in (
 	select patient_id from tbl_appointment a
 	where a.date_of_appointment = CAST(GETDATE() AS DATE) 
-)
-
-select concat(f_name,' ',l_name) from tbl_employee
-where emp_id in (
-	select emp_id from login_table
-	where username = 'receptionist' and password = 'receptionist123'
 )
 
 select a.appointment_id,
@@ -423,70 +234,9 @@ from
     tbl_appointment a
 where a.appointment_status = 'Cancelled'
 
-select * from tbl_appointment
 
 select count(appointment_id) as Booked_Appointment from tbl_appointment
 where appointment_status = 'Booked' and date_of_appointment = CAST(GETDATE() AS DATE) 
-
-INSERT INTO tbl_appointment (booked_by_emp_id, booked_for_emp_id, date_of_appointment, time_of_appointment, appointment_status,patient_id,appointment_type)
-VALUES
-(1, 4, '2024-11-30', '14:15:00', 'Cancelled',21,'Online')
-
-insert into tbl_treatment (treatment_type,emp_id,patient_id) values('consultation & treatment',4,13);
-
-
-SELECT 
-    p.*,
-    t.treatment_type,
-    (SELECT CONCAT(e.f_name, ' ', e.l_name) 
-     FROM tbl_employee e 
-     WHERE e.emp_id = a.booked_for_emp_id) AS DoctorName,
-    a.date_of_appointment,
-    b.bill_status,
-    b.remaining_payment
-FROM 
-    tbl_patient p
-LEFT JOIN tbl_treatment t ON p.patient_id = t.patient_id
-LEFT JOIN tbl_appointment a ON p.patient_id = a.patient_id
-LEFT JOIN tbl_billing b ON t.treatment_id = b.treatment_id;
-
-select * from tbl_treatment
-
-INSERT INTO tbl_inventory (item_name, category, quantity, unit_of_measurement, purchase_price, selling_price,expiration_date, date_of_purchase, item_status, batch_no) 
-VALUES 
-('Syringe', 'Medical Equipment', 100, 'pieces', 50.00, 75.00,'2025-12-01', '2023-12-01', 'Available', 'BATCH001');
-
-ALTER TABLE tbl_treatment_inventory
-DROP CONSTRAINT FK_tbl_treatitem__51300E55;
-
-delete from tbl_inventory
-
-SELECT name 
-FROM sys.check_constraints 
-WHERE parent_object_id = OBJECT_ID('tbl_inventory') 
-AND parent_column_id = (
-    SELECT column_id 
-    FROM sys.columns 
-    WHERE object_id = OBJECT_ID('tbl_inventory') 
-    AND name = 'item_status'
-);
-
-
-ALTER TABLE tbl_inventory
-DROP CONSTRAINT CK_tbl_invenitem__0C50D423
-
-ALTER TABLE tbl_inventory
-ADD CONSTRAINT chk_item_status
-CHECK (item_status IN ('Available', 'Out of Stock', 'Expired', 'Near Expiry', 'Top Sold'));
-
- update tbl_inventory 
- set item_status = 
-     case 
-         when expiration_date <= GETDATE() then 'Expired' 
-         when expiration_date > GETDATE() AND expiration_date <= DATEADD(MONTH, 3, GETDATE()) THEN 'Near Expiry'
-         else item_status 
-    end
- where item_status not in ('Expired', 'Near Expiry')
 
  create procedure view_appointments_by_doctor
  @doctorName varchar(50)
@@ -843,16 +593,6 @@ END;
 
 
 
-drop table tbl_billing
-
-select * from tbl_billing
-
-select * from tbl_appointment
-
-
-select * from tbl_emp_working_hours
-
-
 
 CREATE PROCEDURE CountPatientsByDateRange  --run
     @StartDate DATE,
@@ -901,41 +641,6 @@ BEGIN
     GROUP BY e.f_name, e.l_name
     ORDER BY TotalRevenue DESC;
 END;
-
-CREATE PROCEDURE GetHospitalProfitData  
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    SELECT 
-        CAST(start_date AS DATE) AS Date,
-        hospital_profit_percent AS ProfitPercent
-    FROM tbl_profit
-    WHERE start_date >= @StartDate AND end_date <= @EndDate
-    ORDER BY start_date;
-END;
-
-
-
-CREATE PROCEDURE GetHospitalProfitLoss
-    @StartDate DATE,
-    @EndDate DATE
-AS
-BEGIN
-    -- Assuming fixed hospital expenses for simplicity (can be made dynamic later)
-    DECLARE @HospitalExpenses DECIMAL(10, 2) = 10000.00; -- Example fixed expense per period
-
-    SELECT 
-        CAST(a.date_of_appointment AS DATE) AS Date, -- Use date_of_appointment instead of start_date
-        (SUM(b.emp_fee) * 0.30 - @HospitalExpenses) AS ProfitPercent -- 30% hospital share minus expenses
-    FROM tbl_billing b
-    INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
-    WHERE a.date_of_appointment BETWEEN @StartDate AND @EndDate
-    GROUP BY CAST(a.date_of_appointment AS DATE)
-    ORDER BY Date;
-END;
-
-
 
 
 
@@ -1019,10 +724,170 @@ END
 
 Exec sp_CalculateBillDetails
 
-select * from tbl_emp_working_hours
 
-insert into tbl_emp_working_hours values(1,'08:00:00','18:00:00','Available')
-insert into tbl_emp_working_hours values(2,'09:00:00','18:00:00','Available')
-update tbl_department
-set department = 'Admin'
-where emp_id = 2
+CREATE PROCEDURE sp_GetFilteredAppointments
+    @FilterOption NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @FilterOption = 'Upcoming Week'
+    BEGIN
+        SELECT 
+            a.appointment_id,
+            a.date_of_appointment,
+            a.time_of_appointment,
+            CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+            CONCAT(b.f_name, ' ', b.l_name) AS BookedByEmployee,
+            CONCAT(f.f_name, ' ', f.l_name) AS BookedForEmployee
+        FROM tbl_appointment a
+        LEFT JOIN tbl_patient p ON a.patient_id = p.patient_id
+        LEFT JOIN tbl_employee b ON a.booked_by_emp_id = b.emp_id
+        LEFT JOIN tbl_employee f ON a.booked_for_emp_id = f.emp_id
+        WHERE a.date_of_appointment >= GETDATE()
+          AND a.date_of_appointment < DATEADD(DAY, 7, GETDATE());
+    END
+    ELSE IF @FilterOption = 'Upcoming Month'
+    BEGIN
+        SELECT 
+            a.appointment_id,
+            a.date_of_appointment,
+            a.time_of_appointment,
+            CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+            CONCAT(b.f_name, ' ', b.l_name) AS BookedByEmployee,
+            CONCAT(f.f_name, ' ', f.l_name) AS BookedForEmployee
+        FROM tbl_appointment a
+        LEFT JOIN tbl_patient p ON a.patient_id = p.patient_id
+        LEFT JOIN tbl_employee b ON a.booked_by_emp_id = b.emp_id
+        LEFT JOIN tbl_employee f ON a.booked_for_emp_id = f.emp_id
+        WHERE a.date_of_appointment >= GETDATE()
+          AND a.date_of_appointment < DATEADD(MONTH, 1, GETDATE());
+    END
+    ELSE IF @FilterOption = 'Cancelled'
+    BEGIN
+        SELECT 
+            a.appointment_id,
+            a.date_of_appointment,
+            a.time_of_appointment,
+            CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+            CONCAT(b.f_name, ' ', b.l_name) AS BookedByEmployee,
+            CONCAT(f.f_name, ' ', f.l_name) AS BookedForEmployee
+        FROM tbl_appointment a
+        LEFT JOIN tbl_patient p ON a.patient_id = p.patient_id
+        LEFT JOIN tbl_employee b ON a.booked_by_emp_id = b.emp_id
+        LEFT JOIN tbl_employee f ON a.booked_for_emp_id = f.emp_id
+        WHERE a.appointment_status = 'Cancelled';
+    END
+    ELSE IF @FilterOption = 'All'
+    BEGIN
+        SELECT 
+            a.appointment_id,
+            a.date_of_appointment,
+            a.time_of_appointment,
+            CONCAT(p.p_f_name, ' ', p.p_l_name) AS PatientName,
+            CONCAT(b.f_name, ' ', b.l_name) AS BookedByEmployee,
+            CONCAT(f.f_name, ' ', f.l_name) AS BookedForEmployee
+        FROM tbl_appointment a
+        LEFT JOIN tbl_patient p ON a.patient_id = p.patient_id
+        LEFT JOIN tbl_employee b ON a.booked_by_emp_id = b.emp_id
+        LEFT JOIN tbl_employee f ON a.booked_for_emp_id = f.emp_id;
+    END
+    ELSE
+    BEGIN
+        RAISERROR('Invalid filter option.', 16, 1);
+    END
+END;
+
+
+CREATE TRIGGER trg_AppointmentLog
+ON tbl_appointment
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Log Insertions
+    INSERT INTO tbl_appointment_log (
+        appointment_id, patient_name, doctor_name, booked_by, 
+        action_type, column_updated, previous_value, new_value, log_date
+    )
+    SELECT 
+        i.appointment_id, 
+        p.p_f_name + ' ' + p.p_l_name AS patient_name, 
+        e.f_name + ' ' + e.l_name AS doctor_name, 
+        b.f_name + ' ' + b.l_name AS booked_by, 
+        'INSERT' AS action_type, 
+        NULL AS column_updated, 
+        NULL AS previous_value, 
+        NULL AS new_value, 
+        GETDATE() AS log_date
+    FROM inserted i
+    INNER JOIN tbl_employee e ON i.booked_for_emp_id = e.emp_id
+    INNER JOIN tbl_patient p ON i.booked_by_emp_id = p.patient_id
+    LEFT JOIN tbl_employee b ON i.booked_by_emp_id = b.emp_id;
+
+    -- Log Updates for Date of Appointment
+    INSERT INTO tbl_appointment_log (
+        appointment_id, patient_name, doctor_name, booked_by, 
+        action_type, column_updated, previous_value, new_value, log_date
+    )
+    SELECT 
+        i.appointment_id, 
+        p.p_f_name + ' ' + p.p_l_name AS patient_name, 
+        e.f_name + ' ' + e.l_name AS doctor_name, 
+        b.f_name + ' ' + b.l_name AS booked_by, 
+        'UPDATE' AS action_type, 
+        'date_of_appointment' AS column_updated, 
+        CAST(d.date_of_appointment AS VARCHAR) AS previous_value, 
+        CAST(i.date_of_appointment AS VARCHAR) AS new_value, 
+        GETDATE() AS log_date
+    FROM inserted i
+    INNER JOIN deleted d ON i.appointment_id = d.appointment_id
+    INNER JOIN tbl_employee e ON i.booked_for_emp_id = e.emp_id
+    INNER JOIN tbl_patient p ON i.booked_by_emp_id = p.patient_id
+    LEFT JOIN tbl_employee b ON i.booked_by_emp_id = b.emp_id
+    WHERE d.date_of_appointment <> i.date_of_appointment;
+
+    -- Log Updates for Time of Appointment
+    INSERT INTO tbl_appointment_log (
+        appointment_id, patient_name, doctor_name, booked_by, 
+        action_type, column_updated, previous_value, new_value, log_date
+    )
+    SELECT 
+        i.appointment_id, 
+        p.p_f_name + ' ' + p.p_l_name AS patient_name, 
+        e.f_name + ' ' + e.l_name AS doctor_name, 
+        b.f_name + ' ' + b.l_name AS booked_by, 
+        'UPDATE' AS action_type, 
+        'time_of_appointment' AS column_updated, 
+        CAST(d.time_of_appointment AS VARCHAR) AS previous_value, 
+        CAST(i.time_of_appointment AS VARCHAR) AS new_value, 
+        GETDATE() AS log_date
+    FROM inserted i
+    INNER JOIN deleted d ON i.appointment_id = d.appointment_id
+    INNER JOIN tbl_employee e ON i.booked_for_emp_id = e.emp_id
+    INNER JOIN tbl_patient p ON i.booked_by_emp_id = p.patient_id
+    LEFT JOIN tbl_employee b ON i.booked_by_emp_id = b.emp_id
+    WHERE d.time_of_appointment <> i.time_of_appointment;
+
+    -- Log Updates for Appointment Status
+    INSERT INTO tbl_appointment_log (
+        appointment_id, patient_name, doctor_name, booked_by, 
+        action_type, column_updated, previous_value, new_value, log_date
+    )
+    SELECT 
+        i.appointment_id, 
+        p.p_f_name + ' ' + p.p_l_name AS patient_name, 
+        e.f_name + ' ' + e.l_name AS doctor_name, 
+        b.f_name + ' ' + b.l_name AS booked_by, 
+        'UPDATE' AS action_type, 
+        'appointment_status' AS column_updated, 
+        d.appointment_status AS previous_value, 
+        i.appointment_status AS new_value, 
+        GETDATE() AS log_date
+    FROM inserted i
+    INNER JOIN deleted d ON i.appointment_id = d.appointment_id
+    INNER JOIN tbl_employee e ON i.booked_for_emp_id = e.emp_id
+    INNER JOIN tbl_patient p ON i.booked_by_emp_id = p.patient_id
+    LEFT JOIN tbl_employee b ON i.booked_by_emp_id = b.emp_id
+    WHERE d.appointment_status <> i.appointment_status;
+END;
+

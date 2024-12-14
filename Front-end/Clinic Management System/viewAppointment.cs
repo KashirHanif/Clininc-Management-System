@@ -155,8 +155,6 @@ namespace Clinic_Management_System
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           // string connectionString = "Data Source=KASHIR-LAPTOP\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
-           // string connectionString = "Data Source=MALEAHAS-ELITEB\\SQLEXPRESS;Initial Catalog=clinic_management_db;Integrated Security=True;";
             try
             {
                 // Get the selected filter option from comboBox1
@@ -168,66 +166,44 @@ namespace Clinic_Management_System
                     return;
                 }
 
-                // Base query
-                string query = @"
-            SELECT 
-                a.appointment_id,
-                a.date_of_appointment,
-                a.time_of_appointment,
-                (SELECT CONCAT(p.p_f_name, ' ', p.p_l_name) 
-                 FROM tbl_patient p 
-                 WHERE p.patient_id = a.patient_id) AS PatientName,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_by_emp_id) AS BookedByEmployee,
-                (SELECT CONCAT(e.f_name, ' ', e.l_name)
-                 FROM tbl_employee e 
-                 WHERE e.emp_id = a.booked_for_emp_id) AS BookedForEmployee
-            FROM tbl_appointment a";
 
-                // Modify query based on the selected filter
-                if (selectedFilter == "Upcoming Week")
-                {
-                    query += @"
-                WHERE a.date_of_appointment >= GETDATE()
-                  AND a.date_of_appointment < DATEADD(DAY, 7, GETDATE())";
-                }
-                else if (selectedFilter == "Upcoming Month")
-                {
-                    query += @"
-                WHERE a.date_of_appointment >= GETDATE()
-                  AND a.date_of_appointment < DATEADD(MONTH, 1, GETDATE())";
-                }
-                else if (selectedFilter == "Cancelled")
-                {
-                    query += @"
-                WHERE a.appointment_status = 'Cancelled'";
-                }
-
-                // Execute the query and populate the DataGridView
+                // Establish a connection to the database
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                    connection.Open();
 
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
+                    // Create a SQL command to call the stored procedure
+                    using (SqlCommand cmd = new SqlCommand("sp_GetFilteredAppointments", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    patientGridView.DataSource = dataTable;
+                        // Add the filter option as a parameter
+                        cmd.Parameters.AddWithValue("@FilterOption", selectedFilter);
 
-                    // Set user-friendly column names
-                    patientGridView.Columns["appointment_id"].HeaderText = "Appointment ID";
-                    patientGridView.Columns["date_of_appointment"].HeaderText = "Date of Appointment";
-                    patientGridView.Columns["time_of_appointment"].HeaderText = "Time of Appointment";
-                    patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
-                    patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
-                    patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
+                        // Execute the query and fetch the results
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        dataAdapter.Fill(dataTable);
 
-                    patientGridView.AutoResizeColumns();
+                        // Bind the results to the DataGridView
+                        patientGridView.DataSource = dataTable;
+
+                        // Set user-friendly column headers
+                        patientGridView.Columns["appointment_id"].HeaderText = "Appointment ID";
+                        patientGridView.Columns["date_of_appointment"].HeaderText = "Date of Appointment";
+                        patientGridView.Columns["time_of_appointment"].HeaderText = "Time of Appointment";
+                        patientGridView.Columns["PatientName"].HeaderText = "Patient Name";
+                        patientGridView.Columns["BookedByEmployee"].HeaderText = "Booked By Employee";
+                        patientGridView.Columns["BookedForEmployee"].HeaderText = "Booked For Employee";
+
+                        // Adjust column widths to fit the content
+                        patientGridView.AutoResizeColumns();
+                    }
                 }
             }
             catch (Exception ex)
             {
+                // Show an error message if something goes wrong
                 MessageBox.Show("Error: " + ex.Message);
             }
         }

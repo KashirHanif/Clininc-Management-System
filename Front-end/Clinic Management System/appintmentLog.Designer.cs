@@ -65,7 +65,7 @@
             this.dateTimePicker1.CustomFormat = "MM/dd/yyyy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(360, 185);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(151, 20);
             this.dateTimePicker1.TabIndex = 1;
@@ -73,11 +73,11 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(535, 185);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button";
+            this.button1.Text = "Enter";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -186,6 +186,7 @@
             this.adminLabel.Size = new System.Drawing.Size(81, 30);
             this.adminLabel.TabIndex = 28;
             this.adminLabel.Text = "Admin";
+            this.adminLabel.Click += new System.EventHandler(this.adminLabel_Click);
             // 
             // profilePicture
             // 

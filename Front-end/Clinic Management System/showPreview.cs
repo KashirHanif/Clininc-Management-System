@@ -301,6 +301,45 @@ namespace Clinic_Management_System
 
     }
 
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            if (!int.TryParse(textBox5.Text.Trim(), out int empFee) || empFee < 0)
+            {
+                MessageBox.Show("Please enter a valid non-negative value for the employee fee.");
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // Update the emp_fee column for the specified bill_id
+                    using (SqlCommand cmd = new SqlCommand(
+                        "UPDATE tbl_billing SET emp_fee = @emp_fee WHERE bill_id = @bill_id", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@emp_fee", empFee);
+                        cmd.Parameters.AddWithValue("@bill_id", billId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Employee fee updated successfully.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No record found for the provided Bill ID.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while updating the employee fee: " + ex.Message);
+            }
+        }
+
         private void button3_Click_1(object sender, EventArgs e)
         {
             LoadControl(new addTreatment(username, password, connectionString));

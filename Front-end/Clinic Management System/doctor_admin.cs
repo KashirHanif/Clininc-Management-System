@@ -485,45 +485,49 @@ namespace Clinic_Management_System
 
             // Define the base SQL query with username and password included
             string query = @"
-        SELECT 
-            e.emp_id, 
-            e.designation, 
-            e.f_name,  
-            e.l_name, 
-            d.department, 
-            e.father_name, 
-            e.date_of_birth, 
-            e.date_of_joining, 
-            e.street, 
-            e.city, 
-            e.block,
-            e.house_no,
-            e.ph_country_code, 
-            e.phone_number, 
-            e.gender, 
-            e.institution, 
-            e.cnic,
-            wh.emp_status,
-            wh.start_duty,
-            wh.end_duty,
-            lt.username,
-            lt.password
-        FROM tbl_employee e
-        INNER JOIN tbl_department d
-            ON e.emp_id = d.emp_id
-        INNER JOIN tbl_emp_working_hours wh
-            ON e.emp_id = wh.emp_id
-        Left JOIN login_table lt
-            ON e.emp_id = lt.emp_id";  // Join with login_table to get username and password
+    SELECT 
+        e.emp_id, 
+        e.designation, 
+        e.f_name,  
+        e.l_name, 
+        d.department, 
+        e.father_name, 
+        e.date_of_birth, 
+        e.date_of_joining, 
+        e.street, 
+        e.city, 
+        e.block,
+        e.house_no,
+        e.ph_country_code, 
+        e.phone_number, 
+        e.gender, 
+        e.institution, 
+        e.cnic,
+        wh.emp_status,
+        wh.start_duty,
+        wh.end_duty,
+        lt.username,
+        lt.password
+    FROM tbl_employee e
+    INNER JOIN tbl_department d
+        ON e.emp_id = d.emp_id
+    INNER JOIN tbl_emp_working_hours wh
+        ON e.emp_id = wh.emp_id
+    LEFT JOIN login_table lt
+        ON e.emp_id = lt.emp_id";  // Join with login_table to get username and password
 
             // Modify the query based on the availability status selected in comboBox3
             if (availabilityStatus == "Available")
             {
-                query += " WHERE wh.emp_status = 'Available'";  // Only available doctors
+                query += " WHERE wh.emp_status = 'Available'";  // Only available employees
             }
             else if (availabilityStatus == "On Leave")
             {
-                query += " WHERE wh.emp_status = 'On Leave'";  // Only doctors on leave
+                query += " WHERE wh.emp_status = 'On Leave'";  // Only employees on leave
+            }
+            else if (availabilityStatus == "Resigned")
+            {
+                query += " WHERE wh.emp_status = 'Resigned'";  // Only resigned employees
             }
 
             try
