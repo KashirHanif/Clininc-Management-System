@@ -283,6 +283,6 @@ namespace Clinic_Management_System
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
-                    }
+                     }
     }
 }

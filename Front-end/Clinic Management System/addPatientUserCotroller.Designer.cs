@@ -49,7 +49,6 @@
             this.pCountryTB = new System.Windows.Forms.TextBox();
             this.addPatientGridView = new System.Windows.Forms.DataGridView();
             this.addButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.N = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -70,20 +69,24 @@
             this.pCountryCodeTB = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.profilePicture = new System.Windows.Forms.PictureBox();
             label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            label3.BackColor = System.Drawing.Color.Black;
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            label3.ForeColor = System.Drawing.Color.White;
             label3.Location = new System.Drawing.Point(1437, 223);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(177, 29);
@@ -322,21 +325,12 @@
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click_1);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(63, 25);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(819, 129);
-            this.pictureBox1.TabIndex = 23;
-            this.pictureBox1.TabStop = false;
-            // 
             // N
             // 
             this.N.AutoSize = true;
+            this.N.BackColor = System.Drawing.Color.Black;
             this.N.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.N.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.N.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.N.Location = new System.Drawing.Point(411, 223);
             this.N.Name = "N";
             this.N.Size = new System.Drawing.Size(141, 29);
@@ -347,8 +341,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(933, 217);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 29);
@@ -358,8 +353,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Black;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(1547, 379);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 29);
@@ -369,19 +365,22 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Black;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(1777, 298);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 29);
             this.label5.TabIndex = 28;
             this.label5.Text = "Block";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Black;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(905, 292);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 29);
@@ -392,7 +391,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(716, 298);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 29);
@@ -411,8 +410,9 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Black;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(411, 374);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 29);
@@ -422,8 +422,9 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Black;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label10.Location = new System.Drawing.Point(411, 298);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(68, 29);
@@ -433,8 +434,9 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Black;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(1229, 298);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 29);
@@ -444,8 +446,9 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Black;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(757, 378);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(167, 29);
@@ -457,7 +460,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Location = new System.Drawing.Point(1071, 373);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 29);
@@ -491,18 +494,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(1073, 401);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 40;
             this.label1.Text = "(without \'-\')";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Black;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(1503, 298);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(144, 29);
@@ -558,33 +564,27 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label15.BackColor = System.Drawing.Color.Black;
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(411, 401);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(68, 16);
             this.label15.TabIndex = 45;
             this.label15.Text = "(without \'-\')";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Black;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(1624, 75);
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(1572, 63);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(350, 38);
             this.label16.TabIndex = 46;
             this.label16.Text = "Incharge: receptionist";
             this.label16.Click += new System.EventHandler(this.label16_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1573, 75);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(45, 50);
-            this.pictureBox2.TabIndex = 47;
-            this.pictureBox2.TabStop = false;
             // 
             // button2
             // 
@@ -599,13 +599,58 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.label17.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label17.Location = new System.Drawing.Point(143, 160);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(126, 37);
+            this.label17.TabIndex = 94;
+            this.label17.Text = "mediAid";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(150, 63);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(140, 123);
+            this.pictureBox1.TabIndex = 93;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureBox4.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(405, 1233);
+            this.pictureBox4.TabIndex = 92;
+            this.pictureBox4.TabStop = false;
+            // 
+            // profilePicture
+            // 
+            this.profilePicture.BackColor = System.Drawing.Color.Black;
+            this.profilePicture.Image = ((System.Drawing.Image)(resources.GetObject("profilePicture.Image")));
+            this.profilePicture.Location = new System.Drawing.Point(1499, 51);
+            this.profilePicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.profilePicture.Name = "profilePicture";
+            this.profilePicture.Size = new System.Drawing.Size(67, 62);
+            this.profilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.profilePicture.TabIndex = 95;
+            this.profilePicture.TabStop = false;
+            // 
             // addPatientUserCotroller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.profilePicture);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.pCountryCodeTB);
@@ -627,7 +672,6 @@
             this.Controls.Add(label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.N);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.addPatientGridView);
             this.Controls.Add(this.pCountryTB);
@@ -646,6 +690,9 @@
             this.Controls.Add(this.viewPatientButton);
             this.Controls.Add(this.updatePatientButton);
             this.Controls.Add(this.addPatientButton);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox4);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(2000, 1100);
@@ -655,7 +702,8 @@
             this.Load += new System.EventHandler(this.addPatientUserCotroller_Load);
             ((System.ComponentModel.ISupportInitialize)(this.addPatientGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -681,7 +729,6 @@
         private System.Windows.Forms.TextBox pCountryTB;
         private System.Windows.Forms.DataGridView addPatientGridView;
         private System.Windows.Forms.Button addButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label N;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
@@ -704,7 +751,10 @@
         private System.Windows.Forms.ComboBox pCountryCodeTB;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox profilePicture;
     }
 }

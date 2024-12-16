@@ -305,5 +305,20 @@ namespace Clinic_Management_System
         {
             LoadControl(new addTreatment(username, password, connectionString));
         }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

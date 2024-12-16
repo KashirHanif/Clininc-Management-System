@@ -16,9 +16,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(revenue));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.revenuegridview = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -43,6 +43,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button7 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.revenuegridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
@@ -67,7 +69,7 @@
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(637, 263);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 23);
+            this.textBox1.Size = new System.Drawing.Size(132, 27);
             this.textBox1.TabIndex = 1;
             // 
             // button1
@@ -88,7 +90,7 @@
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(495, 413);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
+            this.textBox2.Size = new System.Drawing.Size(100, 27);
             this.textBox2.TabIndex = 3;
             // 
             // label1
@@ -97,7 +99,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(601, 414);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 18);
+            this.label1.Size = new System.Drawing.Size(168, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "Hospital Revenue";
             // 
@@ -107,16 +109,16 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(335, 414);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 18);
+            this.label2.Size = new System.Drawing.Size(154, 22);
             this.label2.TabIndex = 5;
             this.label2.Text = "Doctor Revenue";
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(681, 336);
+            this.comboBox1.Location = new System.Drawing.Point(678, 320);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 6;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -124,7 +126,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(784, 416);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 7;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
@@ -205,7 +207,7 @@
             this.label3.ForeColor = System.Drawing.Color.Gainsboro;
             this.label3.Location = new System.Drawing.Point(88, 146);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 30);
+            this.label3.Size = new System.Drawing.Size(126, 37);
             this.label3.TabIndex = 32;
             this.label3.Text = "mediAid";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -229,7 +231,7 @@
             this.adminLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.adminLabel.Location = new System.Drawing.Point(1290, 59);
             this.adminLabel.Name = "adminLabel";
-            this.adminLabel.Size = new System.Drawing.Size(81, 30);
+            this.adminLabel.Size = new System.Drawing.Size(102, 37);
             this.adminLabel.TabIndex = 28;
             this.adminLabel.Text = "Admin";
             this.adminLabel.Click += new System.EventHandler(this.adminLabel_Click);
@@ -285,7 +287,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(334, 265);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(245, 20);
+            this.label4.Size = new System.Drawing.Size(291, 25);
             this.label4.TabIndex = 39;
             this.label4.Text = "enter hospital cut percentage";
             // 
@@ -293,24 +295,24 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(334, 336);
+            this.label5.Location = new System.Drawing.Point(334, 320);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(262, 20);
+            this.label5.Size = new System.Drawing.Size(314, 25);
             this.label5.TabIndex = 40;
             this.label5.Text = "Sort revnue according to doctor";
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(926, 255);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(544, 505);
             this.chart1.TabIndex = 41;
             this.chart1.Text = "chart1";
@@ -328,8 +330,30 @@
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(334, 365);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(236, 25);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "Select date for revenue";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "MM/dd/yyyy";
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(599, 363);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 27);
+            this.dateTimePicker1.TabIndex = 44;
+            // 
             // revenue
             // 
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label5);
@@ -395,5 +419,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

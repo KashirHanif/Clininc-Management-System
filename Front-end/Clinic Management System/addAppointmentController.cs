@@ -618,5 +618,10 @@ namespace Clinic_Management_System
                 aptDate.Value = DateTime.Now.Date; // Reset to today's date
             }
         }
+
+        private void addPatientGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

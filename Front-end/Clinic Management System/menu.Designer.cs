@@ -124,7 +124,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBox1.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBox1.Location = new System.Drawing.Point(134, 307);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(784, 544);
@@ -193,7 +193,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox4);

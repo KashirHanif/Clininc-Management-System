@@ -375,6 +375,24 @@ namespace Clinic_Management_System
             PopulateDoctorsComboBox();
         }
 
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

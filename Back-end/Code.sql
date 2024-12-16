@@ -52,11 +52,11 @@ CREATE TABLE tbl_patient (
 );
 
 CREATE TABLE tbl_specialization (
-	specialization_id INT IDENTITY(1,1) PRIMARY KEY,
-	specialization VARCHAR(20)
+	specialization_id INT IDENTITY(1,1) PRIMARY KEY, --unique key
+	specialization VARCHAR(20)   --i.e general physician 
 );
 
-CREATE TABLE tbl_emp_specialization (
+CREATE TABLE tbl_emp_specialization (   --linking emp w specializaton (many to many has been broken)
 	employee_id INT,
 	specialization_id INT,
 	institute VARCHAR(30),
@@ -74,7 +74,7 @@ CREATE TABLE tbl_appointment (
 	time_of_appointment TIME NOT NULL,
 	appointment_status VARCHAR(20) NOT NULL,
 	appointment_type VARCHAR(50),
-	FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) ON DELETE CASCADE,
+	FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) ON DELETE CASCADE,   
 	FOREIGN KEY (booked_for_emp_id) REFERENCES tbl_employee(emp_id),
 	FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id) ON DELETE CASCADE
 );
@@ -90,9 +90,9 @@ CREATE TABLE tbl_treatment (
 
 CREATE TABLE tbl_billing (
 	bill_id INT IDENTITY(1,1) PRIMARY KEY,
-	emp_fee INT DEFAULT 1000 CHECK (emp_fee >= 0),
+	emp_fee INT DEFAULT 1000 CHECK (emp_fee >= 0),  --default kept to 1000, checking if entered 0 
 	appointment_id INT NOT NULL,
-	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)  --will be billed acc to appointment id 
 );
 
 CREATE TABLE tbl_prescription (
@@ -102,7 +102,7 @@ CREATE TABLE tbl_prescription (
 	followUpDoctorName VARCHAR(100),
 	bookedByName VARCHAR(100),
 	created_at DATETIME NOT NULL DEFAULT GETDATE(),
-	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)  --gets emp id and patient id in the process too 
 );
 
 CREATE TABLE tbl_item (
@@ -122,14 +122,14 @@ CREATE TABLE tbl_prescription_item (
 CREATE TABLE tbl_emp_working_hours (
 	emp_id INT,
 	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
-	start_duty TIME NOT NULL CHECK (start_duty < end_duty),
+	start_duty TIME NOT NULL CHECK (start_duty < end_duty),  --start duty should be less than end check
 	end_duty TIME NOT NULL,
-	emp_status VARCHAR(20) DEFAULT 'Available'
+	emp_status VARCHAR(20) DEFAULT 'Available'  --default is always available unless set otherwise 
 );
 
 CREATE TABLE tbl_emp_shift (
 	emp_id INT,
-	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),   
 	start_time TIME NOT NULL,
 	end_time TIME NOT NULL,
 	date_of_shift DATE NOT NULL
@@ -150,25 +150,6 @@ CREATE TABLE tbl_appointment_log (
 	password VARCHAR(50),
 	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
-
-CREATE TABLE tbl_appointment_log (
-    log_id INT IDENTITY(1,1) PRIMARY KEY,
-    appointment_id INT NOT NULL,
-    patient_name VARCHAR(255) NOT NULL,
-    doctor_name VARCHAR(255) NOT NULL,
-    booked_by VARCHAR(255) NOT NULL,
-    action_type VARCHAR(50) NOT NULL,
-    column_updated VARCHAR(100), -- Name of the column being updated
-    previous_value VARCHAR(255), -- Previous value of the updated column
-    new_value VARCHAR(255), -- New value of the updated column
-    log_date DATETIME NOT NULL,
-	username VARCHAR(50), 
-    password VARCHAR(50)
-);
-
-
-ALTER TABLE tbl_employee
-ADD CONSTRAINT chk_gender CHECK (gender IN ('Male', 'Female', 'Other'));
 
 
 create nonclustered index idx_patient_name_phone
@@ -199,14 +180,16 @@ where designation = 'Doctor'
   and emp_id IN (
       select emp_id from tbl_emp_working_hours 
       where emp_status = 'Available'
-  );
+  ); --here the name of the doctors are fetched from the "employees" that are available hence
+  --filter for the available doctors 
 
 
 select * from tbl_patient p
 where p.patient_id in (
 	select patient_id from tbl_appointment a
 	where a.date_of_appointment = CAST(GETDATE() AS DATE) 
-)
+)  --getting all appointments for the current date 
+--here the patients whose apt date is the sasme as current dates, their information is fetched 
 
 select a.appointment_id,
     a.date_of_appointment,
@@ -223,13 +206,16 @@ select a.appointment_id,
 from
     tbl_appointment a
 where a.appointment_status = 'Cancelled'
-
+--getting all records for the cancelled appointments 
+--apt id,date, time, patients name, doctors name, booked by employees name.
 
 select count(appointment_id) as Booked_Appointment from tbl_appointment
 where appointment_status = 'Booked' and date_of_appointment = CAST(GETDATE() AS DATE) 
+-- this gets the current booked appointments for the CURRENT date and counts their number 
+--say , today 7 booked appointments in front end 
 
  create procedure view_appointments_by_doctor
- @doctorName varchar(50)
+ @doctorName varchar(50)  --procedure receives the doctor 
 AS
 BEGIN
     SELECT 
