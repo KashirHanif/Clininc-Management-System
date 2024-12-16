@@ -138,7 +138,7 @@ namespace Clinic_Management_System
                     string query = @"
                 SELECT e.emp_id, e.designation, e.f_name, e.l_name, d.department, e.father_name, e.date_of_birth, e.date_of_joining, 
                 e.street, e.city, e.block, e.house_no, e.ph_country_code, e.phone_number, e.gender, e.institution, e.cnic, 
-                wh.emp_status, wh.start_duty, wh.end_duty, lt.username, lt.password
+                wh.emp_status, wh.start_duty, wh.end_duty, lt.username, lt.password, e.date_of_lefting
                 FROM tbl_employee e 
                 INNER JOIN tbl_department d ON e.emp_id = d.emp_id 
                 INNER JOIN tbl_emp_working_hours wh ON e.emp_id = wh.emp_id 
@@ -175,6 +175,7 @@ namespace Clinic_Management_System
                         addPatientGridView.Columns["end_duty"].HeaderText = "End Duty";
                         addPatientGridView.Columns["username"].HeaderText = "Username";
                         addPatientGridView.Columns["password"].HeaderText = "Password";
+                        addPatientGridView.Columns["date_of_lefting"].HeaderText = "Date of Leaving";  // Add the column header for Date of Leaving
                     }
                 }
             }
@@ -395,6 +396,20 @@ namespace Clinic_Management_System
                 string updatedUsername = textBox12.Text.Trim();
                 string updatedPassword = textBox13.Text.Trim();
 
+                // Get the value from dateTimePicker5 for date_of_lefting, if provided
+
+
+                // Retrieve the date_of_lefting value if available
+                DateTime? updatedDateOfLeaving = null;
+                if (updatedStatus == "Resigned")
+                {
+                    // Only set date_of_lefting if the status is Resigned
+                    if (dateTimePicker5.Value != null && dateTimePicker5.Value != DateTime.MinValue)
+                    {
+                        updatedDateOfLeaving = dateTimePicker5.Value;
+                    }
+                }
+
                 try
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
@@ -402,23 +417,34 @@ namespace Clinic_Management_System
                         conn.Open();
 
                         // Update employee details
-                        string query = @"UPDATE tbl_employee 
-                         SET designation = @Designation, f_name = @FirstName, l_name = @LastName, 
-                             father_name = @FatherName, date_of_birth = @DOB, date_of_joining = @DOJ, 
-                             street = @Street, city = @City, block = @Block, house_no = @HouseNo, 
-                             phone_number = @PhoneNumber, gender = @Gender, institution = @Institution, 
-                             cnic = @CNIC 
-                         WHERE emp_id = @EmployeeId;
+                        string query = @"
+        UPDATE tbl_employee 
+        SET designation = @Designation, f_name = @FirstName, l_name = @LastName, 
+            father_name = @FatherName, date_of_birth = @DOB, date_of_joining = @DOJ, 
+            street = @Street, city = @City, block = @Block, house_no = @HouseNo, 
+            phone_number = @PhoneNumber, gender = @Gender, institution = @Institution, 
+            cnic = @CNIC";
 
-                         UPDATE tbl_department SET department = @Department WHERE emp_id = @EmployeeId;
+                        // Conditionally add the date_of_lefting update if it is provided
+                        if (updatedDateOfLeaving.HasValue)
+                        {
+                            query += ", date_of_lefting = @DateOfLeaving";
+                        }
 
-                         UPDATE tbl_emp_working_hours 
-                         SET emp_status = @Status, start_duty = @StartDuty, end_duty = @EndDuty 
-                         WHERE emp_id = @EmployeeId;
+                        query += " WHERE emp_id = @EmployeeId";
 
-                         UPDATE login_table 
-                         SET username = @Username, password = @Password 
-                         WHERE emp_id = @EmployeeId;";
+                        query += @"
+            UPDATE tbl_department 
+            SET department = @Department 
+            WHERE emp_id = @EmployeeId;
+
+            UPDATE tbl_emp_working_hours 
+            SET emp_status = @Status, start_duty = @StartDuty, end_duty = @EndDuty 
+            WHERE emp_id = @EmployeeId;
+
+            UPDATE login_table 
+            SET username = @Username, password = @Password 
+            WHERE emp_id = @EmployeeId;";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
@@ -442,8 +468,14 @@ namespace Clinic_Management_System
                             cmd.Parameters.AddWithValue("@Status", updatedStatus);
                             cmd.Parameters.AddWithValue("@StartDuty", updatedStartDuty);
                             cmd.Parameters.AddWithValue("@EndDuty", updatedEndDuty);
-                            cmd.Parameters.AddWithValue("@Username", textBox12.Text.Trim());
-                            cmd.Parameters.AddWithValue("@Password", textBox13.Text.Trim());
+                            cmd.Parameters.AddWithValue("@Username", updatedUsername);
+                            cmd.Parameters.AddWithValue("@Password", updatedPassword);
+
+                            // Add the DateOfLeaving parameter only if it has a value
+                            if (updatedDateOfLeaving.HasValue)
+                            {
+                                cmd.Parameters.AddWithValue("@DateOfLeaving", updatedDateOfLeaving.Value);
+                            }
 
                             // Execute the query
                             int rowsAffected = cmd.ExecuteNonQuery();
@@ -703,7 +735,7 @@ namespace Clinic_Management_System
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button4_Click_2(object sender, EventArgs e)
@@ -861,6 +893,11 @@ namespace Clinic_Management_System
             {
                 MessageBox.Show("Please select a row to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+        }
+
+        private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
+        {
 
         }
     }

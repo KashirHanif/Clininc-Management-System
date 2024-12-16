@@ -1,9 +1,7 @@
-﻿// Updated Revenue User Control with Chart Integration
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -23,10 +21,10 @@ namespace Clinic_Management_System
             this.connectionString = connectionString;
 
             PopulateDoctorsComboBox();
-            LoadBillDetails(); // Load total revenue by default
+            LoadBillDetails(DateTime.Now); // Load today's revenue by default
         }
 
-        private void LoadBillDetails(decimal? profitPercent = null, string doctorName = null)
+        private void LoadBillDetails(DateTime? selectedDate = null, decimal? profitPercent = null, string doctorName = null)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -44,6 +42,7 @@ namespace Clinic_Management_System
                         INNER JOIN tbl_appointment a ON b.appointment_id = a.appointment_id
                         INNER JOIN tbl_employee e ON a.booked_for_emp_id = e.emp_id
                         WHERE (@DoctorName IS NULL OR CONCAT(e.f_name, ' ', e.l_name) = @DoctorName)
+                        AND CAST(a.date_of_appointment AS DATE) = @SelectedDate
                         GROUP BY e.emp_id, e.f_name, e.l_name
                     ";
 
@@ -51,6 +50,7 @@ namespace Clinic_Management_System
                     {
                         command.Parameters.AddWithValue("@ProfitPercent", profitPercent ?? 30);
                         command.Parameters.AddWithValue("@DoctorName", doctorName ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@SelectedDate", selectedDate?.ToString("yyyy-MM-dd"));
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -112,22 +112,13 @@ namespace Clinic_Management_System
             chart1.Series.Add(hospitalRevenueSeries);
         }
 
-        private void revenuegridview_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Handle DataGridView cell clicks if needed
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            // Handle text box changes if needed
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (decimal.TryParse(textBox1.Text, out decimal profitPercent))
             {
                 string selectedDoctor = comboBox1.SelectedItem?.ToString();
-                LoadBillDetails(profitPercent, selectedDoctor);
+                DateTime selectedDate = dateTimePicker1.Value;
+                LoadBillDetails(selectedDate, profitPercent, selectedDoctor);
             }
             else
             {
@@ -170,13 +161,29 @@ namespace Clinic_Management_System
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedDoctor = comboBox1.SelectedItem?.ToString();
+            DateTime selectedDate = dateTimePicker1.Value;
             if (decimal.TryParse(textBox1.Text, out decimal profitPercent))
             {
-                LoadBillDetails(profitPercent, selectedDoctor);
+                LoadBillDetails(selectedDate, profitPercent, selectedDoctor);
             }
             else
             {
-                LoadBillDetails(null, selectedDoctor);
+                LoadBillDetails(selectedDate, null, selectedDoctor);
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            string selectedDoctor = comboBox1.SelectedItem?.ToString();
+            DateTime selectedDate = dateTimePicker1.Value;
+
+            if (decimal.TryParse(textBox1.Text, out decimal profitPercent))
+            {
+                LoadBillDetails(selectedDate, profitPercent, selectedDoctor);
+            }
+            else
+            {
+                LoadBillDetails(selectedDate, null, selectedDoctor);
             }
         }
 
@@ -189,6 +196,7 @@ namespace Clinic_Management_System
         {
             LoadControl(new doctor_admin(username, password, connectionString));
         }
+
         private void LoadControl(UserControl control)
         {
             this.Controls.Clear();       // Clear any existing controls on Form2
@@ -230,7 +238,10 @@ namespace Clinic_Management_System
         {
 
         }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
 
+        }
         private void adminLabel_Click(object sender, EventArgs e)
         {
             try

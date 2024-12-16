@@ -17,6 +17,7 @@ CREATE TABLE tbl_employee (
 	father_name VARCHAR(50),
 	date_of_birth DATE,
 	date_of_joining DATE,
+	date_of_lefting DATE NULL,
 	street INT,
 	city VARCHAR(50) NOT NULL,
 	block VARCHAR(1),
@@ -52,11 +53,11 @@ CREATE TABLE tbl_patient (
 );
 
 CREATE TABLE tbl_specialization (
-	specialization_id INT IDENTITY(1,1) PRIMARY KEY, --unique key
-	specialization VARCHAR(20)   --i.e general physician 
+	specialization_id INT IDENTITY(1,1) PRIMARY KEY,
+	specialization VARCHAR(20)
 );
 
-CREATE TABLE tbl_emp_specialization (   --linking emp w specializaton (many to many has been broken)
+CREATE TABLE tbl_emp_specialization (
 	employee_id INT,
 	specialization_id INT,
 	institute VARCHAR(30),
@@ -74,7 +75,7 @@ CREATE TABLE tbl_appointment (
 	time_of_appointment TIME NOT NULL,
 	appointment_status VARCHAR(20) NOT NULL,
 	appointment_type VARCHAR(50),
-	FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) ON DELETE CASCADE,   
+	FOREIGN KEY (booked_by_emp_id) REFERENCES tbl_employee(emp_id) ON DELETE CASCADE,
 	FOREIGN KEY (booked_for_emp_id) REFERENCES tbl_employee(emp_id),
 	FOREIGN KEY (patient_id) REFERENCES tbl_patient(patient_id) ON DELETE CASCADE
 );
@@ -90,9 +91,9 @@ CREATE TABLE tbl_treatment (
 
 CREATE TABLE tbl_billing (
 	bill_id INT IDENTITY(1,1) PRIMARY KEY,
-	emp_fee INT DEFAULT 1000 CHECK (emp_fee >= 0),  --default kept to 1000, checking if entered 0 
+	emp_fee INT DEFAULT 1000 CHECK (emp_fee >= 0),
 	appointment_id INT NOT NULL,
-	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)  --will be billed acc to appointment id 
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
 
 CREATE TABLE tbl_prescription (
@@ -102,7 +103,7 @@ CREATE TABLE tbl_prescription (
 	followUpDoctorName VARCHAR(100),
 	bookedByName VARCHAR(100),
 	created_at DATETIME NOT NULL DEFAULT GETDATE(),
-	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)  --gets emp id and patient id in the process too 
+	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
 
 CREATE TABLE tbl_item (
@@ -122,14 +123,14 @@ CREATE TABLE tbl_prescription_item (
 CREATE TABLE tbl_emp_working_hours (
 	emp_id INT,
 	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
-	start_duty TIME NOT NULL CHECK (start_duty < end_duty),  --start duty should be less than end check
+	start_duty TIME NOT NULL CHECK (start_duty < end_duty),
 	end_duty TIME NOT NULL,
-	emp_status VARCHAR(20) DEFAULT 'Available'  --default is always available unless set otherwise 
+	emp_status VARCHAR(20) DEFAULT 'Available'
 );
 
 CREATE TABLE tbl_emp_shift (
 	emp_id INT,
-	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),   
+	FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
 	start_time TIME NOT NULL,
 	end_time TIME NOT NULL,
 	date_of_shift DATE NOT NULL
@@ -150,6 +151,21 @@ CREATE TABLE tbl_appointment_log (
 	password VARCHAR(50),
 	FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id)
 );
+
+alter table tbl_employee
+add date_of_lefting date null
+
+ALTER TABLE login_table
+ADD CONSTRAINT FK_login_emp_id
+FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id);
+
+ALTER TABLE tbl_appointment_log
+ADD CONSTRAINT
+FK_appointment_log_appointment_id
+FOREIGN KEY (appointment_id) REFERENCES tbl_appointment(appointment_id);
+
+ALTER TABLE tbl_employee
+ADD CONSTRAINT chk_gender CHECK (gender IN ('Male', 'Female', 'Other'));
 
 
 create nonclustered index idx_patient_name_phone
@@ -180,16 +196,14 @@ where designation = 'Doctor'
   and emp_id IN (
       select emp_id from tbl_emp_working_hours 
       where emp_status = 'Available'
-  ); --here the name of the doctors are fetched from the "employees" that are available hence
-  --filter for the available doctors 
+  );
 
 
 select * from tbl_patient p
 where p.patient_id in (
 	select patient_id from tbl_appointment a
 	where a.date_of_appointment = CAST(GETDATE() AS DATE) 
-)  --getting all appointments for the current date 
---here the patients whose apt date is the sasme as current dates, their information is fetched 
+)
 
 select a.appointment_id,
     a.date_of_appointment,
@@ -206,16 +220,13 @@ select a.appointment_id,
 from
     tbl_appointment a
 where a.appointment_status = 'Cancelled'
---getting all records for the cancelled appointments 
---apt id,date, time, patients name, doctors name, booked by employees name.
+
 
 select count(appointment_id) as Booked_Appointment from tbl_appointment
 where appointment_status = 'Booked' and date_of_appointment = CAST(GETDATE() AS DATE) 
--- this gets the current booked appointments for the CURRENT date and counts their number 
---say , today 7 booked appointments in front end 
 
  create procedure view_appointments_by_doctor
- @doctorName varchar(50)  --procedure receives the doctor 
+ @doctorName varchar(50)
 AS
 BEGIN
     SELECT 
@@ -463,7 +474,6 @@ BEGIN
     BEGIN CATCH
         ROLLBACK TRANSACTION;
 
-        -- Throw the error
         THROW;
     END CATCH
 END;
@@ -867,3 +877,37 @@ BEGIN
     WHERE d.appointment_status <> i.appointment_status;
 END;
 
+
+CREATE TRIGGER trg_UpdateDateOfLeaving
+ON tbl_employee
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @empStatus NVARCHAR(50), @empId INT, @dateOfLeaving DATE;
+
+    SELECT @empStatus = h.emp_status, 
+           @empId = e.emp_id,
+           @dateOfLeaving = e.date_of_lefting
+    FROM inserted e
+    JOIN tbl_emp_working_hours h ON e.emp_id = h.emp_id;
+
+    IF @empStatus = 'Resigned'
+    BEGIN
+        UPDATE tbl_employee
+        SET date_of_lefting = @dateOfLeaving
+        WHERE emp_id = @empId;
+    END
+ 
+    ELSE IF @empStatus = 'Available'
+    BEGIN
+        UPDATE tbl_employee
+        SET date_of_lefting = NULL
+        WHERE emp_id = @empId;
+    END
+    ELSE
+    BEGIN
+        UPDATE tbl_employee
+        SET date_of_lefting = NULL
+        WHERE emp_id = @empId;
+    END
+END;
