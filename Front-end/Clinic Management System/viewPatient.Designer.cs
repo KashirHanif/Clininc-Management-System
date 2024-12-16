@@ -337,6 +337,7 @@ namespace Clinic_Management_System
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox5);
+            this.ForeColor = System.Drawing.Color.Black;
             this.MaximumSize = new System.Drawing.Size(2000, 1100);
             this.MinimumSize = new System.Drawing.Size(2000, 1000);
             this.Name = "viewPatient";

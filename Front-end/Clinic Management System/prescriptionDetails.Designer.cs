@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(prescriptionDetails));
             this.prescriptiondetailgridview = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -43,9 +44,17 @@
             // 
             // prescriptiondetailgridview
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.prescriptiondetailgridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.prescriptiondetailgridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.prescriptiondetailgridview.Location = new System.Drawing.Point(636, 395);
-            this.prescriptiondetailgridview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.prescriptiondetailgridview.Margin = new System.Windows.Forms.Padding(4);
             this.prescriptiondetailgridview.Name = "prescriptiondetailgridview";
             this.prescriptiondetailgridview.RowHeadersWidth = 51;
             this.prescriptiondetailgridview.Size = new System.Drawing.Size(695, 317);

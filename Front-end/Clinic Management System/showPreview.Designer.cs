@@ -1,4 +1,6 @@
-﻿namespace Clinic_Management_System
+﻿using System.Windows.Forms;
+
+namespace Clinic_Management_System
 {
     partial class showPreview
     {
@@ -29,6 +31,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(showPreview));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -47,6 +51,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prescriptiondetailgridview)).BeginInit();
             this.SuspendLayout();
@@ -65,6 +70,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(57, 224);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 25);
@@ -94,22 +100,55 @@
             this.button1.Text = "Remove";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // prescriptiondetailgridview
             // 
+
+            // Column Headers Style
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control; // Header background color
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black; // Header text color
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight; // Highlight background color
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText; // Highlight text color
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True; // Enable text wrapping
+            this.prescriptiondetailgridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+
             this.prescriptiondetailgridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            // Cell Default Style
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window; // Cell background color
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black; // Cell text color
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight; // Selection background color
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText; // Selection text color
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False; // Disable text wrapping for cells
+            this.prescriptiondetailgridview.DefaultCellStyle = dataGridViewCellStyle2;
+
+            // Grid Appearance
             this.prescriptiondetailgridview.Location = new System.Drawing.Point(61, 295);
             this.prescriptiondetailgridview.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.prescriptiondetailgridview.Name = "prescriptiondetailgridview";
             this.prescriptiondetailgridview.RowHeadersWidth = 51;
-            this.prescriptiondetailgridview.RowTemplate.Height = 24;
+            // Declare and initialize the missing dataGridViewCellStyle3
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+
+            // Row Template Style
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White; // Row background color
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black; // Row text color
+            this.prescriptiondetailgridview.RowsDefaultCellStyle = dataGridViewCellStyle3;
+
+
+            this.prescriptiondetailgridview.RowTemplate.Height = 24; // Row height
             this.prescriptiondetailgridview.Size = new System.Drawing.Size(1816, 465);
             this.prescriptiondetailgridview.TabIndex = 28;
+
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(724, 226);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 25);
@@ -121,6 +160,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(273, 224);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 25);
@@ -158,6 +198,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(1036, 226);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(111, 25);
@@ -168,6 +209,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(56, 782);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(112, 25);
@@ -214,6 +256,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(588, 782);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 25);
@@ -241,18 +284,36 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(1593, 223);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(141, 50);
             this.button2.TabIndex = 52;
             this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Navy;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button5.Location = new System.Drawing.Point(189, 845);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(106, 46);
+            this.button5.TabIndex = 53;
+            this.button5.Text = "back";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // showPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
@@ -304,5 +365,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
     }
 }

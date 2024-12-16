@@ -192,7 +192,7 @@ namespace Clinic_Management_System
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -205,6 +205,26 @@ namespace Clinic_Management_System
             this.addPatientGridView.Size = new System.Drawing.Size(1535, 433);
             this.addPatientGridView.TabIndex = 20;
             this.addPatientGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.addPatientGridView_CellContentClick_1);
+            // Set global styles
+            addPatientGridView.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            addPatientGridView.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+            addPatientGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+
+            // Apply to all columns
+            foreach (DataGridViewColumn column in addPatientGridView.Columns)
+            {
+                column.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+                column.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+            }
+
+            // Apply to all rows
+            addPatientGridView.RowsDefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            addPatientGridView.RowsDefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
+
+            // Force refresh
+            addPatientGridView.Invalidate();
+            addPatientGridView.Refresh();
+
             // 
             // addAptButton
             // 

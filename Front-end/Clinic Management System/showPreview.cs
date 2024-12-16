@@ -257,7 +257,12 @@ namespace Clinic_Management_System
         {
             // Dynamically load the controller based on the passed controller name
         }
-
+        private void LoadControl(UserControl control)
+        {
+            this.Controls.Clear();       // Clear any existing controls on Form2
+            control.Dock = DockStyle.Fill; // Make the UserControl fill the entire form
+            this.Controls.Add(control);
+        }
         private void button4_Click_1(object sender, EventArgs e)
         {
             string itemName = textBox3.Text.Trim();
@@ -348,6 +353,11 @@ namespace Clinic_Management_System
         private void showPreview_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LoadControl(new addTreatment(username, password, connectionString));
         }
     }
 }
